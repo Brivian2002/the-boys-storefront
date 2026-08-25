@@ -4,7 +4,7 @@ import { StoreShell } from "@/components/store/StoreShell";
 import { trpc } from "@/lib/trpc";
 import type { CatalogProduct } from "@shared/catalog";
 import { ChevronDown, Search, ShoppingBag, SlidersHorizontal, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useLocation } from "wouter";
 
 function ProductCard({ product }: { product: CatalogProduct }) {
@@ -43,6 +43,6 @@ export default function Shop() {
   </main></StoreShell>;
 }
 
-function EmptyCatalog() {
+export function EmptyCatalog() {
   return <section className="empty-catalog"><div className="empty-sigil"><span /><span /><span /></div><p className="eyebrow">The atelier is preparing</p><h2>Our collection is<br /><i>coming into focus.</i></h2><p>The first La Glitz pieces will appear here as they are released. Please return soon to discover something made to be kept.</p><Link href="/" className="primary-link">Return to the house</Link><p className="catalog-note">No products are displayed until a qualifying piece is published.</p></section>;
 }

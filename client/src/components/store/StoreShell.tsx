@@ -1,6 +1,6 @@
 import { useCart } from "@/components/store/CartProvider";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "wouter";
 
 const navLinks = [
