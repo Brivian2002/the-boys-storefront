@@ -1,4 +1,5 @@
 import { useCart } from "@/components/store/CartProvider";
+import { Logo } from "@/components/store/Logo";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "wouter";
@@ -19,7 +20,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
         <div className="announcement">Complimentary signature wrapping on every La Glitz order</div>
         <div className="store-nav">
           <button className="icon-button mobile-menu" aria-label="Open navigation" onClick={() => setOpen(true)}><Menu size={20} /></button>
-          <Link href="/" className="brand-mark" aria-label="La Glitz home"><span>LA</span> GLITZ</Link>
+          <Link href="/" className="brand-mark" aria-label="La Glitz home"><Logo /></Link>
           <nav className="desktop-nav" aria-label="Main navigation">
             {navLinks.map(link => <Link key={link.label} href={link.href}>{link.label}</Link>)}
           </nav>
@@ -33,7 +34,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
       <div className={`mobile-drawer ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <div className="drawer-panel">
           <button className="icon-button drawer-close" aria-label="Close navigation" onClick={() => setOpen(false)}><X size={21} /></button>
-          <Link href="/" className="brand-mark" onClick={() => setOpen(false)}><span>LA</span> GLITZ</Link>
+          <Link href="/" className="brand-mark" onClick={() => setOpen(false)}><Logo /></Link>
           <nav aria-label="Mobile navigation">
             {navLinks.map(link => <Link key={link.label} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}
             <Link href="/cart" onClick={() => setOpen(false)}>Bag · {itemCount}</Link>
@@ -43,7 +44,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
       </div>
       {children}
       <footer className="store-footer">
-        <div className="footer-brand"><p className="eyebrow">LA GLITZ</p><p>Pieces to keep close.</p></div>
+        <div className="footer-brand"><Logo footer /><p>Pieces to keep close.</p></div>
         <div className="footer-links"><Link href="/shop">Shop</Link><Link href="/delivery">Delivery</Link><Link href="/policies">Policies</Link><Link href="/contact">Contact</Link></div>
         <p className="footer-note">© {new Date().getFullYear()} La Glitz. Crafted with quiet intention.</p>
       </footer>
