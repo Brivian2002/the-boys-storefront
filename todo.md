@@ -36,5 +36,5 @@
 - [x] Verify light and dark themes, favicon, and responsive discovery flow, then push the upgrade.
 - [x] Add a safe dark-theme preview route parameter for deterministic QA without changing the shopper toggle experience.
 - [x] Visually verify dark mode at desktop and mobile sizes and confirm the served favicon asset renders correctly.
-- [ ] Complete final theme QA, synchronize any refinements to GitHub, and save the final managed checkpoint.
+- [x] Complete final theme QA, synchronize any refinements to GitHub, and save the final managed checkpoint.
 - [x] Fix dark-mode empty-catalog contrast so every shopper-facing message remains legible.
