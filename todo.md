@@ -29,3 +29,8 @@
 - [x] Verify the revised palette on desktop and mobile, then push the visual-theme upgrade.
 - [x] Push the completed logo and six-color palette upgrade to the private GitHub repository.
 - [x] Save a managed checkpoint for the completed logo and visual-theme upgrade.
+- [x] Define a luxury marketplace-inspired discovery layout without reproducing the provided marketplace design.
+- [x] Add an accessible light/dark mode with a refined orange commerce accent.
+- [x] Add the La Glitz faceted logo as the browser-tab favicon.
+- [x] Enhance storefront navigation, search, and category discovery for efficient jewelry browsing.
+- [ ] Verify light and dark themes, favicon, and responsive discovery flow, then push the upgrade.

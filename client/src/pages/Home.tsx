@@ -1,5 +1,5 @@
 import { StoreShell } from "@/components/store/StoreShell";
-import { ArrowDownRight, ArrowRight, Gem, Sparkles } from "lucide-react";
+import { ArrowDownRight, ArrowRight, Circle, Gem, Heart, Sparkles } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Home() {
@@ -21,6 +21,16 @@ export default function Home() {
             <p className="hero-caption">EST. WITH INTENTION<br />DESIGNED TO ENDURE</p>
           </div>
           <div className="hero-scroll">Scroll to discover <ArrowDownRight size={17} /></div>
+        </section>
+
+        <section className="marketplace-discovery">
+          <div className="marketplace-heading"><p className="eyebrow">Browse the atelier</p><h2>Discover by <i>jewelry kind.</i></h2><Link href="/shop" className="inline-link">View all pieces <ArrowRight size={16} /></Link></div>
+          <div className="marketplace-category-grid">
+            <Link href="/shop?category=Rings" className="market-category-card"><Gem size={24} /><span>Rings</span><small>Signature settings</small><ArrowRight size={15} /></Link>
+            <Link href="/shop?category=Earrings" className="market-category-card"><Sparkles size={24} /><span>Earrings</span><small>Light-catching details</small><ArrowRight size={15} /></Link>
+            <Link href="/shop?category=Necklaces" className="market-category-card"><Circle size={24} /><span>Necklaces</span><small>Close to the heart</small><ArrowRight size={15} /></Link>
+            <Link href="/shop?category=Bracelets" className="market-category-card"><Heart size={24} /><span>Bracelets</span><small>Everyday ritual</small><ArrowRight size={15} /></Link>
+          </div>
         </section>
 
         <section className="intro-section" id="story">

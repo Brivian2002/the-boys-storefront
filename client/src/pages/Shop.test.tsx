@@ -8,6 +8,10 @@ vi.mock("wouter", () => ({
   useRoute: () => [false, undefined],
 }));
 
+vi.mock("@/contexts/ThemeContext", () => ({
+  useTheme: () => ({ theme: "light", toggleTheme: vi.fn(), switchable: true }),
+}));
+
 vi.mock("@/lib/trpc", () => ({
   trpc: {
     catalog: {

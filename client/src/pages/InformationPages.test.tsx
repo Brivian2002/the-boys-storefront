@@ -7,6 +7,11 @@ let activeRoute = "/delivery";
 vi.mock("wouter", () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
   useRoute: (route: string) => [route === activeRoute, route === activeRoute ? {} : undefined],
+  useLocation: () => ["/", () => undefined],
+}));
+
+vi.mock("@/contexts/ThemeContext", () => ({
+  useTheme: () => ({ theme: "light", toggleTheme: vi.fn(), switchable: true }),
 }));
 
 vi.mock("@/components/store/CartProvider", () => ({

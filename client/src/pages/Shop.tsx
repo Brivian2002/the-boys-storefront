@@ -4,7 +4,7 @@ import { StoreShell } from "@/components/store/StoreShell";
 import { trpc } from "@/lib/trpc";
 import type { CatalogProduct } from "@shared/catalog";
 import { ChevronDown, Search, ShoppingBag, SlidersHorizontal, X } from "lucide-react";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "wouter";
 
 function ProductCard({ product }: { product: CatalogProduct }) {
@@ -19,13 +19,18 @@ function ProductCard({ product }: { product: CatalogProduct }) {
 export default function Shop() {
   const { data, isLoading } = trpc.catalog.list.useQuery(undefined, { staleTime: 10_000, refetchInterval: 15_000, retry: 1 });
   const [location] = useLocation();
-  const queryBadge = new URLSearchParams(location.split("?")[1]).get("badge");
+  const searchParams = new URLSearchParams(location.split("?")[1]);
+  const queryBadge = searchParams.get("badge");
+  const searchFromLocation = searchParams.get("search") ?? "";
+  const categoryFromLocation = searchParams.get("category") ?? "All";
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [collection, setCollection] = useState("All");
   const [material, setMaterial] = useState("All");
   const [availability, setAvailability] = useState("All");
   const [filtersOpen, setFiltersOpen] = useState(false);
+  useEffect(() => { setQuery(searchFromLocation); }, [searchFromLocation]);
+  useEffect(() => { setCategory(categoryFromLocation); }, [categoryFromLocation]);
   const products = data?.products ?? [];
   const filtered = useMemo(() => products.filter(product => {
     const searchable = `${product.name} ${product.description} ${product.category} ${product.collection} ${product.materials.join(" ")}`.toLowerCase();
