@@ -22,4 +22,4 @@
 - [x] Verify the checkout and information-page experience across desktop and mobile, then push the upgraded project.
 - [x] Confirm Vercel-managed `PAYSTACK_SECRET_KEY` usage without exposing payment credentials to the browser.
 - [x] Verify delivery and policies pages on mobile, then complete final visual QA for checkout and all information pages.
-- [ ] Push the completed Paystack checkout, publishing guide, and customer-page upgrade to the private GitHub repository.
+- [x] Push the completed Paystack checkout, publishing guide, and customer-page upgrade to the private GitHub repository.
