@@ -19,7 +19,8 @@ type CacheEntry = {
   staleUntil: number;
 };
 
-const FRESH_FOR_MS = 90_000;
+// Blogger has no publish webhook. A short server cache keeps new product posts near real-time without exposing Blogger to shoppers.
+const FRESH_FOR_MS = 15_000;
 const STALE_FOR_MS = 15 * 60_000;
 const REQUEST_TIMEOUT_MS = 6_000;
 let cache: CacheEntry | undefined;

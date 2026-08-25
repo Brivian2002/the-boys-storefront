@@ -8,6 +8,7 @@ type CartContextValue = {
   addItem: (product: CatalogProduct) => void;
   updateQuantity: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
+  clearCart: () => void;
 };
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
@@ -52,6 +53,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     },
     removeItem(id) {
       setItems(current => current.filter(item => item.id !== id));
+    },
+    clearCart() {
+      setItems([]);
     },
   }), [items]);
 

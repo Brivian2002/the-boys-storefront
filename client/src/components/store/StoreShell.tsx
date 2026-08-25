@@ -44,7 +44,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
       {children}
       <footer className="store-footer">
         <div className="footer-brand"><p className="eyebrow">LA GLITZ</p><p>Pieces to keep close.</p></div>
-        <div className="footer-links"><Link href="/shop">Shop</Link><a href="#story">About</a><a href="mailto:hello@laglitz.com">Contact</a></div>
+        <div className="footer-links"><Link href="/shop">Shop</Link><Link href="/delivery">Delivery</Link><Link href="/policies">Policies</Link><Link href="/contact">Contact</Link></div>
         <p className="footer-note">© {new Date().getFullYear()} La Glitz. Crafted with quiet intention.</p>
       </footer>
     </div>

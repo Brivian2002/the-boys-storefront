@@ -13,3 +13,13 @@
 - [x] Add Vercel deployment configuration and explicit environment-only deployment guidance.
 - [x] Add a rendered shop-page test for the intentional empty-catalog message and return CTA.
 - [x] Mock an empty Blogger-derived catalog in the full Shop page test and verify it is included in the test suite.
+- [x] Define secure Paystack deployment credentials and checkout data contract without exposing payment secrets.
+- [x] Implement server-side Paystack transaction initialization and callback verification for browser-cart orders.
+- [x] Make checkout route shoppers to Paystack live payment for the current product selection.
+- [x] Add clear Blogger publishing instructions that explain professional labels, product qualification, and immediate catalog appearance after the cache refresh.
+- [x] Add dedicated delivery information, store policies, and contact pages with complete navigation.
+- [x] Add tests for checkout input safeguards, Blogger publishing classification, and new informational pages.
+- [x] Verify the checkout and information-page experience across desktop and mobile, then push the upgraded project.
+- [x] Confirm Vercel-managed `PAYSTACK_SECRET_KEY` usage without exposing payment credentials to the browser.
+- [x] Verify delivery and policies pages on mobile, then complete final visual QA for checkout and all information pages.
+- [ ] Push the completed Paystack checkout, publishing guide, and customer-page upgrade to the private GitHub repository.

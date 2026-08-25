@@ -17,7 +17,7 @@ function ProductCard({ product }: { product: CatalogProduct }) {
 }
 
 export default function Shop() {
-  const { data, isLoading } = trpc.catalog.list.useQuery(undefined, { staleTime: 60_000, retry: 1 });
+  const { data, isLoading } = trpc.catalog.list.useQuery(undefined, { staleTime: 10_000, refetchInterval: 15_000, retry: 1 });
   const [location] = useLocation();
   const queryBadge = new URLSearchParams(location.split("?")[1]).get("badge");
   const [query, setQuery] = useState("");
