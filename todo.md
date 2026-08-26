@@ -43,4 +43,4 @@
 - [x] Update checkout, payment confirmation, store policies, and Blogger publishing guidance for Selar.
 - [x] Test the Selar buyer journey, push the migration, and save the completed project checkpoint.
 - [x] Add a rendered product-detail test proving a qualifying Blogger product opens the validated Selar direct-checkout link.
-- [ ] Save a managed checkpoint for the completed Selar migration after buyer-journey verification.
+- [x] Save a managed checkpoint for the completed Selar migration after buyer-journey verification.
