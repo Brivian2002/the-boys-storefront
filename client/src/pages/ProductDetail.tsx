@@ -3,6 +3,7 @@ import { ProductVisual } from "@/components/store/ProductVisual";
 import { StoreShell } from "@/components/store/StoreShell";
 import { trpc } from "@/lib/trpc";
 import { ArrowLeft, Check, ExternalLink } from "lucide-react";
+import React from "react";
 import { Link, useRoute } from "wouter";
 
 export default function ProductDetail() {
