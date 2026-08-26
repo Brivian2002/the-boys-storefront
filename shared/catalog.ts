@@ -12,6 +12,8 @@ export type CatalogProduct = {
   materials: string[];
   availability: Availability;
   images: string[];
+  /** A validated Selar product URL discovered server-side from the Blogger post body. */
+  selarCheckoutUrl?: string;
   badges: Array<"Featured" | "New arrival" | "Sale">;
   publishedAt: string;
 };

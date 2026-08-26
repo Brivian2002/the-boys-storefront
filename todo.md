@@ -38,3 +38,7 @@
 - [x] Visually verify dark mode at desktop and mobile sizes and confirm the served favicon asset renders correctly.
 - [x] Complete final theme QA, synchronize any refinements to GitHub, and save the final managed checkpoint.
 - [x] Fix dark-mode empty-catalog contrast so every shopper-facing message remains legible.
+- [x] Research Selar’s official checkout and product-link integration options for a Blogger-powered catalog.
+- [x] Replace the Paystack checkout dependency with a secure Selar purchase flow.
+- [x] Update checkout, payment confirmation, store policies, and Blogger publishing guidance for Selar.
+- [ ] Test the Selar buyer journey, push the migration, and save the completed project checkpoint.

@@ -41,6 +41,17 @@ describe("Blogger product classification", () => {
     });
   });
 
+  it("exposes only a trusted Selar product link as a direct-checkout destination", () => {
+    const product = parseProduct({
+      id: "selar-1",
+      title: "Solstice Pendant",
+      content: '<p>Purchase <a href="https://selar.co/solstice-pendant">on Selar</a>.</p>',
+      labels: ["product", "price-30000", "currency-NGN"],
+    });
+    expect(product?.selarCheckoutUrl).toBe("https://selar.co/solstice-pendant?add_to_cart=1");
+    expect(parseProduct({ id: "unsafe", title: "Unsafe", content: '<a href="https://example.com/pay">Pay</a>', labels: ["product", "price-1"] })?.selarCheckoutUrl).toBeUndefined();
+  });
+
   it("keeps the catalog empty when feed configuration is absent", async () => {
     await expect(getCatalog()).resolves.toEqual({
       products: [],
