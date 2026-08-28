@@ -77,7 +77,8 @@
 - [x] Replace residual editorial or blog-like storefront cues with a distinct direct-marketplace browsing experience.
 - [x] Add a small orange blinking management light that opens the protected `/atelier` workspace without exposing operations links in normal navigation.
 - [x] Test dashboard publishing, custom attributes, marketplace discovery, private management access, and mobile responsiveness.
-- [ ] Push the completed Blogger marketplace upgrade and save a managed project checkpoint.
+- [x] Push the completed Blogger marketplace upgrade and save a managed project checkpoint.
 - [x] Replace the remaining editorial home-page hierarchy with direct-store marketplace discovery modules and product-first language.
 - [x] Refine the management entry into a visually discreet blinking indicator with accessible private-access labeling but no visible management navigation text.
 - [x] Update private operating documentation to describe the discreet indicator accurately.
+- [x] Save the final managed project checkpoint for the pushed Blogger marketplace upgrade.
