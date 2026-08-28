@@ -1,7 +1,7 @@
 import { __resetCatalogCache } from "./catalog";
 
 export type ManagedPost = { id: string; title: string; content: string; labels: string[]; published?: string; updated?: string; url?: string };
-export type ProductPostInput = { id?: string; title: string; description: string; price: number; currency: string; category: string; collection: string; materials: string[]; availability: "in-stock" | "out-of-stock" | "preorder" | "hidden"; featured?: boolean; newArrival?: boolean; sale?: boolean; imageUrls: string[]; publishNow: boolean };
+export type ProductPostInput = { id?: string; title: string; description: string; price: number; currency: string; category: string; collection: string; materials: string[]; attributes?: Array<{ name: string; values: string[] }>; availability: "in-stock" | "out-of-stock" | "preorder" | "hidden"; featured?: boolean; newArrival?: boolean; sale?: boolean; imageUrls: string[]; publishNow: boolean };
 
 function config() {
   const blogId = process.env.BLOGGER_BLOG_ID?.trim();
@@ -29,12 +29,20 @@ async function bloggerFetch(path: string, init: RequestInit = {}) {
 }
 
 function compactLabel(value: string) { return value.trim().toLowerCase().replace(/^#/, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80); }
-function escapeHtml(value: string) { return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"); }
+function escapeHtml(value: string) { return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/\n/g, "<br>"); }
 function validImage(url: string) { try { return new URL(url).protocol === "https:"; } catch { return false; } }
+function attributeLabel(name: string, value: string) {
+  const key = compactLabel(name).slice(0, 28);
+  const item = compactLabel(value).slice(0, 38);
+  return key && item ? `attribute-${key}--${item}` : undefined;
+}
 
 export function buildBloggerProductPayload(input: ProductPostInput) {
   const imageMarkup = input.imageUrls.filter(validImage).slice(0, 6).map(url => `<p><img src="${url}" alt="${escapeHtml(input.title)}"></p>`).join("");
-  return { title: input.title.trim(), content: `<p>${escapeHtml(input.description.trim())}</p>${imageMarkup}`, labels: ["product", `price-${input.price}`, `currency-${compactLabel(input.currency) || "NGN"}`, `category-${compactLabel(input.category) || "all-jewelry"}`, `collection-${compactLabel(input.collection) || "signature"}`, ...input.materials.map(compactLabel).filter(Boolean).map(material => `material-${material}`), `availability-${input.availability}`, ...(input.featured ? ["featured"] : []), ...(input.newArrival ? ["new-arrival"] : []), ...(input.sale ? ["sale"] : [])] };
+  const customAttributes = (input.attributes ?? [])
+    .flatMap(attribute => attribute.values.map(value => attributeLabel(attribute.name, value)))
+    .filter((label): label is string => Boolean(label));
+  return { title: input.title.trim(), content: `<p>${escapeHtml(input.description.trim())}</p>${imageMarkup}`, labels: ["product", `price-${input.price}`, `currency-${compactLabel(input.currency) || "NGN"}`, `category-${compactLabel(input.category) || "all-jewelry"}`, `collection-${compactLabel(input.collection) || "signature"}`, ...input.materials.map(compactLabel).filter(Boolean).map(material => `material-${material}`), ...Array.from(new Set(customAttributes)), `availability-${input.availability}`, ...(input.featured ? ["featured"] : []), ...(input.newArrival ? ["new-arrival"] : []), ...(input.sale ? ["sale"] : [])] };
 }
 
 export async function listManagedPosts(): Promise<ManagedPost[]> {

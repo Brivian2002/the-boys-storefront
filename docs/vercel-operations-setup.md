@@ -1,6 +1,6 @@
 # La Glitz private operations: Vercel setup
 
-This guide is **not presented on the customer storefront**. It is the private deployment checklist for the owner who configures Blogger operations, Paystack payments, and the unlinked La Glitz operations workspace.
+This guide is **not presented on the customer storefront**. It is the private deployment checklist for the owner who configures Blogger operations, Paystack payments, and the protected La Glitz operations workspace.
 
 ## 1. Add variables in Vercel
 
@@ -36,7 +36,7 @@ Use the same Paystack environment as `PAYSTACK_SECRET_KEY`: test key with Paysta
 
 ## 4. Private dashboard access
 
-After deployment, enter the exact unlinked URL `https://YOUR_DOMAIN/atelier`. There is no link to this route in the customer navigation or footer. Use `ADMIN_DASHBOARD_PASSWORD` to create a 12-hour HTTP-only session. The private workspace can create or save Blogger product posts, edit or delete returned Blogger posts, and view successful Paystack transaction records.
+After deployment, select the small blinking orange indicator at the lower right of the customer footer, or enter `https://YOUR_DOMAIN/atelier` directly. The indicator has no visible management label and is not part of the customer navigation. Use `ADMIN_DASHBOARD_PASSWORD` to create a 12-hour HTTP-only session. The private workspace can create or save Blogger product posts, edit or delete returned Blogger posts, define custom product-property names and values, and view successful Paystack transaction records.
 
 ## References
 

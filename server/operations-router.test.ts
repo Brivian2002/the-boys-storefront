@@ -34,7 +34,7 @@ function makeContext(cookie?: string) {
   return { ctx, cookies };
 }
 
-const product = { title: "Solstice Ring", description: "Fine ring.", price: 25000, currency: "NGN", category: "Rings", collection: "Solstice", materials: ["18k Gold"], availability: "in-stock" as const, featured: false, newArrival: true, sale: false, imageUrls: ["https://images.example.com/ring.jpg"], publishNow: true };
+const product = { title: "Solstice Ring", description: "Fine ring.", price: 25000, currency: "NGN", category: "Rings", collection: "Solstice", materials: ["18k Gold"], attributes: [{ name: "Ring size", values: ["7"] }], availability: "in-stock" as const, featured: false, newArrival: true, sale: false, imageUrls: ["https://images.example.com/ring.jpg"], publishNow: true };
 
 afterEach(() => {
   delete process.env.ADMIN_DASHBOARD_PASSWORD;

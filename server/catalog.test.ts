@@ -19,7 +19,7 @@ describe("Blogger product classification", () => {
       id: "12345",
       title: "Celeste Ring",
       content: '<p>A sculptural silhouette.</p><img src="https://images.example/ring.jpg">',
-      labels: ["#product", "#price-1200", "#category-rings", "#collection-evening", "#material-18k-gold", "#new-arrival"],
+      labels: ["#product", "#price-1200", "#category-rings", "#collection-evening", "#material-18k-gold", "#attribute-ring-size--7", "#attribute-gemstone--freshwater-pearl", "#new-arrival"],
       published: "2026-08-20T10:00:00.000Z",
     });
 
@@ -30,6 +30,7 @@ describe("Blogger product classification", () => {
       collection: "Evening",
       availability: "in-stock",
       materials: ["18k Gold"],
+      attributes: [{ name: "Gemstone", values: ["Freshwater Pearl"] }, { name: "Ring Size", values: ["7"] }],
       badges: ["New arrival"],
     });
     expect(product?.images).toEqual(["https://images.example/ring.jpg"]);
@@ -38,13 +39,14 @@ describe("Blogger product classification", () => {
       collections: ["Evening"],
       materials: ["18k Gold"],
       availability: ["in-stock"],
+      attributes: { Gemstone: ["Freshwater Pearl"], "Ring Size": ["7"] },
     });
   });
 
   it("keeps the catalog empty when feed configuration is absent", async () => {
     await expect(getCatalog()).resolves.toEqual({
       products: [],
-      facets: { categories: [], collections: [], materials: [], availability: [] },
+      facets: { categories: [], collections: [], materials: [], availability: [], attributes: {} },
     });
   });
 

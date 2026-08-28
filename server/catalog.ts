@@ -30,6 +30,7 @@ const DEFAULT_FACETS: CatalogFacets = {
   collections: [],
   materials: [],
   availability: [],
+  attributes: {},
 };
 
 export function emptyCatalog(): CatalogResponse {
@@ -87,6 +88,30 @@ function availabilityFromLabels(labels: string[]): Availability {
   return "in-stock";
 }
 
+function attributesFromLabels(labels: string[]): CatalogProduct["attributes"] {
+  const valuesByName = new Map<string, Set<string>>();
+
+  labels
+    .filter(label => label.startsWith("attribute-"))
+    .forEach(label => {
+      const pair = label.slice("attribute-".length);
+      const separator = pair.indexOf("--");
+      if (separator < 1 || separator >= pair.length - 2) return;
+
+      const name = titleCase(pair.slice(0, separator));
+      const value = titleCase(pair.slice(separator + 2));
+      if (!name || !value) return;
+
+      const values = valuesByName.get(name) ?? new Set<string>();
+      values.add(value);
+      valuesByName.set(name, values);
+    });
+
+  return Array.from(valuesByName.entries())
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([name, values]) => ({ name, values: Array.from(values).sort((left, right) => left.localeCompare(right)) }));
+}
+
 function slugify(value: string): string {
   return value
     .toLowerCase()
@@ -115,6 +140,7 @@ export function parseProduct(post: BloggerPost): CatalogProduct | undefined {
     .filter(label => label.startsWith("material-"))
     .map(label => titleCase(label.slice("material-".length)))
     .filter(Boolean);
+  const attributes = attributesFromLabels(labels);
   const availability = availabilityFromLabels(labels);
 
   if (availability === "hidden") return undefined;
@@ -134,6 +160,7 @@ export function parseProduct(post: BloggerPost): CatalogProduct | undefined {
     category,
     collection,
     materials: materialValues.length ? materialValues : ["Details available on request"],
+    attributes,
     availability,
     images: contentImages(post.content),
     badges,
@@ -143,11 +170,20 @@ export function parseProduct(post: BloggerPost): CatalogProduct | undefined {
 
 export function makeFacets(products: CatalogProduct[]): CatalogFacets {
   const unique = (values: string[]) => Array.from(new Set(values)).sort((a, b) => a.localeCompare(b));
+  const attributes: CatalogFacets["attributes"] = {};
+
+  products.forEach(product => {
+    product.attributes.forEach(attribute => {
+      attributes[attribute.name] = unique([...(attributes[attribute.name] ?? []), ...attribute.values]);
+    });
+  });
+
   return {
     categories: unique(products.map(product => product.category)),
     collections: unique(products.map(product => product.collection)),
     materials: unique(products.flatMap(product => product.materials)),
     availability: unique(products.map(product => product.availability)) as Availability[],
+    attributes: Object.fromEntries(Object.entries(attributes).sort(([left], [right]) => left.localeCompare(right))),
   };
 }
 

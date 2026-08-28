@@ -70,3 +70,14 @@
 - [x] Correct the exported checkout redirect helper and re-run the final payment-flow verification.
 - [x] Exercise the Checkout mutation success callback with a returned Paystack authorization URL and verify browser navigation.
 - [x] Re-run the final typecheck and test suite after direct mutation-success redirect coverage.
+- [x] Research Jiji, AliExpress, eBay, and Amazon marketplace discovery patterns without copying their branding or layouts.
+- [x] Treat private-dashboard-managed Blogger posts as the sole catalog source of truth for product name, price, categories, stock status, imagery, and custom attributes.
+- [x] Add a flexible custom-attribute editor so new names, properties, and details that are not predefined can be published with a product.
+- [x] Add professional automatic classification for the required product fields and discoverable custom attributes.
+- [x] Replace residual editorial or blog-like storefront cues with a distinct direct-marketplace browsing experience.
+- [x] Add a small orange blinking management light that opens the protected `/atelier` workspace without exposing operations links in normal navigation.
+- [x] Test dashboard publishing, custom attributes, marketplace discovery, private management access, and mobile responsiveness.
+- [ ] Push the completed Blogger marketplace upgrade and save a managed project checkpoint.
+- [x] Replace the remaining editorial home-page hierarchy with direct-store marketplace discovery modules and product-first language.
+- [x] Refine the management entry into a visually discreet blinking indicator with accessible private-access labeling but no visible management navigation text.
+- [x] Update private operating documentation to describe the discreet indicator accurately.

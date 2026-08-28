@@ -10,7 +10,7 @@ const navLinks = [
   { label: "Shop", href: "/shop" },
   { label: "New arrivals", href: "/shop?badge=new" },
   { label: "Collections", href: "/shop" },
-  { label: "Our story", href: "/#story" },
+  { label: "Delivery", href: "/delivery" },
 ];
 
 export function StoreShell({ children }: { children: React.ReactNode }) {
@@ -26,7 +26,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f8f5ef] text-[#171513]">
       <header className="store-header">
-        <div className="announcement"><span>Complimentary signature wrapping on every La Glitz order</span><span className="announcement-detail">Discover pieces published directly from the atelier</span></div>
+        <div className="announcement"><span>Complimentary signature wrapping on every La Glitz order</span><span className="announcement-detail">Search, shop, and check out in one direct store</span></div>
         <div className="store-nav">
           <button className="icon-button mobile-menu" aria-label="Open navigation" onClick={() => setOpen(true)}><Menu size={20} /></button>
           <Link href="/" className="brand-mark" aria-label="La Glitz home"><Logo /></Link>
@@ -62,7 +62,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
       <footer className="store-footer">
         <div className="footer-brand"><Logo footer /><p>Pieces to keep close.</p></div>
         <div className="footer-links"><Link href="/shop">Shop</Link><Link href="/delivery">Delivery</Link><Link href="/policies">Policies</Link><Link href="/contact">Contact</Link></div>
-        <p className="footer-note">© {new Date().getFullYear()} La Glitz. Crafted with quiet intention.</p>
+        <div className="footer-meta"><Link href="/atelier" className="management-beacon" aria-label="Open private store management" title="Open private store management"><span aria-hidden="true" /></Link><p className="footer-note">© {new Date().getFullYear()} La Glitz. Crafted with quiet intention.</p></div>
       </footer>
     </div>
   );

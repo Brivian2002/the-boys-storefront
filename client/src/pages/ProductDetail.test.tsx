@@ -26,7 +26,7 @@ vi.mock("@/lib/trpc", () => ({
       list: {
         useQuery: () => ({
           isLoading: false,
-          data: { products: [{ id: "ring-1", slug: "solstice-pendant-ring-1", name: "Solstice Pendant", description: "A polished pendant.", price: 30000, currency: "NGN", category: "Necklaces", collection: "Solstice", materials: ["18k Gold"], availability: "in-stock", images: [], badges: [], publishedAt: "2026-08-28T00:00:00Z" }], facets: { categories: [], collections: [], materials: [], availability: [] } },
+          data: { products: [{ id: "ring-1", slug: "solstice-pendant-ring-1", name: "Solstice Pendant", description: "A polished pendant.", price: 30000, currency: "NGN", category: "Necklaces", collection: "Solstice", materials: ["18k Gold"], attributes: [{ name: "Pendant length", values: ["45 cm"] }], availability: "in-stock", images: [], badges: [], publishedAt: "2026-08-28T00:00:00Z" }], facets: { categories: [], collections: [], materials: [], availability: [], attributes: {} } },
         }),
       },
     },
@@ -39,6 +39,8 @@ describe("Paystack product checkout", () => {
   it("renders an add-to-bag action for a qualifying Blogger product", () => {
     const markup = renderToStaticMarkup(<ProductDetail />);
     expect(markup).toContain("Add to bag");
+    expect(markup).toContain("Pendant length");
+    expect(markup).toContain("45 cm");
     expect(markup).not.toContain("selar.co");
   });
 });

@@ -17,7 +17,7 @@ vi.mock("@/lib/trpc", () => ({
     catalog: {
       list: {
         useQuery: () => ({
-          data: { products: [], facets: { categories: [], collections: [], materials: [], availability: [] } },
+          data: { products: [], facets: { categories: [], collections: [], materials: [], availability: [], attributes: {} } },
           isLoading: false,
         }),
       },
@@ -35,9 +35,9 @@ describe("empty catalog experience", () => {
   it("welcomes shoppers without inventing any unpublished products", () => {
     const markup = renderToStaticMarkup(<Shop />);
 
-    expect(markup).toContain("The atelier is preparing");
-    expect(markup).toContain("Our collection is");
-    expect(markup).toContain("Return to the house");
-    expect(markup).toContain("No products are displayed until a qualifying piece is published.");
+    expect(markup).toContain("Store opening soon");
+    expect(markup).toContain("No pieces are");
+    expect(markup).toContain("Return to store home");
+    expect(markup).toContain("The product catalog is currently empty.");
   });
 });
