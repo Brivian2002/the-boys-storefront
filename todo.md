@@ -56,7 +56,8 @@
 - [x] Add a hidden dashboard sign-in using the supplied password as a server-only deployment secret.
 - [x] Remove the customer-visible publishing guide and publish only private operational guidance.
 - [x] Test dashboard authorization, Blogger management safeguards, Paystack event handling, sales tracking, and the public storefront.
-- [ ] Push the complete secure operations upgrade and save a managed project checkpoint.
+- [x] Push the complete secure operations upgrade to the private GitHub repository.
+- [x] Save a managed project checkpoint for the completed secure operations upgrade.
 - [x] Document every Vercel environment variable, its source, scope, and secure setup sequence for Blogger, Paystack, and the private dashboard.
 - [x] Replace the obsolete Selar product-detail test with Paystack cart and checkout coverage.
 - [x] Add route-level tests for private operations authentication, password-session gating, Blogger management, and sales access.
