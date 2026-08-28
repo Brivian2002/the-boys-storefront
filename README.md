@@ -2,45 +2,33 @@
 
 La Glitz is a premium jewelry storefront built around a **database-free product catalog**. Products are read by the server from Blogger, validated, classified, and exposed to the client through the application API. The browser never requests Blogger directly and never receives the API key.
 
-## Deployment configuration
+## Vercel environment configuration
 
-Set the following server environment variables in your hosting provider. In Vercel, add them under **Project Settings → Environment Variables** for each required environment. They must **not** be prefixed with `VITE_`.
+Add the following server-only variables in **Vercel → Project Settings → Environment Variables**. Select **Production**, and select **Preview** too if you want to test the full integration before launch. Do not add a `VITE_` prefix and do not set a catalog database URL.
 
-| Variable | Purpose |
+| Variable | Source and responsibility |
 | --- | --- |
-| `BLOGGER_BLOG_ID` | Identifier of the public Blogger blog that publishes La Glitz products. |
-| `BLOGGER_API_KEY` | Google API key restricted to the Blogger API. This is server-only and is never sent to the browser. |
+| `BLOGGER_BLOG_ID` | ID of the Blogger blog holding La Glitz product posts. |
+| `BLOGGER_API_KEY` | Google Cloud API key restricted to the Blogger API; it powers the public catalog read. |
+| `GOOGLE_BLOGGER_CLIENT_ID` | OAuth client ID from the Google Cloud project that has the Blogger API enabled. |
+| `GOOGLE_BLOGGER_CLIENT_SECRET` | OAuth client secret for the same Google client. |
+| `GOOGLE_BLOGGER_REFRESH_TOKEN` | Refresh token authorized with `https://www.googleapis.com/auth/blogger` for the Blogger owner account. |
+| `PAYSTACK_SECRET_KEY` | Test or live Paystack secret key; used only by checkout, payment verification, sales records, and webhook validation. |
+| `APP_BASE_URL` | Canonical HTTPS storefront address, such as `https://shop.example.com`. |
+| `ADMIN_DASHBOARD_PASSWORD` | A strong, unique password for the unlinked `/atelier` operations area. Never use `Github` in production. |
+| `JWT_SECRET` | Long, unique application signing secret; use the Vercel-generated value or a fresh private value. |
 
-The app needs no catalog database URL. `vercel.json` builds the Vite storefront and preserves both the serverless API path and client-side page routing. If either Blogger value is not set, unavailable, or returns no qualifying posts, the customer sees the intentional empty-catalog experience.
+In Paystack, register `https://YOUR_DOMAIN/api/paystack/webhook` as the webhook URL. The handler validates Paystack’s signed event and returns quickly. The customer remains on Paystack’s hosted payment page; the secret key is never sent to the browser.
 
-## Blogger product convention
-
-Only posts labelled `product` **and** `price-{amount}` enter the shop. All other Blogger posts remain invisible to the storefront. Labels may be entered with or without a leading `#`; labels are normalized by the server.
-
-| Label pattern | Example | Behaviour |
-| --- | --- | --- |
-| `product` | `product` | Required product gate. |
-| `price-{amount}` | `price-1250` | Required. Sets the product price. |
-| `currency-{ISO}` | `currency-USD` | Optional. Defaults to USD. |
-| `category-{name}` | `category-earrings` | Adds automatic category filtering. Defaults to All Jewelry. |
-| `collection-{name}` | `collection-bridal` | Adds automatic collection filtering. Defaults to Signature. |
-| `material-{name}` | `material-18k-gold` | May be repeated for materials. |
-| `availability-{state}` | `availability-in-stock` | Accepts `in-stock`, `out-of-stock`, `preorder`, or `hidden`. Defaults to in stock. |
-| `featured`, `new-arrival`, `sale` | `new-arrival` | Adds a product badge. |
-
-Posts labelled `availability-hidden` are explicitly excluded. Missing category, collection, material, availability, image, or description use graceful display fallbacks; posts missing the explicit product label, ID, title, or valid price are excluded.
-
-Each purchasable product also needs a corresponding `https://selar.co/...` product link inside the Blogger post body. La Glitz validates that this is an HTTPS `selar.co` URL and opens it as Selar’s direct checkout link. A post without a valid Selar link remains visible for discovery but cannot be purchased until the link is added.
+The private `/atelier` workspace writes structured Blogger product posts automatically, so no publishing tutorial is shown on the customer-facing storefront. It uses Google OAuth server-side for authorized Blogger post management and retrieves successful Paystack transactions only after password-based private access succeeds.
 
 ## Reliability and security
 
 The server makes a timed Blogger API request and caches successful catalog responses for 15 seconds, retaining the last valid catalog for up to 15 minutes if the upstream feed temporarily fails. The open shop also refreshes every 15 seconds, so newly published qualifying posts appear as professional product cards without presenting any blog interface. No demo products, seed data, or shopper-visible Blogger references are included.
 
-## Selar checkout
+## Paystack checkout
 
-Create the sellable product in Selar, set its price and checkout requirements there, then place its `https://selar.co/...` product URL in the related Blogger product post. La Glitz accepts only a validated Selar URL from the post content and appends Selar’s documented `add_to_cart=1` direct-checkout parameter. The customer completes payment and any required delivery fields on Selar’s hosted checkout page; Selar order records and confirmations are the payment source of record.
-
-Keep the Blogger `currency-{ISO}` display label consistent with the corresponding Selar product. No Selar secret or payment key is needed in the La Glitz deployment environment for this direct-link integration.
+The browser only sends product IDs, quantities, and delivery contact details. The server reloads the current Blogger catalog, validates availability, recalculates the total, and creates the Paystack hosted checkout request in minor currency units. The return page server-verifies the reference, while the signed webhook is the preferred asynchronous payment confirmation path. Successful Paystack transactions are visible only in the private operations workspace.
 
 ## Commands
 

@@ -4,8 +4,8 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("wouter", () => ({
   Link: ({ children, href, className }: { children: React.ReactNode; href: string; className?: string }) => <a href={href} className={className}>{children}</a>,
-  useRoute: () => [true, { slug: "solstice-pendant-selar-1" }],
-  useLocation: () => ["/shop/solstice-pendant-selar-1", () => undefined],
+  useRoute: () => [true, { slug: "solstice-pendant-ring-1" }],
+  useLocation: () => ["/shop/solstice-pendant-ring-1", () => undefined],
 }));
 
 vi.mock("@/contexts/ThemeContext", () => ({
@@ -26,7 +26,7 @@ vi.mock("@/lib/trpc", () => ({
       list: {
         useQuery: () => ({
           isLoading: false,
-          data: { products: [{ id: "selar-1", slug: "solstice-pendant-selar-1", name: "Solstice Pendant", description: "A polished pendant.", price: 30000, currency: "NGN", category: "Necklaces", collection: "Solstice", materials: ["18k Gold"], availability: "in-stock", images: [], badges: [], publishedAt: "2026-08-26T00:00:00Z", selarCheckoutUrl: "https://selar.co/solstice-pendant?add_to_cart=1" }], facets: { categories: [], collections: [], materials: [], availability: [] } },
+          data: { products: [{ id: "ring-1", slug: "solstice-pendant-ring-1", name: "Solstice Pendant", description: "A polished pendant.", price: 30000, currency: "NGN", category: "Necklaces", collection: "Solstice", materials: ["18k Gold"], availability: "in-stock", images: [], badges: [], publishedAt: "2026-08-28T00:00:00Z" }], facets: { categories: [], collections: [], materials: [], availability: [] } },
         }),
       },
     },
@@ -35,11 +35,10 @@ vi.mock("@/lib/trpc", () => ({
 
 import ProductDetail from "./ProductDetail";
 
-describe("Selar product checkout", () => {
-  it("renders a direct Selar purchase link only for a qualifying product", () => {
+describe("Paystack product checkout", () => {
+  it("renders an add-to-bag action for a qualifying Blogger product", () => {
     const markup = renderToStaticMarkup(<ProductDetail />);
-    expect(markup).toContain("Buy securely with Selar");
-    expect(markup).toContain('href="https://selar.co/solstice-pendant?add_to_cart=1"');
-    expect(markup).toContain('target="_blank"');
+    expect(markup).toContain("Add to bag");
+    expect(markup).not.toContain("selar.co");
   });
 });

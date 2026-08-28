@@ -44,3 +44,28 @@
 - [x] Test the Selar buyer journey, push the migration, and save the completed project checkpoint.
 - [x] Add a rendered product-detail test proving a qualifying Blogger product opens the validated Selar direct-checkout link.
 - [x] Save a managed checkpoint for the completed Selar migration after buyer-journey verification.
+- [x] Verify Selar’s official API scope, authentication, checkout, product, order, and webhook capabilities; superseded by the requested Paystack restoration.
+- [x] Design a secure API-backed Selar payment flow that preserves Blogger catalog publishing and La Glitz branding; superseded by the requested Paystack restoration.
+- [x] Implement only the Selar API operations confirmed by official documentation and supplied credentials; superseded by the requested Paystack restoration.
+- [x] Refine the storefront with Selar-compatible commerce affordances without reproducing Selar’s brand design; superseded by the requested Paystack restoration.
+- [x] Test the API-backed flow, update deployment documentation, and deliver the upgrade.
+- [x] Define the credentials, permissions, dashboard password, and provider-order architecture for private operations.
+- [x] Restore server-side Paystack checkout initialization, verification, and signed webhook handling.
+- [x] Retrieve provider-verified successful payment records for protected sales tracking without exposing payment data to shoppers.
+- [x] Add protected Blogger product drafting, publishing, and post-management operations to a private dashboard.
+- [x] Add a hidden dashboard sign-in using the supplied password as a server-only deployment secret.
+- [x] Remove the customer-visible publishing guide and publish only private operational guidance.
+- [x] Test dashboard authorization, Blogger management safeguards, Paystack event handling, sales tracking, and the public storefront.
+- [ ] Push the complete secure operations upgrade and save a managed project checkpoint.
+- [x] Document every Vercel environment variable, its source, scope, and secure setup sequence for Blogger, Paystack, and the private dashboard.
+- [x] Replace the obsolete Selar product-detail test with Paystack cart and checkout coverage.
+- [x] Add route-level tests for private operations authentication, password-session gating, Blogger management, and sales access.
+- [x] Add tests for Paystack sales mapping and signed webhook handler outcomes.
+- [x] Add rendered cart and checkout tests that verify a valid browser bag can proceed to hosted Paystack checkout.
+- [x] Fix the Cart test React runtime import and re-run the full private-operations verification suite.
+- [x] Add the missing React runtime import to the Cart component for server-rendered test compatibility.
+- [x] Add a rendered Checkout test for a populated bag that verifies the Paystack CTA and required delivery fields.
+- [x] Add a shopper-flow test that confirms a successful checkout initialization redirects to Paystack’s returned hosted payment URL.
+- [x] Correct the exported checkout redirect helper and re-run the final payment-flow verification.
+- [x] Exercise the Checkout mutation success callback with a returned Paystack authorization URL and verify browser navigation.
+- [x] Re-run the final typecheck and test suite after direct mutation-success redirect coverage.

@@ -74,20 +74,6 @@ function contentImages(html = ""): string[] {
     .slice(0, 6);
 }
 
-function selarCheckoutFromContent(html = ""): string | undefined {
-  const match = html.match(/https:\/\/(?:www\.)?selar\.co\/[A-Za-z0-9._~:/?#[\]@!$&'()*+,;=%-]+/i)?.[0];
-  if (!match) return undefined;
-  try {
-    const url = new URL(match);
-    if (url.protocol !== "https:" || !["selar.co", "www.selar.co"].includes(url.hostname)) return undefined;
-    // Selar officially supports this parameter to open a product at checkout instead of its sales page.
-    url.searchParams.set("add_to_cart", "1");
-    return url.toString();
-  } catch {
-    return undefined;
-  }
-}
-
 function priceFromLabels(labels: string[]): number | undefined {
   const raw = labelValue(labels, "price-");
   if (!raw) return undefined;
@@ -150,7 +136,6 @@ export function parseProduct(post: BloggerPost): CatalogProduct | undefined {
     materials: materialValues.length ? materialValues : ["Details available on request"],
     availability,
     images: contentImages(post.content),
-    selarCheckoutUrl: selarCheckoutFromContent(post.content),
     badges,
     publishedAt: post.published ?? post.updated ?? new Date(0).toISOString(),
   };

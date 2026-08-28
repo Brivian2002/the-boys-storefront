@@ -21,15 +21,16 @@ import {
 } from "@/components/ui/sidebar";
 import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
+import { LayoutDashboard, LogOut, PackageOpen, PanelLeft, ReceiptText } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Page 1", path: "/" },
-  { icon: Users, label: "Page 2", path: "/some-path" },
+  { icon: LayoutDashboard, label: "Overview", path: "/atelier" },
+  { icon: PackageOpen, label: "Products", path: "/atelier?view=products" },
+  { icon: ReceiptText, label: "Sales", path: "/atelier?view=sales" },
 ];
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
@@ -39,8 +40,14 @@ const MAX_WIDTH = 480;
 
 export default function DashboardLayout({
   children,
+  accessMode = "manus",
+  identity,
+  onSignOut,
 }: {
   children: React.ReactNode;
+  accessMode?: "manus" | "password";
+  identity?: { name?: string | null; email?: string | null };
+  onSignOut?: () => void;
 }) {
   const [sidebarWidth, setSidebarWidth] = useState(() => {
     const saved = localStorage.getItem(SIDEBAR_WIDTH_KEY);
@@ -52,11 +59,11 @@ export default function DashboardLayout({
     localStorage.setItem(SIDEBAR_WIDTH_KEY, sidebarWidth.toString());
   }, [sidebarWidth]);
 
-  if (loading) {
+  if (accessMode === "manus" && loading) {
     return <DashboardLayoutSkeleton />
   }
 
-  if (!user) {
+  if (accessMode === "manus" && !user) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
@@ -88,7 +95,7 @@ export default function DashboardLayout({
         } as CSSProperties
       }
     >
-      <DashboardLayoutContent setSidebarWidth={setSidebarWidth}>
+      <DashboardLayoutContent setSidebarWidth={setSidebarWidth} identity={accessMode === "password" ? identity : user} onSignOut={onSignOut}>
         {children}
       </DashboardLayoutContent>
     </SidebarProvider>
@@ -98,13 +105,17 @@ export default function DashboardLayout({
 type DashboardLayoutContentProps = {
   children: React.ReactNode;
   setSidebarWidth: (width: number) => void;
+  identity?: { name?: string | null; email?: string | null } | null;
+  onSignOut?: () => void;
 };
 
 function DashboardLayoutContent({
   children,
   setSidebarWidth,
+  identity,
+  onSignOut,
 }: DashboardLayoutContentProps) {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const [location, setLocation] = useLocation();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
@@ -169,7 +180,7 @@ function DashboardLayoutContent({
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="font-semibold tracking-tight truncate">
-                    Navigation
+                    La Glitz
                   </span>
                 </div>
               ) : null}
@@ -205,22 +216,22 @@ function DashboardLayoutContent({
                 <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                   <Avatar className="h-9 w-9 border shrink-0">
                     <AvatarFallback className="text-xs font-medium">
-                      {user?.name?.charAt(0).toUpperCase()}
+                      {identity?.name?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
                     <p className="text-sm font-medium truncate leading-none">
-                      {user?.name || "-"}
+                      {identity?.name || "Private operations"}
                     </p>
                     <p className="text-xs text-muted-foreground truncate mt-1.5">
-                      {user?.email || "-"}
+                      {identity?.email || "Protected workspace"}
                     </p>
                   </div>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem
-                  onClick={logout}
+                  onClick={onSignOut ?? logout}
                   className="cursor-pointer text-destructive focus:text-destructive"
                 >
                   <LogOut className="mr-2 h-4 w-4" />

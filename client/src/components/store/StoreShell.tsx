@@ -42,7 +42,7 @@ export function StoreShell({ children }: { children: React.ReactNode }) {
         <div className="discovery-bar">
           <div className="discovery-categories"><span className="desktop-category-label">Explore</span><Link href="/shop?category=Rings">Rings</Link><Link href="/shop?category=Earrings">Earrings</Link><Link href="/shop?category=Necklaces">Necklaces</Link><Link href="/shop?category=Bracelets">Bracelets</Link></div>
           <form className="market-search" onSubmit={submitSearch}><Search size={16} /><input aria-label="Search La Glitz pieces" value={searchTerm} onChange={event => setSearchTerm(event.target.value)} placeholder="Search pieces, materials, collections" /><button type="submit">Search</button></form>
-          <Link className="discovery-cta" href="/publishing-guide">Atelier guide</Link>
+          <Link className="discovery-cta" href="/shop?badge=new">New arrivals</Link>
         </div>
       </header>
 
