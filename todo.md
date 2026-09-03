@@ -82,3 +82,9 @@
 - [x] Refine the management entry into a visually discreet blinking indicator with accessible private-access labeling but no visible management navigation text.
 - [x] Update private operating documentation to describe the discreet indicator accurately.
 - [x] Save the final managed project checkpoint for the pushed Blogger marketplace upgrade.
+- [ ] Update the master La Glitz build prompt with the Ghana market brief, `/admin` deployment context, complete jewelry-store scope, and an explicit instruction not to copy the current site URL’s design.
+- [ ] Inspect the uploaded archive structure and compare it with the current private repository before replacement.
+- [ ] Preserve a rollback checkpoint for the current La Glitz project before destructive replacement.
+- [ ] Remove secrets, `.env` files, build artifacts, and unsafe deployment credentials from the replacement archive.
+- [ ] Validate the replacement project and push it as the new contents of `Brivian2002/la-glitz-storefront`.
+- [ ] Verify the final GitHub commit and report any Vercel deployment follow-up.
