@@ -1,0 +1,45 @@
+{
+  "build_command": "pnpm run build",
+  "capabilities": [
+    "server",
+    "db",
+    "user"
+  ],
+  "dev_command": "pnpm run dev",
+  "env_vars": {
+    "DATABASE_URL": "mysql://25Nf39wfAPGBQ3c.b628d29111aa:SjM075AE4JKqKfx7xJ1f@gateway03.us-east-1.prod.aws.tidbcloud.com:4000/KLpGL3Z4EKpdqKX9xexQuP?ssl={\"rejectUnauthorized\":true}",
+    "DRIZZLE_DATABASE_URL": "mysql://25Nf39wfAPGBQ3c.b628d29111aa:SjM075AE4JKqKfx7xJ1f@gateway03.us-east-1.prod.aws.tidbcloud.com:4000/KLpGL3Z4EKpdqKX9xexQuP?ssl={\"rejectUnauthorized\":true}",
+    "MANUS_WEBDEV_PROJECT_ID": "KLpGL3Z4EKpdqKX9xexQuP"
+  },
+  "experiments": [
+    "no_db_push"
+  ],
+  "git_remote": {
+    "repo_url": "https://7f0548f6b28a1758d9bf7be630d36cb4.artifacts.cloudflare.net/git/prod/KLpGL3Z4EKpdqKX9xexQuP.git",
+    "expiration": "2026-08-29T00:31:10.764Z",
+    "token": "art_v2_x_96254cdb4d23b6c044699a490410baf45f492f08?expires=1787963470",
+    "backend": "GIT_BACKEND_ARTIFACTS"
+  },
+  "name": "la-glitz-storefront",
+  "path": "/home/ubuntu/la-glitz-storefront",
+  "port": 3000,
+  "secrets": {
+    "BUILT_IN_FORGE_API_KEY": "S8cEP7SZRUQTqwyMHjCMMk",
+    "BUILT_IN_FORGE_API_URL": "https://forge.manus.ai",
+    "JWT_SECRET": "A44BPMa6fMwkZTMCv5WWB3",
+    "OAUTH_SERVER_URL": "https://api.manus.im",
+    "OWNER_NAME": "Bright Dumashie",
+    "OWNER_OPEN_ID": "B5UyN3g9LzwwhQvR3Kmb65",
+    "PAYSTACK_SECRET_KEY": "pk_live_a83e2f3ab57f6f6bf73fb182dcdcee312e1cc07f",
+    "VITE_ANALYTICS_ENDPOINT": "https://manus-analytics.com",
+    "VITE_ANALYTICS_WEBSITE_ID": "98a45ad3-f59c-4f10-9835-24f5749948b9",
+    "VITE_APP_ID": "KLpGL3Z4EKpdqKX9xexQuP",
+    "VITE_APP_LOGO": "https://files.manuscdn.com/user_upload_by_module/web_dev_logo/310519663106564499/JkjXSzNpSVdnbVCK.png",
+    "VITE_APP_TITLE": "LA GLITZ — Luxury Jewelry",
+    "VITE_FRONTEND_FORGE_API_KEY": "EwRbJN4bPyUGzBt86ZL5Lt",
+    "VITE_FRONTEND_FORGE_API_URL": "https://forge.manus.ai",
+    "VITE_OAUTH_PORTAL_URL": "https://manus.im"
+  },
+  "template_id": "web-db-user",
+  "test_command": "pnpm test"
+}
