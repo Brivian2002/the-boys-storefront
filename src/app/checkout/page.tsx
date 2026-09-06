@@ -41,7 +41,6 @@ import {
 interface CheckoutResponse {
   reference: string;
   authorizationUrl: string;
-  demo: boolean;
   summary: {
     itemsTotal: number;
     deliveryFee: number;

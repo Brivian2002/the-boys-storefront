@@ -27,7 +27,7 @@ export function LoginForm({
   const [error, setError] = React.useState<string | null>(null);
   const [info, setInfo] = React.useState<LoginInfo | null>(initialInfo);
 
-  const demoMode = info ? !info.hasPassword && !info.hasGoogleOAuth : false;
+  const configurationMissing = info ? !info.hasPassword : false;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,10 +84,10 @@ export function LoginForm({
             </p>
           </div>
 
-          {demoMode && (
+          {configurationMissing && (
             <Alert className="mb-4 border-amber-500/40 bg-amber-500/10">
               <AlertDescription className="text-xs text-amber-700 dark:text-amber-300">
-                <strong>Demo mode</strong> — password: <code className="rounded bg-amber-500/20 px-1">admin</code>
+                The admin workspace is not configured. Add <code className="rounded bg-amber-500/20 px-1">ADMIN_DASHBOARD_PASSWORD</code> in Vercel and redeploy Production.
               </AlertDescription>
             </Alert>
           )}

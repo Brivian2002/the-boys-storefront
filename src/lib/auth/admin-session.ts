@@ -5,9 +5,9 @@
  *   1. Optional ADMIN_DASHBOARD_PASSWORD gate (entered in /admin/login).
  *   2. Google Sign-In (OAuth) - only allowlisted emails may enter.
  *
- * In demo mode (no Google OAuth creds), the password gate is the primary
- * auth and the allowlist is enforced against the demo identity. When real
- * Google OAuth is configured, both gates apply.
+ * Without Google OAuth, the server-managed password gate and configured
+ * allowlist identity protect the workspace. When Google OAuth is configured,
+ * both gates apply.
  *
  * Sessions are signed cookies (HMAC) with a 12-hour expiry.
  */

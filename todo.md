@@ -82,9 +82,19 @@
 - [x] Refine the management entry into a visually discreet blinking indicator with accessible private-access labeling but no visible management navigation text.
 - [x] Update private operating documentation to describe the discreet indicator accurately.
 - [x] Save the final managed project checkpoint for the pushed Blogger marketplace upgrade.
-- [ ] Update the master La Glitz build prompt with the Ghana market brief, `/admin` deployment context, complete jewelry-store scope, and an explicit instruction not to copy the current site URL’s design.
-- [ ] Inspect the uploaded archive structure and compare it with the current private repository before replacement.
-- [ ] Preserve a rollback checkpoint for the current La Glitz project before destructive replacement.
-- [ ] Remove secrets, `.env` files, build artifacts, and unsafe deployment credentials from the replacement archive.
-- [ ] Validate the replacement project and push it as the new contents of `Brivian2002/la-glitz-storefront`.
-- [ ] Verify the final GitHub commit and report any Vercel deployment follow-up.
+- [x] Update the master La Glitz build prompt with the Ghana market brief, `/admin` deployment context, complete jewelry-store scope, and an explicit instruction not to copy the current site URL’s design.
+- [x] Inspect the uploaded archive structure and compare it with the current private repository before replacement.
+- [x] Preserve a rollback checkpoint for the current La Glitz project before destructive replacement.
+- [x] Remove secrets, `.env` files, build artifacts, and unsafe deployment credentials from the replacement archive.
+- [x] Validate the replacement project and push it as the new contents of `Brivian2002/la-glitz-storefront`.
+- [x] Verify the final GitHub commit and report any Vercel deployment follow-up.
+- [x] Remove all remaining demo-mode, mock, and simulated-production behaviors from the Next.js replacement, including admin auth messaging, checkout flags, and simulated contact/newsletter flows.
+- [x] Re-run a final audit for demo, mock, local-only persistence, and free-delivery wording while preserving only intentional client preferences and cart persistence.
+- [x] Re-validate the cleaned replacement with typecheck and production build, then push a follow-up GitHub commit.
+- [x] Report the verified final commit hash and exact Vercel deployment follow-up steps.
+- [x] Remove the remaining demo auth UI from `src/app/admin/login/login-form.tsx` and ensure the admin login screen never advertises a demo password.
+- [x] Re-run a case-insensitive audit that includes `demo|mock|localStorage|free delivery` and confirm only intentional client-side theme/cart persistence remains.
+- [x] Re-run `tsc --noEmit` and `pnpm run build` after the final cleanup, then commit and push the follow-up changes to GitHub.
+- [x] Send the user the final pushed commit hash and exact Vercel follow-up steps (verify env names, redeploy Production, test `/admin`, Blogger, and Paystack flows).
+- [ ] Commit and push the final cleanup changes to GitHub, then record the resulting commit hash.
+- [ ] Send the user the final pushed commit hash and exact Vercel follow-up steps: verify env variable names, redeploy Production, test `/admin`, confirm Blogger catalog updates, and test Paystack checkout/webhook flows.

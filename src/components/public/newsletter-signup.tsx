@@ -15,14 +15,14 @@ export function NewsletterSignup() {
     e.preventDefault();
     if (!email.trim()) return;
     setLoading(true);
-    // Simulate newsletter signup - in production this would post to a
-    // configured newsletter provider (ANALYTICS_ENDPOINT or similar).
-    await new Promise((r) => setTimeout(r, 600));
+    const subject = encodeURIComponent("Join the LA GLITZ private list");
+    const body = encodeURIComponent(`Please add ${email.trim()} to the LA GLITZ private viewing list.`);
+    window.location.href = `mailto:hello@la-glitz.com?subject=${subject}&body=${body}`;
     setLoading(false);
     setDone(true);
     setEmail("");
-    toast.success("You're on the list!", {
-      description: "We'll send new arrivals and atelier stories to your inbox.",
+    toast.success("Opening your email client", {
+      description: "Your request is ready to send to the LA GLITZ atelier.",
     });
   };
 
@@ -41,7 +41,7 @@ export function NewsletterSignup() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <Check className="h-4 w-4" />
           </span>
-          Thank you - you're subscribed.
+          Your private-list request is ready to send.
         </div>
       ) : (
         <form onSubmit={submit} className="flex gap-2 md:justify-end">
@@ -57,7 +57,7 @@ export function NewsletterSignup() {
             />
           </div>
           <Button type="submit" disabled={loading}>
-            {loading ? "Subscribing..." : "Subscribe"}
+            {loading ? "Opening..." : "Join the list"}
           </Button>
         </form>
       )}

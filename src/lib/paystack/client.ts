@@ -15,7 +15,7 @@
  *      admin dashboard.
  *
  * PAYSTACK_SECRET_KEY is mandatory for checkout and verification. Missing
- * credentials produce a safe configuration error; payment is never simulated.
+ * credentials produce a safe configuration error; payment is never emulated.
  */
 
 import "server-only";
@@ -46,7 +46,6 @@ export interface PaystackInitResult {
   authorizationUrl: string;
   reference: string;
   accessCode: string;
-  demo: boolean;
 }
 
 export interface PaystackVerifyResult {
@@ -58,7 +57,6 @@ export interface PaystackVerifyResult {
   customerEmail: string;
   paidAt: string;
   fees: number;
-  demo: boolean;
 }
 
 function hasPaystack(): boolean {
@@ -123,7 +121,6 @@ export async function initializeTransaction(
     authorizationUrl: json.data.authorization_url,
     reference,
     accessCode: json.data.access_code,
-    demo: false,
   };
 }
 
@@ -154,7 +151,6 @@ export async function verifyTransaction(
     customerEmail: data.customer?.email ?? "",
     paidAt: data.paid_at ?? new Date().toISOString(),
     fees: data.fees ?? 0,
-    demo: false,
   };
 }
 

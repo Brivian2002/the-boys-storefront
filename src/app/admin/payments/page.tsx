@@ -61,7 +61,7 @@ export default async function AdminPaymentsPage() {
             </p>
             <p className="mt-1 text-blue-700/80 dark:text-blue-300/80">
               Sales records are sourced from the <strong>Paystack webhook</strong>.
-              They are <strong>not</strong> customer orders stored locally — they
+              They are <strong>not</strong> customer orders persisted by this storefront — they
               reflect successful payments as reported by the payment provider.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default async function AdminPaymentsPage() {
         <StatCard
           label="Successful payments"
           value={stats.count}
-          hint={stats.demo ? "demo records" : "live"}
+          hint="Paystack provider records"
           icon={CreditCard}
         />
         <StatCard
@@ -90,7 +90,7 @@ export default async function AdminPaymentsPage() {
         />
         <StatCard
           label="Paystack status"
-          value={paystackConfigured ? "Configured" : "Demo mode"}
+          value={paystackConfigured ? "Configured" : "Not configured"}
           hint={paystackConfigured ? "live webhook" : "no secret key"}
           icon={CreditCard}
           tone={paystackConfigured ? "success" : "warning"}
@@ -102,7 +102,7 @@ export default async function AdminPaymentsPage() {
         <CardHeader>
           <CardTitle>Sales records</CardTitle>
           <CardDescription>
-            Most recent first. Provider-sourced — not locally stored orders.
+            Most recent first. Provider-sourced — not storefront order records.
           </CardDescription>
         </CardHeader>
         <CardContent className="px-0 sm:px-6">
@@ -149,15 +149,9 @@ export default async function AdminPaymentsPage() {
                       {formatDate(s.paidAt)}
                     </TableCell>
                     <TableCell>
-                      {s.demo ? (
-                        <UIBadge variant="secondary" className="bg-amber-500/15 text-amber-700 dark:text-amber-300">
-                          Demo
-                        </UIBadge>
-                      ) : (
-                        <UIBadge variant="secondary" className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">
-                          Paystack
-                        </UIBadge>
-                      )}
+                      <UIBadge variant="secondary" className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">
+                        Paystack
+                      </UIBadge>
                     </TableCell>
                   </TableRow>
                 ))}
