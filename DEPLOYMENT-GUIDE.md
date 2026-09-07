@@ -97,7 +97,8 @@ Go to Vercel project → Settings → Environment Variables. Add each for Produc
 1. In Vercel, open the Neon database connector you added to this project.
 2. Confirm the connector exposes `DATABASE_URL` to the Production, Preview, and Development environments.
 3. Do not commit a provider-specific database URL in `.env`; Vercel must supply the Neon `DATABASE_URL` at build and runtime.
-4. Run: `bun run db:push` then `bun prisma/seed.ts`
+4. Vercel runs `prisma db push --accept-data-loss` automatically through the `vercel-build` script, creating the Prisma tables in the connected Neon database before the Next.js build.
+5. For a local or one-off setup, run `bun run db:push` then `bun prisma/seed.ts`.
 
 ### Step 5: Redeploy
 After setting all env vars: Vercel → Deployments → ⋯ → Redeploy
