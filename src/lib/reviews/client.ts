@@ -27,27 +27,38 @@ export interface ReviewStats {
 }
 
 export async function getPublishedReviews(limit = 12): Promise<PublishedReview[]> {
-  const rows = await db.review.findMany({
-    where: { isPublished: true },
-    orderBy: { createdAt: "desc" },
-    take: limit,
-  });
-  return rows.map((r) => ({
-    id: r.id,
-    authorName: r.authorName,
-    rating: r.rating,
-    text: r.text,
-    source: r.source,
-    isVerified: r.isVerified,
-    createdAt: r.createdAt.toISOString(),
-  }));
+  try {
+    const rows = await db.review.findMany({
+      where: { isPublished: true },
+      orderBy: { createdAt: "desc" },
+      take: limit,
+    });
+    return rows.map((r) => ({
+      id: r.id,
+      authorName: r.authorName,
+      rating: r.rating,
+      text: r.text,
+      source: r.source,
+      isVerified: r.isVerified,
+      createdAt: r.createdAt.toISOString(),
+    }));
+  } catch (error) {
+    console.warn("Reviews database unavailable; rendering no reviews", error);
+    return [];
+  }
 }
 
 export async function getReviewStats(): Promise<ReviewStats> {
-  const rows = await db.review.findMany({
-    where: { isPublished: true },
-    select: { rating: true },
-  });
+  let rows: { rating: number }[];
+  try {
+    rows = await db.review.findMany({
+      where: { isPublished: true },
+      select: { rating: true },
+    });
+  } catch (error) {
+    console.warn("Reviews database unavailable; returning empty review stats", error);
+    rows = [];
+  }
   const count = rows.length;
   const sum = rows.reduce((s, r) => s + r.rating, 0);
   const distribution: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
