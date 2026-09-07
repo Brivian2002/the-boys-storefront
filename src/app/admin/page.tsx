@@ -44,6 +44,17 @@ import {
 
 export const dynamic = "force-dynamic";
 
+const EMPTY_SALES_STATS = {
+  totalOrders: 0,
+  paidOrders: 0,
+  pendingOrders: 0,
+  failedOrders: 0,
+  revenueMinor: 0,
+  currency: "GHS",
+  topProducts: [],
+  recentOrders: [],
+};
+
 function timeAgo(iso: string | null): string {
   if (!iso) return "Never";
   const ts = new Date(iso).getTime();
@@ -67,13 +78,40 @@ export default async function AdminOverviewPage() {
     newMessages,
     subscribers,
   ] = await Promise.all([
-    listAllProducts(),
-    getCatalogStatus(),
-    getSalesStats(),
-    listOrders({ limit: 200 }),
+    listAllProducts().catch((error) => {
+      console.warn("Admin product data unavailable", error);
+      return [];
+    }),
+    getCatalogStatus().catch((error) => {
+      console.warn("Admin catalog status unavailable", error);
+      return {
+        source: "empty" as const,
+        fresh: false,
+        total: 0,
+        published: 0,
+        draft: 0,
+        hidden: 0,
+        lastFetched: 0,
+        bloggerConfigured: false,
+      };
+    }),
+    getSalesStats().catch((error) => {
+      console.warn("Admin sales data unavailable", error);
+      return EMPTY_SALES_STATS;
+    }),
+    listOrders({ limit: 200 }).catch((error) => {
+      console.warn("Admin order data unavailable", error);
+      return [];
+    }),
     getPublishedReviews(1000),
-    db.contactMessage.count({ where: { status: "new" } }),
-    db.subscriber.count(),
+    db.contactMessage.count({ where: { status: "new" } }).catch((error) => {
+      console.warn("Admin inbox count unavailable", error);
+      return 0;
+    }),
+    db.subscriber.count().catch((error) => {
+      console.warn("Admin subscriber count unavailable", error);
+      return 0;
+    }),
   ]);
 
   const cfg = configStatus();
