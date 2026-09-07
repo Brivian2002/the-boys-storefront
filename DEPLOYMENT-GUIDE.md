@@ -94,9 +94,9 @@ Go to Vercel project → Settings → Environment Variables. Add each for Produc
 | `BLOB_READ_WRITE_TOKEN` | From Vercel → Storage → Blob |
 
 ### Step 4: Set Up Postgres Database
-1. Vercel → your project → Storage → Create Database → Postgres (Neon)
-2. Copy the connection string
-3. Set as `DATABASE_URL`
+1. In Vercel, open the Neon database connector you added to this project.
+2. Confirm the connector exposes `DATABASE_URL` to the Production, Preview, and Development environments.
+3. Do not commit a provider-specific database URL in `.env`; Vercel must supply the Neon `DATABASE_URL` at build and runtime.
 4. Run: `bun run db:push` then `bun prisma/seed.ts`
 
 ### Step 5: Redeploy
