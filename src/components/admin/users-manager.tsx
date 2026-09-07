@@ -69,12 +69,16 @@ export function UsersManager({ users: initial, currentEmail }: UsersManagerProps
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error ?? "Create failed");
-      setUsers((prev) => [...prev, data]);
+      const createdUser = data?.user;
+      if (!createdUser?.id || !createdUser?.email) {
+        throw new Error("The server returned an invalid user record");
+      }
+      setUsers((prev) => [...prev, createdUser]);
       setName("");
       setEmail("");
       setPassword("");
       setRole("ADMIN");
-      toast.success("Admin created", { description: data.email });
+      toast.success("Admin created", { description: createdUser.email });
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Create failed";
       toast.error("Could not create admin", { description: msg });
