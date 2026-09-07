@@ -139,11 +139,19 @@ export async function getCatalog(): Promise<{
 }
 
 async function readFromDb(): Promise<Product[]> {
-  const rows = await db.product.findMany({
-    include: { images: true, attributes: true },
-    orderBy: { publishedAt: "desc" },
-  });
-  return rows.map(rowToProduct);
+  try {
+    const rows = await db.product.findMany({
+      include: { images: true, attributes: true },
+      orderBy: { publishedAt: "desc" },
+    });
+    return rows.map(rowToProduct);
+  } catch (error) {
+    // A fresh deployment may not have its external database provisioned yet.
+    // Keep public pages renderable; the admin/configuration page can surface
+    // the missing database configuration for follow-up.
+    console.warn("Catalog database unavailable; rendering an empty catalog", error);
+    return [];
+  }
 }
 
 function rowToProduct(
