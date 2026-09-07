@@ -59,21 +59,26 @@ function canWriteToBlogger(): boolean {
  * Reads from the DB cache when present, otherwise from Blogger.
  */
 export async function listAllProducts(): Promise<Product[]> {
-  const cached = await db.product.findMany({
-    include: { images: true, attributes: true },
-    orderBy: { updatedAt: "desc" },
-  });
-  if (cached.length) {
-    return cached.map(rowToProduct);
+  try {
+    const cached = await db.product.findMany({
+      include: { images: true, attributes: true },
+      orderBy: { updatedAt: "desc" },
+    });
+    if (cached.length) {
+      return cached.map(rowToProduct);
+    }
+    if (!bloggerConfigured()) return [];
+    const { posts } = await fetchPosts({ maxResults: 500, fetchBodies: true });
+    const products: Product[] = [];
+    for (const post of posts) {
+      const p = postToProduct(post);
+      if (p) products.push(p);
+    }
+    return products;
+  } catch (error) {
+    console.warn("Admin product data unavailable", error);
+    return [];
   }
-  if (!bloggerConfigured()) return [];
-  const { posts } = await fetchPosts({ maxResults: 500, fetchBodies: true });
-  const products: Product[] = [];
-  for (const post of posts) {
-    const p = postToProduct(post);
-    if (p) products.push(p);
-  }
-  return products;
 }
 
 export async function getAdminProduct(id: string): Promise<Product | null> {
@@ -323,13 +328,14 @@ function rowToProduct(row: {
 // ============================================================
 
 export async function listOrders(opts?: { limit?: number; status?: string }) {
-  const orders = await db.order.findMany({
-    where: opts?.status ? { status: opts.status } : undefined,
-    include: { items: true },
-    orderBy: { createdAt: "desc" },
-    take: opts?.limit ?? 100,
-  });
-  return orders.map((o) => ({
+  try {
+    const orders = await db.order.findMany({
+      where: opts?.status ? { status: opts.status } : undefined,
+      include: { items: true },
+      orderBy: { createdAt: "desc" },
+      take: opts?.limit ?? 100,
+    });
+    return orders.map((o) => ({
     id: o.id,
     reference: o.reference,
     status: o.status,
@@ -353,14 +359,33 @@ export async function listOrders(opts?: { limit?: number; status?: string }) {
       quantity: it.quantity,
       unitPrice: it.unitPrice,
     })),
-  }));
+    }));
+  } catch (error) {
+    console.warn("Admin order data unavailable", error);
+    return [];
+  }
 }
 
 export async function getSalesStats(): Promise<SalesStats> {
-  const orders = await db.order.findMany({
-    include: { items: true },
-    orderBy: { createdAt: "desc" },
-  });
+  let orders: Awaited<ReturnType<typeof db.order.findMany>>;
+  try {
+    orders = await db.order.findMany({
+      include: { items: true },
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.warn("Admin sales data unavailable", error);
+    return {
+      totalOrders: 0,
+      paidOrders: 0,
+      pendingOrders: 0,
+      failedOrders: 0,
+      revenueMinor: 0,
+      currency: "GHS",
+      topProducts: [],
+      recentOrders: [],
+    };
+  }
 
   const paid = orders.filter((o) => o.status === "paid");
   const revenueMinor = paid.reduce((sum, o) => sum + o.amountMinor, 0);
