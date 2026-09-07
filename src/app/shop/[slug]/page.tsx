@@ -55,9 +55,9 @@ export async function generateMetadata({
       robots: { index: false, follow: false },
     };
   }
-  const title = `${product.name} · LA GLITZ`;
+  const title = `${product.name} · Afrocentric Jewelry by LaGlitz`;
   const description =
-    product.description?.slice(0, 160) ?? "Handcrafted jewelry from Accra, Ghana.";
+    product.description?.slice(0, 160) ?? "Handcrafted Afrocentric jewelry from Ashaley Botwe, Madina, Ghana.";
   const ogImage = product.images[0]?.url;
 
   return {
@@ -159,7 +159,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                           ? "bg-primary text-primary-foreground"
                           : b === "exclusive"
                           ? "bg-foreground text-background"
-                          : "bg-gold text-black"
+                          : "bg-amber-500 text-black"
                       )}
                     >
                       {BADGE_LABELS[b]}
@@ -236,7 +236,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     key={m}
                     className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs font-medium"
                   >
-                    <Gem className="h-3 w-3 mr-1.5 text-gold" />
+                    <Gem className="h-3 w-3 mr-1.5 text-teal-600 dark:text-teal-400" />
                     {m}
                   </span>
                 ))}
@@ -331,12 +331,15 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-2">
                   <p>
-                    Delivery is available across all 16 regions of Ghana. Greater Accra orders ship in 1-3 business days; other regions in 2-8 days. The fee for your region is shown at checkout.
+                    Delivery is available across all 10 regions of Ghana.
+                    Greater Accra orders ship in 1-3 business days; other
+                    regions in 2-8 days. Free pickup is available at our
+                    Ashaley Botwe atelier in Madina.
                   </p>
                   <p>
                     Each piece ships fully insured in a presentation box with a
-                    certificate of authenticity. Pickup is available at our Osu
-                    atelier by arrangement.
+                    certificate of authenticity. Pickup is available at our
+                    Ashaley Botwe atelier in Madina at no charge.
                   </p>
                   <p>
                     Returns are accepted within 7 days of delivery for
@@ -351,15 +354,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-2">
                   <p>
-                    Every LA GLITZ piece is hand-finished in our Accra atelier
-                    in solid 18k or 22k gold - never plated, never filled.
-                    Gemstones are sourced through traceable channels and
-                    documented for origin and treatment.
+                    Every Afrocentric Jewelry by LaGlitz piece is hand-finished
+                    in our Ashaley Botwe atelier in Madina — drawing on the
+                    textures, symbols and spirit of Africa.
                   </p>
                   <p>
-                    Each piece ships with a hallmark and certificate of
-                    authenticity. Manufacturing defects are covered by our
-                    lifetime craftsmanship guarantee.
+                    Each piece ships with a certificate of authenticity.
+                    Manufacturing defects are covered by our lifetime
+                    craftsmanship guarantee.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -409,7 +411,7 @@ function TrustItem({
 }) {
   return (
     <div className="flex flex-col items-center text-center rounded-lg border border-border bg-card p-3">
-      <Icon className="h-5 w-5 text-gold mb-1.5" />
+      <Icon className="h-5 w-5 text-teal-600 dark:text-teal-400 mb-1.5" />
       <span className="text-xs font-semibold">{title}</span>
       <span className="text-[0.7rem] text-muted-foreground">{body}</span>
     </div>

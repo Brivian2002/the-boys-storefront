@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Mail, Check } from "lucide-react";
+import { Mail, Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -15,15 +15,27 @@ export function NewsletterSignup() {
     e.preventDefault();
     if (!email.trim()) return;
     setLoading(true);
-    const subject = encodeURIComponent("Join the LA GLITZ private list");
-    const body = encodeURIComponent(`Please add ${email.trim()} to the LA GLITZ private viewing list.`);
-    window.location.href = `mailto:hello@la-glitz.com?subject=${subject}&body=${body}`;
-    setLoading(false);
-    setDone(true);
-    setEmail("");
-    toast.success("Opening your email client", {
-      description: "Your request is ready to send to the LA GLITZ atelier.",
-    });
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data?.error ?? "Could not subscribe");
+      }
+      setDone(true);
+      setEmail("");
+      toast.success("You're on the list!", {
+        description: "We'll send new arrivals and atelier stories to your inbox.",
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Could not subscribe";
+      toast.error("Subscription failed", { description: msg });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,7 +45,7 @@ export function NewsletterSignup() {
           New arrivals, atelier stories, and the occasional private viewing.
         </h2>
         <p className="text-sm text-muted-foreground">
-          Join the LA GLITZ list. No spam - just the pieces we're proudest of.
+          Join the LaGlitz list. No spam — just the pieces we're proudest of.
         </p>
       </div>
       {done ? (
@@ -41,12 +53,12 @@ export function NewsletterSignup() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <Check className="h-4 w-4" />
           </span>
-          Your private-list request is ready to send.
+          Thank you — you're subscribed.
         </div>
       ) : (
         <form onSubmit={submit} className="flex gap-2 md:justify-end">
-          <div className="relative flex-1 max-w-sm">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <div className="relative max-w-sm flex-1">
+            <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="email"
               required
@@ -57,7 +69,14 @@ export function NewsletterSignup() {
             />
           </div>
           <Button type="submit" disabled={loading}>
-            {loading ? "Opening..." : "Join the list"}
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Subscribing...
+              </>
+            ) : (
+              "Subscribe"
+            )}
           </Button>
         </form>
       )}

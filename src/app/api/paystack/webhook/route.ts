@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateWebhookSignature } from "@/lib/paystack/client";
-import { recordSale } from "@/lib/blogger/admin-store";
+import { db } from "@/lib/db";
 
 /**
- * Paystack webhook.
+ * POST /api/paystack/webhook
  *
- * CRITICAL: reads the raw request body BEFORE JSON parsing to validate the
- * HMAC-SHA512 signature in the x-paystack-signature header. Only valid
- * successful payment events are accepted.
+ * Validates the HMAC-SHA512 signature in the x-paystack-signature header
+ * against the raw request body, then updates the matching Order row in the DB.
  */
 export async function POST(req: NextRequest) {
   const signature = req.headers.get("x-paystack-signature");
@@ -27,15 +26,22 @@ export async function POST(req: NextRequest) {
   // Only process successful charge events
   if (event.event === "charge.success") {
     const data = event.data;
-    await recordSale({
-      reference: String(data.reference ?? ""),
-      amount: Number(data.amount ?? 0),
-      currency: (data.currency as "GHS" | "USD") ?? "GHS",
-      channel: String(data.channel ?? "card"),
-      customerEmail: String((data.customer as { email?: string })?.email ?? ""),
-      paidAt: String(data.paid_at ?? new Date().toISOString()),
-      demo: false,
-    });
+    const reference = String(data.reference ?? "");
+    const channel = String(data.channel ?? "card");
+    const paidAt = String(data.paid_at ?? new Date().toISOString());
+
+    if (reference) {
+      await db.order
+        .updateMany({
+          where: { reference, status: { not: "paid" } },
+          data: {
+            status: "paid",
+            paidAt: new Date(paidAt),
+            paystackChannel: channel,
+          },
+        })
+        .catch(() => undefined);
+    }
   }
 
   // Always 200 so Paystack doesn't retry

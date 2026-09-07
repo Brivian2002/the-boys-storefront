@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
-import { CreditCard, Info } from "lucide-react";
+import { CreditCard } from "lucide-react";
 
 import { getSession } from "@/lib/auth/admin-session";
-import { listSales, getSalesStats } from "@/lib/blogger/admin-store";
-import { formatGHS } from "@/lib/ghana";
+import { listOrders, getSalesStats } from "@/lib/blogger/admin-store";
+import { formatGHS, fromMinorUnits } from "@/lib/ghana";
 
 import { AdminShell } from "@/components/admin/admin-shell";
 import { StatCard } from "@/components/admin/stat-card";
@@ -38,125 +38,196 @@ function formatDate(iso: string | null): string {
   }
 }
 
+function statusTone(status: string): {
+  className: string;
+  label: string;
+} {
+  switch (status) {
+    case "paid":
+      return {
+        className:
+          "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+        label: "Paid",
+      };
+    case "pending":
+      return {
+        className: "bg-amber-500/15 text-amber-700 dark:text-amber-300",
+        label: "Pending",
+      };
+    case "failed":
+      return {
+        className: "bg-destructive/15 text-destructive",
+        label: "Failed",
+      };
+    case "cancelled":
+      return {
+        className: "bg-muted text-muted-foreground",
+        label: "Cancelled",
+      };
+    case "refunded":
+      return {
+        className: "bg-blue-500/15 text-blue-700 dark:text-blue-300",
+        label: "Refunded",
+      };
+    default:
+      return {
+        className: "bg-muted text-muted-foreground",
+        label: status,
+      };
+  }
+}
+
 export default async function AdminPaymentsPage() {
   const session = await getSession();
   if (!session) redirect("/admin/login");
 
-  const [sales, stats] = await Promise.all([listSales(), getSalesStats()]);
-  const paystackConfigured = Boolean(process.env.PAYSTACK_SECRET_KEY);
+  const [orders, stats] = await Promise.all([
+    listOrders({ limit: 200 }),
+    getSalesStats(),
+  ]);
 
   return (
     <AdminShell
-      active="payments"
-      title="Payments"
-      description="Paystack sales records (sourced from webhooks)"
+      active="orders"
+      title="Orders"
+      description="Customer orders and payment records"
       session={session}
     >
-      <Card className="mb-6 border-blue-500/30 bg-blue-500/5">
-        <CardContent className="flex items-start gap-3 py-4">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
-          <div className="text-sm">
-            <p className="font-medium text-blue-700 dark:text-blue-300">
-              Provider-sourced records
-            </p>
-            <p className="mt-1 text-blue-700/80 dark:text-blue-300/80">
-              Sales records are sourced from the <strong>Paystack webhook</strong>.
-              They are <strong>not</strong> customer orders persisted by this storefront — they
-              reflect successful payments as reported by the payment provider.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <StatCard
-          label="Successful payments"
-          value={stats.count}
-          hint="Paystack provider records"
+          label="Total orders"
+          value={stats.totalOrders}
           icon={CreditCard}
         />
         <StatCard
-          label="Total collected (GHS)"
-          value={formatGHS(stats.totalGhs)}
+          label="Paid"
+          value={stats.paidOrders}
           icon={CreditCard}
           tone="success"
         />
         <StatCard
-          label="Last payment"
-          value={stats.lastSaleAt ? formatDate(stats.lastSaleAt) : "—"}
-          hint={stats.lastSaleAt ? "" : "No sales yet"}
+          label="Pending"
+          value={stats.pendingOrders}
           icon={CreditCard}
+          tone={stats.pendingOrders > 0 ? "warning" : "muted"}
         />
         <StatCard
-          label="Paystack status"
-          value={paystackConfigured ? "Configured" : "Not configured"}
-          hint={paystackConfigured ? "live webhook" : "no secret key"}
+          label="Revenue"
+          value={
+            stats.currency
+              ? formatGHS(
+                  fromMinorUnits(stats.revenueMinor),
+                  stats.currency as "GHS" | "USD"
+                )
+              : "—"
+          }
           icon={CreditCard}
-          tone={paystackConfigured ? "success" : "warning"}
+          tone="success"
         />
       </div>
 
-      {/* Sales table */}
+      {/* Orders table (desktop) */}
       <Card className="mt-6">
         <CardHeader>
-          <CardTitle>Sales records</CardTitle>
+          <CardTitle>Orders</CardTitle>
           <CardDescription>
-            Most recent first. Provider-sourced — not storefront order records.
+            Most recent first. Status updated by Paystack webhook + verify.
           </CardDescription>
         </CardHeader>
         <CardContent className="px-0 sm:px-6">
-          {sales.length === 0 ? (
+          {orders.length === 0 ? (
             <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
                 <CreditCard className="h-5 w-5" />
               </div>
               <div>
-                <p className="font-medium">No payments yet</p>
+                <p className="font-medium">No orders yet</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Sales will appear here after the first successful Paystack checkout.
+                  Orders will appear here after the first successful checkout.
                 </p>
               </div>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="pl-3 sm:pl-6">Reference</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead className="hidden md:table-cell">Currency</TableHead>
-                  <TableHead className="hidden lg:table-cell">Channel</TableHead>
-                  <TableHead className="hidden md:table-cell">Customer</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Source</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sales.map((s) => (
-                  <TableRow key={s.id}>
-                    <TableCell className="pl-3 sm:pl-6 font-mono text-xs">
-                      {s.reference}
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {formatGHS(s.amount / 100, s.currency)}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">{s.currency}</TableCell>
-                    <TableCell className="hidden lg:table-cell">{s.channel}</TableCell>
-                    <TableCell className="hidden md:table-cell text-sm text-muted-foreground">
-                      {s.customerEmail}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {formatDate(s.paidAt)}
-                    </TableCell>
-                    <TableCell>
-                      <UIBadge variant="secondary" className="bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">
-                        Paystack
-                      </UIBadge>
-                    </TableCell>
+            <>
+              {/* Desktop table */}
+              <Table className="hidden md:table">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="pl-3 sm:pl-6">Reference</TableHead>
+                    <TableHead>Customer</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead className="hidden lg:table-cell">Region</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Status</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {orders.map((o) => {
+                    const tone = statusTone(o.status);
+                    return (
+                      <TableRow key={o.id}>
+                        <TableCell className="pl-3 sm:pl-6 font-mono text-xs">
+                          {o.reference}
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {o.customerEmail}
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          {formatGHS(
+                            fromMinorUnits(o.amountMinor),
+                            o.currency as "GHS" | "USD"
+                          )}
+                        </TableCell>
+                        <TableCell className="hidden lg:table-cell text-sm text-muted-foreground">
+                          {o.deliveryRegion}
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {formatDate(o.createdAt)}
+                        </TableCell>
+                        <TableCell>
+                          <UIBadge variant="secondary" className={tone.className}>
+                            {tone.label}
+                          </UIBadge>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+
+              {/* Mobile cards */}
+              <div className="space-y-3 md:hidden">
+                {orders.map((o) => {
+                  const tone = statusTone(o.status);
+                  return (
+                    <div
+                      key={o.id}
+                      className="rounded-lg border border-border bg-card p-4"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="font-mono text-xs break-all">{o.reference}</p>
+                        <UIBadge variant="secondary" className={tone.className}>
+                          {tone.label}
+                        </UIBadge>
+                      </div>
+                      <p className="mt-2 text-sm font-medium">
+                        {formatGHS(
+                          fromMinorUnits(o.amountMinor),
+                          o.currency as "GHS" | "USD"
+                        )}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {o.customerEmail}
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {o.deliveryRegion} · {formatDate(o.createdAt)}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           )}
         </CardContent>
       </Card>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 
 interface BrandLogoProps {
   className?: string;
@@ -7,51 +8,40 @@ interface BrandLogoProps {
 }
 
 /**
- * LA GLITZ brand logo - diamond monogram + wordmark.
- * Uses currentColor for the wordmark so it adapts to theme.
+ * Afrocentric Jewelry by LaGlitz brand logo.
+ *
+ * Uses /brand/logo.png for the mark, with a two-line wordmark:
+ *   "Afrocentric Jewelry" (serif, primary)
+ *   "by LaGlitz · Africa Arising" (uppercase, turquoise tagline)
+ *
+ * `variant="light"` forces the wordmark white (for dark hero overlays).
  */
-export function BrandLogo({ className, showWordmark = true, variant = "default" }: BrandLogoProps) {
+export function BrandLogo({
+  className,
+  showWordmark = true,
+  variant = "default",
+}: BrandLogoProps) {
   const wordColor = variant === "light" ? "#fff" : "currentColor";
   return (
     <span className={`inline-flex items-center gap-2.5 ${className ?? ""}`}>
-      <svg
-        viewBox="0 0 56 56"
-        className="h-8 w-8 shrink-0"
-        fill="none"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="lg-gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="oklch(0.82 0.15 85)" />
-            <stop offset="50%" stopColor="oklch(0.88 0.13 80)" />
-            <stop offset="100%" stopColor="oklch(0.62 0.13 75)" />
-          </linearGradient>
-        </defs>
-        <path d="M28 2 L52 28 L28 54 L4 28 Z" fill="url(#lg-gold)" />
-        <path d="M28 8 L46 28 L28 48 L10 28 Z" fill="none" stroke="currentColor" strokeOpacity="0.25" strokeWidth="0.8" />
-        <text
-          x="28"
-          y="35"
-          textAnchor="middle"
-          fontFamily="Georgia, serif"
-          fontSize="18"
-          fontWeight="700"
-          fill="#1a1a1a"
-          letterSpacing="-1"
-        >
-          LG
-        </text>
-      </svg>
+      <Image
+        src="/brand/logo.png"
+        alt="Afrocentric Jewelry by LaGlitz"
+        width={40}
+        height={40}
+        className="h-9 w-9 shrink-0 rounded-full object-cover ring-1 ring-gold/40"
+        priority
+      />
       {showWordmark && (
         <span className="flex flex-col leading-none">
           <span
-            className="font-serif text-lg font-semibold tracking-[0.25em]"
+            className="font-serif text-base font-semibold tracking-tight sm:text-lg"
             style={{ color: wordColor }}
           >
-            LA GLITZ
+            Afrocentric Jewelry
           </span>
-          <span className="mt-1 text-[0.55rem] font-medium uppercase tracking-[0.4em] text-gold">
-            Accra · Ghana
+          <span className="mt-1 text-[0.6rem] font-medium uppercase tracking-[0.32em] text-turquoise">
+            by LaGlitz · Africa Arising
           </span>
         </span>
       )}

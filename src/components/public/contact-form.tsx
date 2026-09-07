@@ -4,6 +4,7 @@ import * as React from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 
@@ -41,15 +42,25 @@ const contactSchema = z.object({
     .max(30, "Phone number is too long.")
     .optional()
     .or(z.literal("")),
-  subject: z.enum(SUBJECTS, { error: "Please select a subject." }),
+  subject: z.enum(SUBJECTS, {
+    errorMap: () => ({ message: "Please select a subject." }),
+  }),
   message: z
     .string()
     .min(10, "Please tell us a little more (at least 10 characters).")
     .max(2000, "Message is too long — please keep it under 2000 characters."),
-  consent: z.literal(true, { error: "Please agree so we can respond to your message." }),
+  consent: z.literal(true, {
+    errorMap: () => ({
+      message: "Please agree so we can respond to your message.",
+    }),
+  }),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
+
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
 export function ContactForm() {
   const [submitted, setSubmitted] = React.useState(false);
@@ -75,24 +86,58 @@ export function ContactForm() {
   const subjectValue = useWatch({ control, name: "subject" });
 
   const onSubmit = async (values: ContactFormValues) => {
-    // No backend email service is configured in this build.
-    // Simulate a network request so the UX feels real.
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    console.log("[contact-form] message captured (no email backend):", {
-      name: values.name,
-      email: values.email,
-      subject: values.subject,
+    // 1. Persist to the DB so the admin Inbox has a record.
+    // 2. Fire EmailJS to deliver to the owner's inbox (client-side).
+    // Either can fail without blocking the other — we always have the DB record.
+    const dbPromise = fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    }).then(async (res) => {
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d?.error ?? "Could not save message");
+      }
+      return res.json();
     });
-    toast.success("Message received", {
-      description: `Thank you, ${values.name.split(" ")[0]}. We'll reply within one business day.`,
-    });
-    setSubmitted(true);
-    reset();
+
+    const emailPromise =
+      SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY
+        ? emailjs
+            .send(
+              SERVICE_ID,
+              TEMPLATE_ID,
+              {
+                from_name: values.name,
+                from_email: values.email,
+                phone: values.phone ?? "",
+                subject: values.subject,
+                message: values.message,
+              },
+              PUBLIC_KEY
+            )
+            .catch((err) => {
+              // EmailJS failure is non-fatal — the DB record still exists.
+              console.warn("[contact-form] EmailJS send failed:", err);
+            })
+        : Promise.resolve();
+
+    try {
+      await Promise.all([dbPromise, emailPromise]);
+      toast.success("Message received", {
+        description: `Thank you, ${values.name.split(" ")[0]}. We'll reply within one business day.`,
+      });
+      setSubmitted(true);
+      reset();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Could not send message";
+      toast.error("Could not send message", { description: msg });
+    }
   };
 
   if (submitted) {
     return (
-      <div className="rounded-lg border border-border bg-card p-8 text-center space-y-4">
+      <div className="space-y-4 rounded-lg border border-border bg-card p-8 text-center">
         <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-gold-soft text-foreground">
           <CheckCircle2 className="h-7 w-7 text-gold" />
         </div>
@@ -100,7 +145,7 @@ export function ContactForm() {
           <h3 className="font-serif text-2xl font-semibold">
             Thank you — your message is on its way.
           </h3>
-          <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
             We've received your note and one of our team will reply within one
             business day. For urgent enquiries, please message us on WhatsApp.
           </p>
@@ -115,7 +160,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-lg border border-border bg-card p-6 sm:p-8 space-y-5"
+      className="space-y-5 rounded-lg border border-border bg-card p-6 sm:p-8"
       noValidate
     >
       <div className="grid gap-5 sm:grid-cols-2">
@@ -229,8 +274,8 @@ export function ContactForm() {
           htmlFor="consent"
           className="text-xs font-normal leading-relaxed text-muted-foreground"
         >
-          I agree that LA GLITZ may contact me about this enquiry. We don't
-          share your details — see our{" "}
+          I agree that Afrocentric Jewelry by LaGlitz may contact me about this
+          enquiry. We don't share your details — see our{" "}
           <a
             href="/policies#privacy"
             className="text-foreground underline underline-offset-4 hover:text-gold"
@@ -241,12 +286,17 @@ export function ContactForm() {
         </Label>
       </div>
       {errors.consent && (
-        <p className="text-xs text-destructive -mt-2">
+        <p className="-mt-2 text-xs text-destructive">
           {errors.consent.message}
         </p>
       )}
 
-      <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto">
+      <Button
+        type="submit"
+        size="lg"
+        disabled={isSubmitting}
+        className="w-full sm:w-auto"
+      >
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

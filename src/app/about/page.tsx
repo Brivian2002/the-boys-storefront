@@ -1,148 +1,106 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowRight,
   Gem,
   ShieldCheck,
   HandHeart,
   Sparkles,
-  PenTool,
-  Hammer,
-  Diamond,
-  HeartHandshake,
+  ArrowRight,
+  Leaf,
 } from "lucide-react";
 import { PublicShell } from "@/components/public/shell";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { STORE_CONTACT } from "@/lib/ghana";
 
-export const metadata: Metadata = {
-  title: "Our Story",
+export const metadata = {
+  title: "About — Afrocentric Jewelry by LaGlitz",
   description:
-    "LA GLITZ is a premium Ghanaian jewelry house. Discover our Accra atelier, our commitment to solid gold and ethical gemstones, and the craft behind every piece.",
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: "Our Story · LA GLITZ",
-    description:
-      "A premium Ghanaian jewelry house crafting fine jewelry in our Accra atelier.",
-    type: "article",
-  },
+    "Afrocentric Jewelry by LaGlitz was founded by Charity Kessewaa Frimpong in Ashaley Botwe, Madina, Ghana. Our story, our values, and the Adinkra symbols that inspire our craft.",
 };
 
 const VALUES = [
   {
     icon: Gem,
-    title: "Solid gold, honestly priced",
-    body: "Every piece is solid 18k or 22k gold — never plated, never filled. We price transparently against the metal and the craft, with no inflated markups.",
+    title: "Hand-finished craft",
+    body: "Every piece is hand-finished in our Ashaley Botwe atelier. We don't mass-produce — we shape, set, and polish each piece by hand.",
   },
   {
     icon: ShieldCheck,
-    title: "Ethical gemstones",
-    body: "We source natural and lab-grown stones through traceable channels. Diamonds, sapphires and emeralds come with documentation of origin and treatment.",
+    title: "Authenticity guaranteed",
+    body: "Each piece ships with a certificate of authenticity. We stand behind our craftsmanship with a lifetime guarantee on every order.",
   },
   {
     icon: HandHeart,
-    title: "Hand-finished craft",
-    body: "From the first sketch to the final polish, each piece passes through the hands of our Osu goldsmiths. Machine casting assists; the hand decides.",
+    title: "Rooted in heritage",
+    body: "We draw on Adinkra symbols, kente texture and the warmth of African gold — without relying on cliché. Africa Arising, in every detail.",
   },
   {
     icon: Sparkles,
-    title: "Lifetime craftsmanship guarantee",
-    body: "We stand behind every piece we make. Manufacturing defects are covered for life — bring it home to Accra and we will make it right.",
+    title: "Made to be worn",
+    body: "Designed for daily life, not just the showcase. Built to be lived in, loved, and passed on to the next generation.",
   },
 ];
 
-const PROCESS = [
+const ADINKRA = [
   {
-    icon: PenTool,
-    step: "01",
-    title: "Design",
-    body: "Each piece begins as a sketch in our Osu studio — drawn by hand, refined against the body, and translated into a technical model.",
+    src: "/adinkra/gye-nyame.png",
+    name: "Gye Nyame",
+    meaning: "Supremacy of God",
+    body: "A reminder of the omnipotence of the Creator — the most widely used Adinkra symbol, present in our brand spirit of Africa Arising.",
   },
   {
-    icon: Hammer,
-    step: "02",
-    title: "Cast",
-    body: "We hand-carve waxes and cast in solid 18k or 22k gold. Every casting is weighed, inspected, and stress-tested before it moves to the bench.",
+    src: "/adinkra/dwennimmen.png",
+    name: "Dwennimmen",
+    meaning: "Humility & strength",
+    body: "Ram's horns. The balance of power with humility — qualities we hold ourselves to in craft and in service.",
   },
   {
-    icon: Diamond,
-    step: "03",
-    title: "Set",
-    body: "Gemstones are set by our master setter under magnification — each prong hand-fitted, each stone checked for cut, clarity and security.",
+    src: "/adinkra/nyame-dua-alt.png",
+    name: "Nyame Dua",
+    meaning: "God's presence",
+    body: "A sacred altar. A symbol of God's presence in our work and our relationships with every customer.",
   },
   {
-    icon: HeartHandshake,
-    step: "04",
-    title: "Finish",
-    body: "The final polish, hallmark and certificate of authenticity complete the piece. What leaves the atelier is meant to be worn for a lifetime.",
+    src: "/adinkra/eban.png",
+    name: "Eban",
+    meaning: "Protection & safety",
+    body: "A fence. Our promise to protect the trust you place in us — your pieces, your data, your celebrations.",
   },
 ];
 
 export default function AboutPage() {
   return (
     <PublicShell>
-      {/* ===== BREADCRUMB ===== */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>About</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-
       {/* ===== HERO ===== */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden border-b border-border">
         <div className="absolute inset-0">
           <Image
-            src="/hero/about-atelier.jpg"
-            alt="Inside the LA GLITZ atelier in Osu, Accra"
+            src="/about-hero.jpg"
+            alt="Charity Kessewaa Frimpong, founder of Afrocentric Jewelry by LaGlitz"
             fill
             priority
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
         </div>
-
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex min-h-[70vh] max-h-[760px] flex-col justify-center py-24">
+          <div className="flex min-h-[70vh] max-h-[720px] flex-col justify-center py-20">
             <div className="max-w-2xl">
-              <Badge
-                variant="secondary"
-                className="mb-5 bg-white/10 text-white border-white/20 backdrop-blur-sm"
-              >
-                <Sparkles className="h-3 w-3 mr-1.5" />
-                Est. in Accra, Ghana
-              </Badge>
+              <p className="text-xs uppercase tracking-[0.2em] text-teal-300 mb-3">
+                Our story
+              </p>
               <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight text-white">
-                Crafted in Accra.
+                Crafted in
                 <br />
-                <span className="text-gold-gradient">Worn everywhere.</span>
+                <span className="bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 bg-clip-text text-transparent">
+                  Ashaley Botwe.
+                </span>
               </h1>
               <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
-                LA GLITZ is a premium Ghanaian jewelry house. We design and
-                hand-finish every piece in our Osu atelier — solid gold,
-                ethically sourced gemstones, and a craft heritage rooted in the
-                rhythm of Ghanaian celebration.
+                Afrocentric Jewelry by LaGlitz is a premium Ghanaian jewelry
+                house handcrafting pieces inspired by the textures, symbols and
+                spirit of Africa.
               </p>
             </div>
           </div>
@@ -152,44 +110,34 @@ export default function AboutPage() {
       {/* ===== STORY ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-center">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-lg order-2 lg:order-1">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
             <Image
-              src="/hero/hero-atelier.jpg"
-              alt="A goldsmith at work in the LA GLITZ atelier"
+              src="/our-story.webp"
+              alt="Charity Kessewaa Frimpong, founder"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
-          <div className="space-y-5 order-1 lg:order-2">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Our story
+          <div className="space-y-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+              Founded by Charity Kessewaa Frimpong
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-              A jewelry house built on Ghanaian craft.
+              From Ashaley Botwe to your jewelry box.
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              LA GLITZ began in a small workshop off Oxford Street in Osu, with
-              a single bench and a simple conviction: that Ghanaian goldsmiths
-              deserve to be mentioned in the same breath as the great jewelry
-              houses of Europe and Asia. We started with wedding bands for
-              friends, then engagement rings, then full bridal sets — each one
-              made the slow, deliberate way.
+              Afrocentric Jewelry by LaGlitz was founded on a simple belief:
+              that Ghanaian craft belongs in the same conversation as the
+              world&apos;s finest jewelry houses. Every piece is designed and
+              hand-finished in our atelier in Ashaley Botwe, Madina — drawing on
+              the warmth of African gold, the texture of kente, and the
+              centuries-old language of Adinkra symbols.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Today, our atelier brings together a small team of designers,
-              casters, setters and polishers — most of them trained in Accra,
-              some in family workshops going back three generations. We work in
-              solid 18k and 22k gold, set natural and lab-grown gemstones with
-              full documentation, and finish every piece by hand. Nothing leaves
-              the bench without a hallmark and a certificate of authenticity.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              We draw quietly on Ghana — the architecture of kente, the weight
-              of a real Adinkra symbol, the warmth of high-karat gold at a
-              Ghanaian wedding — without leaning on cliché. The result is
-              jewelry that feels both contemporary and rooted, made to be worn
-              for a lifetime and passed on.
+              The result is jewelry that feels both contemporary and rooted.
+              Pieces designed to be worn for a lifetime — and passed on to the
+              next. Africa Arising.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild>
@@ -209,12 +157,12 @@ export default function AboutPage() {
       {/* ===== VALUES ===== */}
       <section className="bg-muted/30 border-y border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-          <div className="max-w-2xl mb-12">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
+          <div className="text-center mb-12">
+            <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
               What we stand for
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-              Four commitments behind every piece.
+            <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+              Our values
             </h2>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -223,7 +171,7 @@ export default function AboutPage() {
                 key={title}
                 className="rounded-lg border border-border bg-card p-6"
               >
-                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-gold-soft text-foreground">
+                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
                   <Icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-serif text-lg font-semibold mb-2">
@@ -238,45 +186,43 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== PROCESS ===== */}
+      {/* ===== ADINKRA ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="max-w-2xl mb-12">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-            From the bench
+        <div className="text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+            Symbols that guide us
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-            How a piece is made.
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+            Adinkra symbolism
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            Every LA GLITZ piece moves through four stages at our Osu atelier —
-            most of them by hand, none of them rushed.
+            The Adinkra symbols of the Akan people of Ghana carry proverbs,
+            wisdom and values. We carry four of them into our craft.
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {PROCESS.map(({ icon: Icon, step, title, body }, i) => (
-            <div key={title} className="relative">
-              <div className="rounded-lg border border-border bg-card p-6 h-full">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-gold-soft text-foreground">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <span className="font-serif text-2xl font-semibold text-muted-foreground/40">
-                    {step}
-                  </span>
-                </div>
-                <h3 className="font-serif text-lg font-semibold mb-2">
-                  {title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {body}
-                </p>
-              </div>
-              {i < PROCESS.length - 1 && (
-                <ArrowRight
-                  className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 h-5 w-5 text-muted-foreground/40"
-                  aria-hidden
+          {ADINKRA.map(({ src, name, meaning, body }) => (
+            <div
+              key={name}
+              className="rounded-lg border border-border bg-card p-6 text-center"
+            >
+              <div className="mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-teal-500/5 border border-teal-500/20">
+                {/* Plain img tag — Adinkra symbols are static decorative SVGs */}
+                <img
+                  src={src}
+                  alt={`${name} Adinkra symbol`}
+                  width={96}
+                  height={96}
+                  loading="lazy"
                 />
-              )}
+              </div>
+              <p className="text-xs uppercase tracking-[0.18em] text-teal-600 dark:text-teal-400 mb-1">
+                {meaning}
+              </p>
+              <h3 className="font-serif text-xl font-semibold mb-2">{name}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {body}
+              </p>
             </div>
           ))}
         </div>
@@ -285,18 +231,16 @@ export default function AboutPage() {
       {/* ===== CTA ===== */}
       <section className="relative overflow-hidden border-t border-border bg-foreground text-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-background/60 mb-3">
-            Visit us in Osu
-          </p>
+          <Leaf className="mx-auto h-8 w-8 text-teal-300 mb-4" />
           <h2 className="font-serif text-3xl sm:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
-            See the bench. Hold the gold. Talk to the maker.
+            Africa Arising — wear it with pride.
           </h2>
           <p className="mt-5 text-background/75 max-w-xl mx-auto">
             {STORE_CONTACT.address} · {STORE_CONTACT.hours}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg" variant="secondary">
-              <Link href="/contact">Book a private viewing</Link>
+              <Link href="/shop">Shop the collection</Link>
             </Button>
             <Button
               asChild
@@ -304,10 +248,7 @@ export default function AboutPage() {
               variant="outline"
               className="bg-transparent border-background/40 text-background hover:bg-background/10 hover:text-background"
             >
-              <Link href="/shop">
-                Shop the collection
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              <Link href="/contact">Visit the atelier</Link>
             </Button>
           </div>
         </div>

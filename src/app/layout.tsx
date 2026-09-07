@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Geist, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { themeInitScript } from "@/lib/theme/init-script";
 import { CartProvider } from "@/components/cart/cart-provider";
 
-const geistSans = Inter({
+const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -18,45 +18,49 @@ const cormorant = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 });
 
-export const dynamic = "force-dynamic";
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://la-glitz.vercel.app"),
+  metadataBase: new URL(
+    process.env.APP_BASE_URL ?? "http://localhost:3000"
+  ),
   title: {
-    default: "LA GLITZ — Fine Jewelry from Accra, Ghana",
-    template: "%s · LA GLITZ",
+    default: "Afrocentric Jewelry by LaGlitz — Africa Arising",
+    template: "%s · Afrocentric Jewelry by LaGlitz",
   },
   description:
-    "LA GLITZ is a premium Ghanaian jewelry house crafting fine rings, earrings, necklaces, and bracelets. Shop authentic gold and gemstone pieces, delivered across Ghana.",
+    "Afrocentric Jewelry by LaGlitz — handcrafted beads, gold, cowrie and kente-inspired jewelry from Accra, Ghana. Africa Arising. Shop rings, earrings, necklaces, bracelets, watches, brooches and sets.",
   keywords: [
+    "Afrocentric jewelry",
     "Ghana jewelry",
+    "LaGlitz",
+    "Africa Arising",
     "Accra jewelry",
-    "fine jewelry Ghana",
-    "gold rings Ghana",
-    "LA GLITZ",
-    "Ghanaian jewelry store",
-    "engagement rings Accra",
+    "cowrie jewelry",
+    "kente jewelry",
+    "Ghanaian beads",
+    "Charity Kessewaa Frimpong",
   ],
-  authors: [{ name: "LA GLITZ" }],
-  creator: "LA GLITZ",
+  authors: [{ name: "Afrocentric Jewelry by LaGlitz" }],
+  creator: "Afrocentric Jewelry by LaGlitz",
   icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
-    title: "LA GLITZ — Fine Jewelry from Accra, Ghana",
+    title: "Afrocentric Jewelry by LaGlitz — Africa Arising",
     description:
-      "Premium Ghanaian jewelry house. Shop fine rings, earrings, necklaces and bracelets crafted in Accra.",
-    url: "https://la-glitz.vercel.app",
-    siteName: "LA GLITZ",
+      "Handcrafted Afrocentric jewelry from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs for the modern African woman.",
+    siteName: "Afrocentric Jewelry by LaGlitz",
     type: "website",
     locale: "en_GH",
   },
   twitter: {
     card: "summary_large_image",
-    title: "LA GLITZ — Fine Jewelry from Accra, Ghana",
+    title: "Afrocentric Jewelry by LaGlitz — Africa Arising",
     description:
-      "Premium Ghanaian jewelry house. Shop fine rings, earrings, necklaces and bracelets crafted in Accra.",
+      "Handcrafted Afrocentric jewelry from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs.",
   },
   robots: {
     index: true,
@@ -71,10 +75,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
+      </head>
       <body
         className={`${geistSans.variable} ${cormorant.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
         <ThemeProvider>
           <CartProvider>
             {children}

@@ -55,7 +55,14 @@ import {
 } from "@/components/ui/card";
 
 const ALL_CATEGORIES: Category[] = [
-  "rings", "earrings", "necklaces", "bracelets", "sets", "new-arrivals",
+  "rings",
+  "earrings",
+  "necklaces",
+  "bracelets",
+  "watches",
+  "brooches",
+  "sets",
+  "new-arrivals",
 ];
 const ALL_AVAILABILITY: Availability[] = ["in-stock", "limited", "pre-order", "sold-out"];
 const ALL_BADGES: BadgeType[] = ["featured", "new-arrival", "sale", "bestseller", "exclusive"];
@@ -141,6 +148,35 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
     setImages((prev) => prev.map((im, i) => (i === idx ? { ...im, ...patch } : im)));
   const removeImage = (idx: number) =>
     setImages((prev) => prev.filter((_, i) => i !== idx));
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = React.useState(false);
+
+  const uploadImages = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    try {
+      const uploaded: ImageItem[] = [];
+      for (const file of Array.from(files)) {
+        const form = new FormData();
+        form.append("file", file);
+        const res = await fetch("/api/admin/upload", { method: "POST", body: form });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data?.error ?? "Upload failed");
+        }
+        uploaded.push({ url: data.url, alt: data.alt ?? file.name.replace(/\.[^.]+$/, "") });
+      }
+      setImages((prev) => [...prev, ...uploaded]);
+      toast.success(`Uploaded ${uploaded.length} image${uploaded.length === 1 ? "" : "s"}`);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Upload failed";
+      toast.error("Image upload failed", { description: msg });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   const addAttribute = () =>
     setAttributes((prev) => [...prev, { name: "", valuesCsv: "" }]);
@@ -523,16 +559,44 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
             <CardHeader className="flex-row items-center justify-between space-y-0">
               <div>
                 <CardTitle>Images</CardTitle>
-                <CardDescription>Image URLs (https://... or /products/... paths).</CardDescription>
+                <CardDescription>
+                  Upload image files or paste image URLs (https://... or /products/... paths).
+                </CardDescription>
               </div>
-              <Button type="button" variant="outline" size="sm" onClick={addImage}>
-                <ImagePlus className="h-4 w-4" />
-                Add image
-              </Button>
+              <div className="flex gap-2">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="sr-only"
+                  onChange={(e) => uploadImages(e.target.files)}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                >
+                  {uploading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <ImagePlus className="h-4 w-4" />
+                  )}
+                  Upload
+                </Button>
+                <Button type="button" variant="outline" size="sm" onClick={addImage}>
+                  <ImagePlus className="h-4 w-4" />
+                  Add URL
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-3">
               {images.length === 0 && (
-                <p className="text-sm text-muted-foreground">No images yet. Add at least one.</p>
+                <p className="text-sm text-muted-foreground">
+                  No images yet. Add at least one — upload a file or paste a URL.
+                </p>
               )}
               {images.map((img, idx) => (
                 <div

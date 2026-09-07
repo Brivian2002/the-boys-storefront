@@ -2,11 +2,11 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Search,
   Menu,
   X,
-  ChevronDown,
   ShoppingBag,
   Sparkles,
 } from "lucide-react";
@@ -38,24 +38,34 @@ import {
   type Category,
 } from "@/lib/blogger/types";
 
+interface PublicHeaderProps {
+  /** Announcement bar text. When empty the bar is hidden. */
+  announcement?: string;
+}
+
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
   { href: "/shop?category=new-arrivals", label: "New Arrivals" },
   { href: "/delivery", label: "Delivery" },
   { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
   { href: "/policies", label: "Policies" },
   { href: "/contact", label: "Contact" },
 ];
 
 const DEPARTMENTS: { category: Category; label: string; blurb: string }[] = [
-  { category: "rings", label: "Rings", blurb: "Engagement, wedding & statement" },
+  { category: "rings", label: "Rings", blurb: "Cowrie, bead & gold bands" },
   { category: "earrings", label: "Earrings", blurb: "Hoops, studs & drops" },
-  { category: "necklaces", label: "Necklaces", blurb: "Chains & pendants" },
+  { category: "necklaces", label: "Necklaces", blurb: "Beaded & cowrie chains" },
   { category: "bracelets", label: "Bracelets", blurb: "Bangles & cuffs" },
+  { category: "watches", label: "Watches", blurb: "Afrocentric timepieces" },
+  { category: "brooches", label: "Brooches", blurb: "Pins & Adinkra symbols" },
   { category: "sets", label: "Sets", blurb: "Coordinated bridal sets" },
 ];
 
-export function PublicHeader() {
+export function PublicHeader({ announcement }: PublicHeaderProps) {
+  const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState("");
@@ -72,7 +82,7 @@ export function PublicHeader() {
     e.preventDefault();
     const q = searchValue.trim();
     if (q) {
-      window.location.assign(`/shop?q=${encodeURIComponent(q)}`);
+      router.push(`/shop?q=${encodeURIComponent(q)}`);
       setSearchOpen(false);
       setMobileOpen(false);
     }
@@ -86,12 +96,14 @@ export function PublicHeader() {
       )}
     >
       {/* announcement bar */}
-      <div className="bg-foreground text-background text-center text-[0.7rem] sm:text-xs py-2 px-4 tracking-wide">
-        <span className="inline-flex items-center gap-1.5">
-          <Sparkles className="h-3 w-3 text-gold" />
-          Handcrafted in Accra · Delivered across Ghana with care
-        </span>
-      </div>
+      {announcement && (
+        <div className="bg-foreground px-4 py-2 text-center text-[0.7rem] tracking-wide text-background sm:text-xs">
+          <span className="inline-flex items-center gap-1.5">
+            <Sparkles className="h-3 w-3 text-gold" />
+            {announcement}
+          </span>
+        </div>
+      )}
 
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
         {/* mobile menu */}
@@ -100,24 +112,24 @@ export function PublicHeader() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden h-9 w-9"
+              className="h-9 w-9 lg:hidden"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[320px] sm:w-[380px] p-0">
-            <SheetHeader className="p-4 border-b">
+          <SheetContent side="left" className="w-[320px] p-0 sm:w-[380px]">
+            <SheetHeader className="border-b p-4">
               <SheetTitle asChild>
                 <Link href="/" onClick={() => setMobileOpen(false)}>
                   <BrandLogo />
                 </Link>
               </SheetTitle>
             </SheetHeader>
-            <div className="p-4 space-y-1">
+            <div className="space-y-1 p-4">
               <form onSubmit={submitSearch} className="mb-4">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
@@ -126,26 +138,29 @@ export function PublicHeader() {
                   />
                 </div>
               </form>
-              <p className="text-xs uppercase tracking-wider text-muted-foreground px-3 pt-2 pb-1">
+              <p className="px-3 pb-1 pt-2 text-xs uppercase tracking-wider text-muted-foreground">
                 Departments
               </p>
               {DEPARTMENTS.map((d) => (
                 <SheetClose asChild key={d.category}>
                   <Link
                     href={`/shop?category=${d.category}`}
-                    className="block px-3 py-2.5 rounded-md hover:bg-muted transition-colors"
+                    className="block rounded-md px-3 py-2.5 transition-colors hover:bg-muted"
                   >
-                    <span className="font-medium block">{d.label}</span>
+                    <span className="block font-medium">{d.label}</span>
                     <span className="text-xs text-muted-foreground">{d.blurb}</span>
                   </Link>
                 </SheetClose>
               ))}
-              <div className="h-px bg-border my-3" />
+              <div className="my-3 h-px bg-border" />
               {NAV_LINKS.map((l) => (
                 <SheetClose asChild key={l.href}>
                   <Link
                     href={l.href}
-                    className="block px-3 py-2.5 rounded-md hover:bg-muted transition-colors font-medium"
+                    className={cn(
+                      "block rounded-md px-3 py-2.5 font-medium transition-colors hover:bg-muted",
+                      pathname === l.href.split("?")[0] && "text-turquoise"
+                    )}
                   >
                     {l.label}
                   </Link>
@@ -156,12 +171,16 @@ export function PublicHeader() {
         </Sheet>
 
         {/* logo */}
-        <Link href="/" className="flex items-center shrink-0" aria-label="LA GLITZ home">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center"
+          aria-label="Afrocentric Jewelry by LaGlitz home"
+        >
           <BrandLogo />
         </Link>
 
         {/* desktop nav */}
-        <NavigationMenu className="hidden lg:flex ml-6">
+        <NavigationMenu className="ml-6 hidden lg:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-transparent data-[state=open]:bg-muted">
@@ -189,33 +208,13 @@ export function PublicHeader() {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-            {NAV_LINKS.slice(0, 1).map((l) => (
+            {NAV_LINKS.map((l) => (
               <NavigationMenuItem key={l.href}>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                   <Link href={l.href}>{l.label}</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/shop?category=new-arrivals">New Arrivals</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/delivery">Delivery</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/about">About</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/contact">Contact</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 
@@ -230,7 +229,7 @@ export function PublicHeader() {
                   onChange={(e) => setSearchValue(e.target.value)}
                   onBlur={() => !searchValue && setSearchOpen(false)}
                   placeholder="Search jewelry..."
-                  className="w-48 lg:w-64 pr-8"
+                  className="w-48 pr-8 lg:w-64"
                 />
                 <button
                   type="button"
@@ -260,10 +259,10 @@ export function PublicHeader() {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden h-9 w-9"
+            className="h-9 w-9 md:hidden"
             onClick={() => {
               const q = window.prompt("Search jewelry:");
-              if (q && q.trim()) window.location.assign(`/shop?q=${encodeURIComponent(q.trim())}`);
+              if (q && q.trim()) router.push(`/shop?q=${encodeURIComponent(q.trim())}`);
             }}
             aria-label="Search"
           >
@@ -277,3 +276,5 @@ export function PublicHeader() {
     </header>
   );
 }
+
+export { CATEGORY_LABELS };

@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useCart } from "@/stores/cart";
-export { useCart };
 
 /**
  * Cart provider - keeps cart hydrated on first client render

@@ -2,15 +2,23 @@
 
 import * as React from "react";
 import { useCart } from "@/stores/cart";
+import { useCartHydrated } from "@/components/cart/cart-provider";
 
 /**
- * Clears the cart on mount. Used on the verify-success page so the bag is
- * emptied once payment has been confirmed. Renders nothing.
+ * Clears the cart on the checkout success page.
+ * Renders nothing.
  */
 export function ClearCartOnSuccess() {
+  const hydrated = useCartHydrated();
   const clear = useCart((s) => s.clear);
+  const clearedRef = React.useRef(false);
+
   React.useEffect(() => {
+    if (!hydrated) return;
+    if (clearedRef.current) return;
+    clearedRef.current = true;
     clear();
-  }, [clear]);
+  }, [hydrated, clear]);
+
   return null;
 }

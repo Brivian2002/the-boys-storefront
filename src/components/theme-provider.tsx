@@ -88,7 +88,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = React.useCallback(() => {
     setState((prev) => {
-      const next: ThemeState = { ...prev, theme: prev.theme === "dark" ? "light" : "dark" };
+      const next = { ...prev, theme: prev.theme === "dark" ? "light" : "dark" };
       persist(next);
       return next;
     });
@@ -96,7 +96,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const togglePalette = React.useCallback(() => {
     setState((prev) => {
-      const next: ThemeState = { ...prev, palette: prev.palette === "commerce" ? "luxury" : "commerce" };
+      const next = { ...prev, palette: prev.palette === "commerce" ? "luxury" : "commerce" };
       persist(next);
       return next;
     });

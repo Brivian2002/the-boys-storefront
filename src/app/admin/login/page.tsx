@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { getSession, hasAdminPassword, hasGoogleOAuth } from "@/lib/auth/admin-session";
-import { LoginForm } from "./login-form";
+import { getSession, adminUserCount } from "@/lib/auth/admin-session";
+import { LoginScreen } from "./login-screen";
 
 export const dynamic = "force-dynamic";
 
@@ -9,12 +9,6 @@ export default async function AdminLoginPage() {
   if (session) {
     redirect("/admin");
   }
-  return (
-    <LoginForm
-      initialInfo={{
-        hasPassword: hasAdminPassword(),
-        hasGoogleOAuth: hasGoogleOAuth(),
-      }}
-    />
-  );
+  const userCount = await adminUserCount().catch(() => 0);
+  return <LoginScreen firstRun={userCount === 0} />;
 }

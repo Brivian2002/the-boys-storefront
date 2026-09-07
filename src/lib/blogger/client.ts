@@ -1,165 +1,429 @@
+/**
+ * Public catalog service.
+ *
+ * Reads from the DB Product cache (which is refreshed from Blogger by the
+ * admin layer / refreshCatalog). When the cache is empty AND Blogger is
+ * configured, a fresh pull is attempted. When Blogger is NOT configured,
+ * the storefront simply renders an empty catalog state — no mock products.
+ *
+ * The DB cache is the source of truth for the storefront so a Blogger
+ * outage never takes the shop down. The admin layer owns keeping the cache
+ * in sync (refresh button + post-mutation re-pull).
+ */
+
 import "server-only";
-import { parseLabels, titleToSlug } from "./parser";
-import type { CatalogQuery, CatalogResult, Category, Product, ProductFacet } from "./types";
+import { db } from "@/lib/db";
+import { bloggerConfigured, fetchPosts } from "./api";
+import { postToProduct } from "./serializer";
+import { MOCK_PRODUCTS } from "./mock-catalog";
+import type {
+  CatalogQuery,
+  CatalogResult,
+  Category,
+  Product,
+  ProductFacet,
+} from "./types";
 
-const BLOGGER_API = "https://www.googleapis.com/blogger/v3";
-const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
-const CACHE_TTL_MS = 60_000;
-const CACHE_STALE_MS = 10 * 60_000;
+const REFRESH_TTL_MS = 5 * 60_000; // 5 minutes between auto-refreshes
+let lastAutoRefresh = 0;
 
-export type BloggerPost = {
-  id: string;
-  title: string;
-  content?: string;
-  labels?: string[];
-  published?: string;
-  updated?: string;
-};
-
-type CacheEntry = { products: Product[]; fetchedAt: number };
-let cache: CacheEntry | null = null;
-let refreshPromise: Promise<Product[]> | null = null;
-
-export function hasBloggerCredentials() {
-  return Boolean(
-    process.env.BLOGGER_BLOG_ID?.trim() &&
-      (process.env.BLOGGER_API_KEY?.trim() ||
-        (process.env.GOOGLE_BLOGGER_CLIENT_ID?.trim() &&
-          process.env.GOOGLE_BLOGGER_CLIENT_SECRET?.trim() &&
-          process.env.GOOGLE_BLOGGER_REFRESH_TOKEN?.trim()))
-  );
+function hasBloggerCredentials(): boolean {
+  return bloggerConfigured();
 }
 
-async function getAccessToken() {
-  const clientId = process.env.GOOGLE_BLOGGER_CLIENT_ID?.trim();
-  const clientSecret = process.env.GOOGLE_BLOGGER_CLIENT_SECRET?.trim();
-  const refreshToken = process.env.GOOGLE_BLOGGER_REFRESH_TOKEN?.trim();
-  if (!clientId || !clientSecret || !refreshToken) return null;
-  const response = await fetch(OAUTH_TOKEN_URL, {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({ client_id: clientId, client_secret: clientSecret, refresh_token: refreshToken, grant_type: "refresh_token" }),
-    cache: "no-store",
+/**
+ * Pull every product post from Blogger and upsert into the DB cache.
+ * Called by refreshCatalog (admin button) and lazily by getCatalog when
+ * the cache looks stale. Returns the count of products upserted.
+ */
+export async function syncFromBlogger(): Promise<number> {
+  if (!hasBloggerCredentials()) return 0;
+
+  const { posts } = await fetchPosts({ maxResults: 500, fetchBodies: true });
+  const products: Product[] = [];
+  for (const post of posts) {
+    const p = postToProduct(post);
+    if (p) products.push(p);
+  }
+
+  await db.$transaction(async (tx) => {
+    // Replace cache: delete existing, insert fresh.
+    await tx.productAttribute.deleteMany({});
+    await tx.productImage.deleteMany({});
+    await tx.product.deleteMany({});
+
+    for (const p of products) {
+      const created = await tx.product.create({
+        data: {
+          id: p.id,
+          slug: p.slug,
+          name: p.name,
+          description: p.description,
+          descriptionHtml: p.descriptionHtml ?? "",
+          price: p.price,
+          originalPrice: p.originalPrice ?? null,
+          currency: p.currency,
+          category: p.category,
+          collection: p.collection ?? null,
+          materials: JSON.stringify(p.materials),
+          availability: p.availability,
+          badges: JSON.stringify(p.badges),
+          status: p.status,
+          publishedAt: p.publishedAt ? new Date(p.publishedAt) : null,
+        },
+      });
+
+      if (p.images.length) {
+        await tx.productImage.createMany({
+          data: p.images.map((img, i) => ({
+            url: img.url,
+            alt: img.alt ?? null,
+            position: img.position ?? i,
+            productId: created.id,
+          })),
+        });
+      }
+      if (p.attributes.length) {
+        await tx.productAttribute.createMany({
+          data: p.attributes.map((a) => ({
+            name: a.name,
+            values: JSON.stringify(a.values),
+            productId: created.id,
+          })),
+        });
+      }
+    }
   });
-  if (!response.ok) throw new Error(`Blogger OAuth token request failed: ${response.status}`);
-  const data = (await response.json()) as { access_token?: string };
-  if (!data.access_token) throw new Error("Blogger OAuth token response did not include an access token");
-  return data.access_token;
+
+  lastAutoRefresh = Date.now();
+  return products.length;
 }
 
-async function fetchBloggerPosts(): Promise<BloggerPost[]> {
-  const blogId = process.env.BLOGGER_BLOG_ID?.trim();
-  if (!blogId) return [];
-  const token = await getAccessToken();
-  const params = new URLSearchParams({ fetchBodies: "true", maxResults: "500" });
-  if (!token && process.env.BLOGGER_API_KEY?.trim()) params.set("key", process.env.BLOGGER_API_KEY.trim());
-  const response = await fetch(`${BLOGGER_API}/blogs/${encodeURIComponent(blogId)}/posts?${params}`, {
-    headers: token ? { authorization: `Bearer ${token}` } : undefined,
-    cache: "no-store",
-  });
-  if (!response.ok) throw new Error(`Blogger catalog request failed: ${response.status}`);
-  const data = (await response.json()) as { items?: BloggerPost[] };
-  return data.items ?? [];
-}
+/**
+ * Read the DB cache. Lazily refresh from Blogger if the cache is empty
+ * and Blogger is configured, or if the auto-refresh TTL has elapsed.
+ */
+export async function getCatalog(): Promise<{
+  products: Product[];
+  source: "blogger" | "db" | "empty";
+  fresh: boolean;
+}> {
+  const products = await readFromDb();
 
-function stripHtml(html: string) {
-  return html.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<style[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-}
+  if (hasBloggerCredentials() && Date.now() - lastAutoRefresh > REFRESH_TTL_MS) {
+    // background-ish refresh — await it so the first render after TTL is fresh
+    try {
+      await syncFromBlogger();
+      lastAutoRefresh = Date.now();
+      const refreshed = await readFromDb();
+      return {
+        products: refreshed,
+        source: refreshed.length ? "blogger" : "empty",
+        fresh: true,
+      };
+    } catch {
+      // Blogger error — serve stale cache
+      return {
+        products,
+        source: products.length ? "db" : "empty",
+        fresh: false,
+      };
+    }
+  }
 
-export function postToProduct(post: BloggerPost): Product | null {
-  const labels = post.labels ?? [];
-  const parsed = parseLabels(labels);
-  if (!parsed.isProduct || parsed.isHidden || parsed.price === undefined || !parsed.category) return null;
-  const content = post.content ?? "";
-  const images = Array.from(content.matchAll(/<img[^>]+src=["']([^"']+)["'][^>]*>/gi)).map((match) => ({ url: match[1], alt: post.title }));
-  const publishedAt = post.published ?? post.updated ?? new Date(0).toISOString();
-  const updatedAt = post.updated ?? publishedAt;
   return {
-    id: post.id,
-    slug: titleToSlug(post.title),
-    name: post.title.trim(),
-    description: stripHtml(content),
-    descriptionHtml: content,
-    price: parsed.price,
-    currency: parsed.currency ?? "GHS",
-    category: parsed.category,
-    collection: parsed.collection,
-    material: parsed.materials[0] ?? "",
-    materials: parsed.materials,
-    availability: parsed.availability ?? "in-stock",
-    badges: parsed.badges,
-    images,
-    attributes: parsed.attributes,
-    publishedAt,
-    updatedAt,
-    status: post.published ? "published" : "draft",
+    products,
+    source: products.length ? (hasBloggerCredentials() ? "blogger" : "db") : "empty",
+    fresh: true,
   };
 }
 
-async function fetchCatalogRaw() {
-  if (!hasBloggerCredentials()) return [];
-  const posts = await fetchBloggerPosts();
-  return posts.map(postToProduct).filter((product): product is Product => Boolean(product));
+async function readFromDb(): Promise<Product[]> {
+  const rows = await db.product.findMany({
+    include: { images: true, attributes: true },
+    orderBy: { publishedAt: "desc" },
+  });
+  return rows.map(rowToProduct);
 }
 
-export async function getCatalog(): Promise<{ products: Product[]; source: "blogger" | "empty"; fresh: boolean }> {
-  if (!hasBloggerCredentials()) return { products: [], source: "empty", fresh: true };
-  const now = Date.now();
-  if (cache && now - cache.fetchedAt < CACHE_TTL_MS) return { products: cache.products, source: "blogger", fresh: true };
-  if (cache && now - cache.fetchedAt < CACHE_STALE_MS) {
-    if (!refreshPromise) refreshPromise = fetchCatalogRaw().then((products) => { cache = { products, fetchedAt: Date.now() }; return products; }).finally(() => { refreshPromise = null; });
-    return { products: cache.products, source: "blogger", fresh: false };
-  }
-  if (!refreshPromise) refreshPromise = fetchCatalogRaw().then((products) => { cache = { products, fetchedAt: Date.now() }; return products; }).finally(() => { refreshPromise = null; });
-  try {
-    return { products: await refreshPromise, source: "blogger", fresh: true };
-  } catch (error) {
-    if (cache) return { products: cache.products, source: "blogger", fresh: false };
-    throw error;
-  }
+function rowToProduct(
+  row: Awaited<ReturnType<typeof db.product.findFirst>> & {}
+): Product {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    description: row.description,
+    descriptionHtml: row.descriptionHtml || undefined,
+    price: row.price,
+    originalPrice: row.originalPrice ?? undefined,
+    currency: row.currency as Product["currency"],
+    category: row.category as Category,
+    collection: row.collection ?? undefined,
+    material: (JSON.parse(row.materials) as string[])[0] ?? "",
+    materials: JSON.parse(row.materials) as string[],
+    availability: row.availability as Product["availability"],
+    badges: JSON.parse(row.badges) as Product["badges"],
+    images: (row.images ?? [])
+      .sort((a, b) => a.position - b.position)
+      .map((i) => ({ url: i.url, alt: i.alt ?? undefined, position: i.position })),
+    attributes: (row.attributes ?? []).map((a) => ({
+      name: a.name,
+      values: JSON.parse(a.values) as string[],
+    })),
+    publishedAt: row.publishedAt?.toISOString() ?? new Date().toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
+    status: row.status as Product["status"],
+  };
 }
 
-export async function refreshCatalog() { cache = null; refreshPromise = null; await getCatalog(); }
+/**
+ * Force a refresh (admin button). Always pulls from Blogger.
+ */
+export async function refreshCatalog(): Promise<{ count: number; source: string }> {
+  if (!hasBloggerCredentials()) {
+    return { count: 0, source: "empty" };
+  }
+  const count = await syncFromBlogger();
+  return { count, source: "blogger" };
+}
 
+/**
+ * Query the catalog with filtering, sorting, and pagination.
+ * Builds dynamic facets from real product data only.
+ */
 export async function queryCatalog(query: CatalogQuery = {}): Promise<CatalogResult> {
   const { products } = await getCatalog();
+
   let filtered = products.slice();
-  if (query.category && query.category !== "all") filtered = query.category === "new-arrivals" ? filtered.filter((p) => p.badges.includes("new-arrival")) : filtered.filter((p) => p.category === query.category);
-  if (query.search?.trim()) {
-    const q = query.search.trim().toLowerCase();
-    filtered = filtered.filter((p) => [p.name, p.description, p.material, p.category, p.collection ?? "", p.availability, ...p.materials, ...p.badges, ...p.attributes.flatMap((a) => [a.name, ...a.values])].join(" ").toLowerCase().includes(q));
+
+  if (query.category && query.category !== "all") {
+    if (query.category === "new-arrivals") {
+      filtered = filtered.filter((p) => p.badges.includes("new-arrival"));
+    } else {
+      filtered = filtered.filter((p) => p.category === query.category);
+    }
   }
-  if (query.collection) filtered = filtered.filter((p) => p.collection?.toLowerCase() === query.collection!.toLowerCase());
-  if (query.material) filtered = filtered.filter((p) => p.materials.some((m) => m.toLowerCase() === query.material!.toLowerCase()));
-  if (query.availability && query.availability !== "all") filtered = filtered.filter((p) => p.availability === query.availability);
-  if (query.badges?.length) filtered = filtered.filter((p) => p.badges.some((b) => query.badges!.includes(b)));
-  if (typeof query.minPrice === "number") filtered = filtered.filter((p) => p.price >= query.minPrice!);
-  if (typeof query.maxPrice === "number") filtered = filtered.filter((p) => p.price <= query.maxPrice!);
-  if (query.attributes) for (const [name, values] of Object.entries(query.attributes)) if (values.length) filtered = filtered.filter((p) => p.attributes.some((a) => a.name.toLowerCase() === name.toLowerCase() && a.values.some((v) => values.map((value) => value.toLowerCase()).includes(v.toLowerCase()))));
-  if (query.sort === "price-asc") filtered.sort((a, b) => a.price - b.price);
-  else if (query.sort === "price-desc") filtered.sort((a, b) => b.price - a.price);
-  else if (query.sort === "popular") filtered.sort((a, b) => Number(b.badges.includes("bestseller")) - Number(a.badges.includes("bestseller")));
-  else filtered.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+  if (query.search && query.search.trim()) {
+    const q = query.search.trim().toLowerCase();
+    filtered = filtered.filter((p) => {
+      const haystack = [
+        p.name,
+        p.description,
+        p.material,
+        p.category,
+        p.collection ?? "",
+        p.availability,
+        ...p.materials,
+        ...p.badges,
+        ...p.attributes.flatMap((a) => [a.name, ...a.values]),
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(q);
+    });
+  }
+
+  if (query.collection) {
+    filtered = filtered.filter(
+      (p) => p.collection?.toLowerCase() === query.collection!.toLowerCase()
+    );
+  }
+
+  if (query.material) {
+    filtered = filtered.filter((p) =>
+      p.materials.some((m) => m.toLowerCase() === query.material!.toLowerCase())
+    );
+  }
+
+  if (query.availability && query.availability !== "all") {
+    filtered = filtered.filter((p) => p.availability === query.availability);
+  }
+
+  if (query.badges && query.badges.length) {
+    const wanted = new Set(query.badges);
+    filtered = filtered.filter((p) => p.badges.some((b) => wanted.has(b)));
+  }
+
+  if (typeof query.minPrice === "number") {
+    filtered = filtered.filter((p) => p.price >= query.minPrice!);
+  }
+  if (typeof query.maxPrice === "number") {
+    filtered = filtered.filter((p) => p.price <= query.maxPrice!);
+  }
+
+  if (query.attributes) {
+    for (const [name, values] of Object.entries(query.attributes)) {
+      if (!values.length) continue;
+      const wanted = new Set(values.map((v) => v.toLowerCase()));
+      filtered = filtered.filter((p) =>
+        p.attributes.some(
+          (a) =>
+            a.name.toLowerCase() === name.toLowerCase() &&
+            a.values.some((v) => wanted.has(v.toLowerCase()))
+        )
+      );
+    }
+  }
+
+  switch (query.sort) {
+    case "price-asc":
+      filtered.sort((a, b) => a.price - b.price);
+      break;
+    case "price-desc":
+      filtered.sort((a, b) => b.price - a.price);
+      break;
+    case "popular":
+      filtered.sort((a, b) => {
+        const score = (p: Product) =>
+          p.badges.includes("bestseller") ? 2 : p.badges.includes("featured") ? 1 : 0;
+        return score(b) - score(a);
+      });
+      break;
+    case "newest":
+    default:
+      filtered.sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+      );
+  }
+
   const total = filtered.length;
   const page = Math.max(1, query.page ?? 1);
   const pageSize = Math.min(60, Math.max(1, query.pageSize ?? 12));
-  return { products: filtered.slice((page - 1) * pageSize, page * pageSize), total, facets: buildFacets(filtered) };
+  const start = (page - 1) * pageSize;
+  const paged = filtered.slice(start, start + pageSize);
+  const facets = buildFacets(filtered);
+
+  return { products: paged, total, facets };
 }
 
 function buildFacets(products: Product[]): ProductFacet[] {
-  const make = (field: string, label: string, values: Iterable<string>) => { const counts = new Map<string, number>(); for (const value of values) counts.set(value, (counts.get(value) ?? 0) + 1); return { field, label, values: Array.from(counts, ([value, count]) => ({ value, count })).sort((a, b) => b.count - a.count) }; };
-  const facets: ProductFacet[] = [make("category", "Category", products.map((p) => p.category)), make("material", "Material", products.flatMap((p) => p.materials)), make("availability", "Availability", products.map((p) => p.availability))];
-  const collections = products.map((p) => p.collection).filter((v): v is string => Boolean(v));
-  if (collections.length) facets.push(make("collection", "Collection", collections));
-  const attrs = new Map<string, string[]>();
-  for (const product of products) for (const attribute of product.attributes) attrs.set(attribute.name, [...(attrs.get(attribute.name) ?? []), ...attribute.values]);
-  for (const [name, values] of attrs) facets.push(make(`attr:${name}`, name, values));
+  const facets: ProductFacet[] = [];
+
+  const catCounts = new Map<string, number>();
+  for (const p of products) catCounts.set(p.category, (catCounts.get(p.category) ?? 0) + 1);
+  facets.push({
+    field: "category",
+    label: "Category",
+    values: Array.from(catCounts.entries())
+      .map(([value, count]) => ({ value, count }))
+      .sort((a, b) => b.count - a.count),
+  });
+
+  const matCounts = new Map<string, number>();
+  for (const p of products) {
+    for (const m of p.materials) matCounts.set(m, (matCounts.get(m) ?? 0) + 1);
+  }
+  facets.push({
+    field: "material",
+    label: "Material",
+    values: Array.from(matCounts.entries())
+      .map(([value, count]) => ({ value, count }))
+      .sort((a, b) => b.count - a.count),
+  });
+
+  const availCounts = new Map<string, number>();
+  for (const p of products) availCounts.set(p.availability, (availCounts.get(p.availability) ?? 0) + 1);
+  facets.push({
+    field: "availability",
+    label: "Availability",
+    values: Array.from(availCounts.entries())
+      .map(([value, count]) => ({ value, count }))
+      .sort((a, b) => b.count - a.count),
+  });
+
+  const colCounts = new Map<string, number>();
+  for (const p of products) {
+    if (p.collection) colCounts.set(p.collection, (colCounts.get(p.collection) ?? 0) + 1);
+  }
+  if (colCounts.size) {
+    facets.push({
+      field: "collection",
+      label: "Collection",
+      values: Array.from(colCounts.entries())
+        .map(([value, count]) => ({ value, count }))
+        .sort((a, b) => b.count - a.count),
+    });
+  }
+
+  const attrMap = new Map<string, Map<string, number>>();
+  for (const p of products) {
+    for (const a of p.attributes) {
+      const inner = attrMap.get(a.name) ?? new Map<string, number>();
+      for (const v of a.values) inner.set(v, (inner.get(v) ?? 0) + 1);
+      attrMap.set(a.name, inner);
+    }
+  }
+  for (const [name, inner] of attrMap) {
+    facets.push({
+      field: `attr:${name}`,
+      label: name,
+      values: Array.from(inner.entries())
+        .map(([value, count]) => ({ value, count }))
+        .sort((a, b) => b.count - a.count),
+    });
+  }
+
   return facets;
 }
 
-export async function getProductBySlug(slug: string) { return (await getCatalog()).products.find((p) => p.slug === slug) ?? null; }
-export async function getRelatedProducts(product: Product, limit = 4) { return (await getCatalog()).products.filter((p) => p.id !== product.id).map((p) => ({ p, score: (p.category === product.category ? 3 : 0) + (p.collection === product.collection ? 2 : 0) + p.materials.filter((m) => product.materials.includes(m)).length })).sort((a, b) => b.score - a.score).slice(0, limit).map(({ p }) => p); }
-export async function getNewArrivals(limit = 8) { return (await getCatalog()).products.slice().sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()).slice(0, limit); }
-export async function getFeaturedProducts(limit = 8) { return (await getCatalog()).products.filter((p) => p.badges.includes("featured")).slice(0, limit); }
-export async function getActiveCategories() { const counts = new Map<Category, number>(); for (const p of (await getCatalog()).products) counts.set(p.category, (counts.get(p.category) ?? 0) + 1); return Array.from(counts, ([category, count]) => ({ category, count })).sort((a, b) => b.count - a.count); }
-export async function getCatalogStatus() { const { products, source, fresh } = await getCatalog(); return { source, fresh, total: products.length, published: products.filter((p) => p.status === "published").length, draft: products.filter((p) => p.status === "draft").length, hidden: 0, lastFetched: cache?.fetchedAt ?? Date.now(), bloggerConfigured: hasBloggerCredentials() }; }
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const { products } = await getCatalog();
+  return products.find((p) => p.slug === slug) ?? null;
+}
+
+export async function getRelatedProducts(product: Product, limit = 4): Promise<Product[]> {
+  const { products } = await getCatalog();
+  const others = products.filter((p) => p.id !== product.id);
+  const scored = others.map((p) => {
+    let score = 0;
+    if (p.category === product.category) score += 3;
+    if (p.collection && p.collection === product.collection) score += 2;
+    const sharedMaterials = p.materials.filter((m) => product.materials.includes(m)).length;
+    score += sharedMaterials;
+    return { p, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map((s) => s.p);
+}
+
+export async function getNewArrivals(limit = 8): Promise<Product[]> {
+  const { products } = await getCatalog();
+  return products
+    .slice()
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, limit);
+}
+
+export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
+  const { products } = await getCatalog();
+  const featured = products.filter((p) => p.badges.includes("featured"));
+  return (featured.length ? featured : products).slice(0, limit);
+}
+
+export async function getActiveCategories(): Promise<{ category: Category; count: number }[]> {
+  const { products } = await getCatalog();
+  const counts = new Map<Category, number>();
+  for (const p of products) counts.set(p.category, (counts.get(p.category) ?? 0) + 1);
+  return Array.from(counts.entries())
+    .map(([category, count]) => ({ category, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+export async function getCatalogStatus() {
+  const { source, fresh, products } = await getCatalog();
+  return {
+    source,
+    fresh,
+    total: products.length,
+    published: products.filter((p) => p.status === "published").length,
+    draft: products.filter((p) => p.status === "draft").length,
+    hidden: products.filter((p) => p.status === "hidden").length,
+    lastFetched: lastAutoRefresh || Date.now(),
+    bloggerConfigured: hasBloggerCredentials(),
+  };
+}
+
+export { MOCK_PRODUCTS };

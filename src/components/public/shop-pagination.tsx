@@ -24,8 +24,8 @@ export function ShopPagination({
   current: number;
   total: number;
 }) {
-  const pathname = usePathname() ?? "/shop";
-  const sp = useSearchParams() ?? new URLSearchParams();
+  const pathname = usePathname();
+  const sp = useSearchParams();
 
   const hrefForPage = React.useCallback(
     (page: number) => {

@@ -1,174 +1,155 @@
 /**
- * Paystack hosted checkout integration (server-only).
+ * Paystack API client.
  *
- * Flow:
- *   1. Browser posts cart (product IDs + quantities + customer info) to
- *      /api/checkout.
- *   2. Server reloads authoritative Blogger products, verifies availability,
- *      recomputes totals, converts to Paystack minor units, and initializes
- *      a transaction with PAYSTACK_SECRET_KEY.
- *   3. Browser is redirected to the Paystack hosted checkout URL.
- *   4. Paystack redirects back to /checkout/verify?reference=...
- *   5. Server verifies the transaction via the Paystack API before showing
- *      success.
- *   6. Paystack webhook (HMAC-SHA512 validated) records the sale for the
- *      admin dashboard.
- *
- * PAYSTACK_SECRET_KEY is mandatory for checkout and verification. Missing
- * credentials produce a safe configuration error; payment is never emulated.
+ * REAL implementation — no demo fallback. Throws when PAYSTACK_SECRET_KEY
+ * is missing so misconfiguration surfaces immediately rather than silently
+ * charging nothing.
  */
 
 import "server-only";
 import * as crypto from "crypto";
-import { toMinorUnits, fromMinorUnits } from "@/lib/ghana";
+import { env } from "@/lib/env";
 
-export interface PaystackLineItem {
-  productId: string;
-  name: string;
-  quantity: number;
-  unitPrice: number; // major units
-  currency: "GHS" | "USD";
-}
+const BASE = "https://api.paystack.co";
 
-export interface PaystackInitInput {
-  lines: PaystackLineItem[];
+export interface InitializeTxInput {
   email: string;
-  deliveryFee: number;
-  currency: "GHS" | "USD";
-  deliveryName: string;
-  deliveryPhone: string;
-  deliveryRegion: string;
-  deliveryAddress: string;
-  notes?: string;
-}
-
-export interface PaystackInitResult {
-  authorizationUrl: string;
+  amountMinor: number;
+  currency?: "GHS" | "USD";
   reference: string;
-  accessCode: string;
+  callbackUrl: string;
+  metadata?: Record<string, unknown>;
+  channels?: string[];
 }
 
-export interface PaystackVerifyResult {
-  status: "success" | "failed" | "pending";
+export interface InitializeTxResult {
+  authorizationUrl: string;
+  accessCode: string;
+  reference: string;
+}
+
+export interface VerifyTxResult {
+  status: boolean;
   reference: string;
   amount: number; // minor units
-  currency: "GHS" | "USD";
-  channel: string;
+  currency: string;
+  channel: string | null;
   customerEmail: string;
-  paidAt: string;
+  paidAt: string | null;
+  gatewayResponse: string;
   fees: number;
 }
 
-function hasPaystack(): boolean {
-  return Boolean(process.env.PAYSTACK_SECRET_KEY);
+function getKey(): string {
+  const key = env().PAYSTACK_SECRET_KEY;
+  if (!key) {
+    throw new Error(
+      "PAYSTACK_SECRET_KEY is not configured. Add it to .env to enable live payments."
+    );
+  }
+  return key;
 }
 
-function genReference(): string {
-  const t = Date.now().toString(36);
-  const r = Math.random().toString(36).slice(2, 8);
-  return `LG-${t}-${r}`.toUpperCase();
-}
-
-/**
- * Initialize a Paystack transaction.
- */
 export async function initializeTransaction(
-  input: PaystackInitInput
-): Promise<PaystackInitResult> {
-  const reference = genReference();
-  const itemsTotal = input.lines.reduce((s, l) => s + l.unitPrice * l.quantity, 0);
-  const grandTotal = itemsTotal + input.deliveryFee;
-  const minor = toMinorUnits(grandTotal, input.currency);
-
-  if (!hasPaystack()) throw new Error("Paystack checkout is not configured.");
-
-  const baseUrl = process.env.APP_BASE_URL ?? "https://la-glitz.vercel.app";
-  const res = await fetch("https://api.paystack.co/transaction/initialize", {
+  input: InitializeTxInput
+): Promise<InitializeTxResult> {
+  const res = await fetch(`${BASE}/transaction/initialize`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+      Authorization: `Bearer ${getKey()}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      reference,
-      amount: minor,
-      currency: input.currency,
       email: input.email,
-      callback_url: `${baseUrl}/checkout/verify?reference=${reference}`,
-      metadata: {
-        custom_fields: [
-          { display_name: "Customer Name", variable_name: "customer_name", value: input.deliveryName },
-          { display_name: "Phone", variable_name: "phone", value: input.deliveryPhone },
-          { display_name: "Region", variable_name: "region", value: input.deliveryRegion },
-          { display_name: "Address", variable_name: "address", value: input.deliveryAddress },
-          { display_name: "Notes", variable_name: "notes", value: input.notes ?? "" },
-        ],
-        line_items: input.lines.map((l) => ({
-          product_id: l.productId,
-          name: l.name,
-          quantity: l.quantity,
-          unit_price: l.unitPrice,
-        })),
-      },
+      amount: input.amountMinor,
+      currency: input.currency ?? "GHS",
+      reference: input.reference,
+      callback_url: input.callbackUrl,
+      metadata: input.metadata,
+      channels: input.channels,
     }),
   });
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`Paystack init failed (${res.status}): ${text}`);
+  const json = (await res.json()) as {
+    status: boolean;
+    message: string;
+    data?: { authorization_url: string; access_code: string; reference: string };
+  };
+  if (!res.ok || !json.status || !json.data) {
+    throw new Error(
+      `Paystack initialize failed: ${res.status} ${json.message ?? res.statusText}`
+    );
   }
-  const json = await res.json();
   return {
     authorizationUrl: json.data.authorization_url,
-    reference,
     accessCode: json.data.access_code,
+    reference: json.data.reference,
   };
 }
 
-/**
- * Verify a transaction by reference. Never trust a browser redirect.
- */
 export async function verifyTransaction(
   reference: string
-): Promise<PaystackVerifyResult> {
-  if (!hasPaystack()) throw new Error("Paystack verification is not configured.");
-
-  const res = await fetch(`https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`Paystack verify failed (${res.status})`);
+): Promise<VerifyTxResult> {
+  const res = await fetch(
+    `${BASE}/transaction/verify/${encodeURIComponent(reference)}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${getKey()}` },
+    }
+  );
+  const json = (await res.json()) as {
+    status: boolean;
+    message: string;
+    data?: {
+      status: string;
+      reference: string;
+      amount: number;
+      currency: string;
+      channel: string | null;
+      customer?: { email: string };
+      paid_at: string | null;
+      gateway_response: string;
+      fees: number;
+    };
+  };
+  if (!res.ok || !json.status || !json.data) {
+    throw new Error(
+      `Paystack verify failed: ${res.status} ${json.message ?? res.statusText}`
+    );
   }
-  const json = await res.json();
-  const data = json.data;
+  const d = json.data;
   return {
-    status: data.status === "success" ? "success" : data.status === "pending" ? "pending" : "failed",
-    reference: data.reference,
-    amount: data.amount,
-    currency: data.currency ?? "GHS",
-    channel: data.channel ?? "card",
-    customerEmail: data.customer?.email ?? "",
-    paidAt: data.paid_at ?? new Date().toISOString(),
-    fees: data.fees ?? 0,
+    status: d.status === "success",
+    reference: d.reference,
+    amount: d.amount,
+    currency: d.currency,
+    channel: d.channel,
+    customerEmail: d.customer?.email ?? "",
+    paidAt: d.paid_at,
+    gatewayResponse: d.gateway_response,
+    fees: d.fees ?? 0,
   };
 }
 
 /**
- * Validate the Paystack webhook HMAC-SHA512 signature.
- * Reads the raw body BEFORE JSON parsing.
+ * Validate a Paystack webhook event using the x-paystack-signature header.
+ * The signature is an HMAC-SHA512 of the raw request body keyed by the
+ * secret key.
  */
 export function validateWebhookSignature(
   rawBody: string,
   signature: string | null
 ): boolean {
-  const secret = process.env.PAYSTACK_SECRET_KEY;
-  if (!secret || !signature) return false;
-  const hash = crypto
-    .createHmac("sha512", secret)
+  if (!signature) return false;
+  const key = env().PAYSTACK_SECRET_KEY;
+  if (!key) return false;
+  const expected = crypto
+    .createHmac("sha512", key)
     .update(rawBody)
     .digest("hex");
-  return hash === signature;
+  if (expected.length !== signature.length) return false;
+  try {
+    return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  } catch {
+    return false;
+  }
 }
-
-export { fromMinorUnits, toMinorUnits, hasPaystack };

@@ -28,7 +28,7 @@ import {
 export const metadata: Metadata = {
   title: "Shop All Jewelry",
   description:
-    "Browse the full LA GLITZ collection of handcrafted gold rings, earrings, necklaces, bracelets and sets. Made in Accra, Ghana.",
+    "Browse the full Afrocentric Jewelry by LaGlitz collection of handcrafted rings, earrings, necklaces, bracelets and sets. Made in Ashaley Botwe, Madina, Ghana.",
   alternates: { canonical: "/shop" },
 };
 
@@ -137,7 +137,7 @@ export default async function ShopPage({
               </h1>
               <p className="mt-2 text-sm text-muted-foreground">
                 {result.total} {result.total === 1 ? "piece" : "pieces"} ·
-                Handcrafted in Accra
+                Handcrafted in Ashaley Botwe, Madina
               </p>
             </div>
             <div className="flex items-center gap-2">

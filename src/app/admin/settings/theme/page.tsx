@@ -12,7 +12,7 @@ export default async function AdminThemePage() {
   return (
     <AdminShell
       active="theme"
-      title="Theme &amp; palette"
+      title="Theme & palette"
       description="Switch palettes and light/dark mode"
       session={session}
     >

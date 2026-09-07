@@ -22,8 +22,8 @@ const SORT_OPTIONS: { value: string; label: string }[] = [
  */
 export function SortSelect({ current = "newest" }: { current?: string }) {
   const router = useRouter();
-  const pathname = usePathname() ?? "/shop";
-  const sp = useSearchParams() ?? new URLSearchParams();
+  const pathname = usePathname();
+  const sp = useSearchParams();
 
   function onChange(value: string) {
     const params = new URLSearchParams(sp.toString());

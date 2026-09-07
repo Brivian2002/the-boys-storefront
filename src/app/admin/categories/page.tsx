@@ -1,57 +1,93 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import { getSession } from "@/lib/auth/admin-session";
 import { AdminShell } from "@/components/admin/admin-shell";
-import { CATEGORY_LABELS, CATEGORY_DESCRIPTIONS, type Category } from "@/lib/blogger/types";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ExternalLink, Tag } from "lucide-react";
+import { CategoryEditor } from "@/components/admin/category-editor";
+import {
+  CATEGORY_LABELS,
+  CATEGORY_DESCRIPTIONS,
+  type Category,
+} from "@/lib/blogger/types";
+import { getSiteSettings } from "@/lib/site/store";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 const CATEGORY_ENTRIES = Object.entries(CATEGORY_LABELS) as [Category, string][];
 
+async function loadCategoryCopy(): Promise<Record<Category, string>> {
+  const out: Record<string, string> = { ...CATEGORY_DESCRIPTIONS };
+  try {
+    const rows = await db.siteSetting.findMany({
+      where: { key: { startsWith: "category:description:" } },
+    });
+    for (const r of rows) {
+      const key = r.key.replace("category:description:", "");
+      out[key] = r.value;
+    }
+  } catch {
+    // ignore — fall back to defaults
+  }
+  return out as Record<Category, string>;
+}
+
 export default async function AdminCategoriesPage() {
   const session = await getSession();
   if (!session) redirect("/admin/login");
 
+  // Make sure site settings are seeded (so /api/admin/categories has somewhere to write)
+  await getSiteSettings().catch(() => null);
+  const copy = await loadCategoryCopy();
+
   return (
     <AdminShell
       active="categories"
-      title="Catalog taxonomy"
-      description="Blogger labels drive the storefront categories and filters."
+      title="Categories"
+      description="Edit the merchandising copy shown on /shop?category=..."
       session={session}
     >
-      <Card className="mb-6 border-primary/20 bg-primary/5">
-        <CardContent className="flex items-start gap-3 py-4">
-          <Tag className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-          <div className="text-sm">
-            <p className="font-medium">Live Blogger taxonomy</p>
-            <p className="mt-1 text-muted-foreground">
-              Categories are derived from labels on published Blogger product posts. Add or change a category from the product composer; the storefront updates from Blogger on its next catalog refresh.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-2">
         {CATEGORY_ENTRIES.map(([key, label]) => (
-          <Card key={key}>
-            <CardHeader>
-              <CardTitle className="text-base">{label}</CardTitle>
-              <CardDescription className="font-mono text-[0.7rem]">label: category-{key}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">{CATEGORY_DESCRIPTIONS[key]}</p>
-              <Button asChild variant="outline" size="sm">
-                <Link href={`/shop?category=${key}`} target="_blank" rel="noopener noreferrer">
-                  View storefront <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+          <CategoryEditor
+            key={key}
+            categoryKey={key}
+            label={label}
+            defaultDescription={CATEGORY_DESCRIPTIONS[key]}
+            initialDescription={copy[key]}
+          />
         ))}
       </div>
+
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle>Preview</CardTitle>
+          <CardDescription>
+            See each category live on the storefront.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-wrap gap-2">
+          {CATEGORY_ENTRIES.map(([key, label]) => (
+            <Link
+              key={key}
+              href={`/shop?category=${key}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5 text-sm hover:bg-muted transition-colors"
+            >
+              {label}
+              <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+            </Link>
+          ))}
+        </CardContent>
+      </Card>
     </AdminShell>
   );
 }

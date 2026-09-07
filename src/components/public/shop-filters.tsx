@@ -35,8 +35,8 @@ export function ShopFilters({
   inSheet = false,
   onClose,
 }: ShopFiltersProps) {
-  const pathname = usePathname() ?? "/shop";
-  const sp = useSearchParams() ?? new URLSearchParams();
+  const pathname = usePathname();
+  const sp = useSearchParams();
 
   const facetByField = React.useMemo(() => {
     const map = new Map<string, ProductFacet>();
@@ -248,8 +248,8 @@ function FilterLink({
   label: string;
   dimmed?: boolean;
 }) {
-  const sp = useSearchParams() ?? new URLSearchParams();
-  const pathname = usePathname() ?? "/shop";
+  const sp = useSearchParams();
+  const pathname = usePathname();
 
   const href = React.useMemo(() => {
     const params = new URLSearchParams(sp.toString());
@@ -305,8 +305,8 @@ function PriceRangeForm({
   currentMax: string | null;
 }) {
   const router = useRouter();
-  const pathname = usePathname() ?? "/shop";
-  const sp = useSearchParams() ?? new URLSearchParams();
+  const pathname = usePathname();
+  const sp = useSearchParams();
   const [min, setMin] = React.useState(currentMin ?? "");
   const [max, setMax] = React.useState(currentMax ?? "");
 

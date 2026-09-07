@@ -1,0 +1,146 @@
+// Prisma schema for Afrocentric Jewelry by LaGlitz.
+// SQLite is the local development provider. Scalar lists are stored as JSON
+// strings because SQLite does not support native list columns.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         String    @default("ADMIN") // OWNER | ADMIN | EDITOR
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Product {
+  id              String             @id @default(cuid())
+  slug            String             @unique
+  name            String
+  description     String             @default("")
+  descriptionHtml String             @default("")
+  price           Float              @default(0)
+  originalPrice   Float?
+  currency        String             @default("GHS")
+  category        String             @default("rings")
+  collection      String?
+  materials       String             @default("[]") // JSON string array
+  availability    String             @default("in-stock")
+  badges          String             @default("[]") // JSON string array
+  status          String             @default("published") // published | draft | hidden
+  publishedAt     DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  images      ProductImage[]
+  attributes  ProductAttribute[]
+  orderItems  OrderItem[]
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  alt       String?
+  position  Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+
+  @@index([productId])
+}
+
+model ProductAttribute {
+  id        String  @id @default(cuid())
+  name      String
+  values    String  @default("[]") // JSON string array
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+
+  @@index([productId])
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  reference       String      @unique
+  status          String      @default("pending") // pending | paid | failed | cancelled | refunded
+  amountMinor     Int
+  currency        String      @default("GHS")
+  customerEmail   String
+  deliveryName    String
+  deliveryPhone   String
+  deliveryRegion  String
+  deliveryAddress String
+  notes           String?
+  paystackChannel String?
+  paidAt          DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  items OrderItem[]
+
+  @@index([status])
+  @@index([customerEmail])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id         String  @id @default(cuid())
+  order      Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId    String
+  product    Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productId  String?
+  name       String
+  quantity   Int     @default(1)
+  unitPrice  Float
+
+  @@index([orderId])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    String   @default("new") // new | read | archived | replied
+  createdAt DateTime @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  authorName  String
+  rating      Int      @default(5)
+  text        String
+  source      String   @default("internal") // internal | google
+  isVerified  Boolean  @default(false)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([isPublished])
+  @@index([source])
+}
+
+model SiteSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

@@ -18,8 +18,8 @@ import { verifyTransaction } from "@/lib/paystack/client";
 import { SUPPORT_WHATSAPP_URL, fromMinorUnits, formatGHS } from "@/lib/ghana";
 
 export const metadata: Metadata = {
-  title: "Order confirmed · LA GLITZ",
-  description: "Your LA GLITZ order status.",
+  title: "Order confirmed · Afrocentric Jewelry by LaGlitz",
+  description: "Your Afrocentric Jewelry by LaGlitz order status.",
   robots: { index: false, follow: false },
 };
 
@@ -103,7 +103,7 @@ function SuccessView({
         </h1>
         <p className="mt-3 text-muted-foreground max-w-md leading-relaxed">
           Your payment has been received and your piece is now being prepared
-          at our Accra atelier. We've emailed a confirmation{customerEmail ? " to" : ""}
+          at our Ashaley Botwe atelier. We&apos;ve emailed a confirmation{customerEmail ? " to" : ""}
           {customerEmail ? (
             <>
               {" "}
@@ -157,8 +157,8 @@ function SuccessView({
         </div>
 
         <div className="mt-10 inline-flex items-center gap-2 text-xs text-muted-foreground">
-          <Sparkles className="h-3.5 w-3.5 text-gold" />
-          Each piece is hand-finished in our Osu atelier.
+          <Sparkles className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
+          Each piece is hand-finished in our Ashaley Botwe atelier.
         </div>
       </div>
     </>

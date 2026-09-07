@@ -1,337 +1,240 @@
-import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowRight,
   Truck,
-  PackageCheck,
-  Store,
-  ShieldCheck,
+  Package,
+  MapPin,
   Clock,
+  ShieldCheck,
+  Gift,
   MessageCircle,
-  Sparkles,
-  CreditCard,
 } from "lucide-react";
 import { PublicShell } from "@/components/public/shell";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import {
   STORE_CONTACT,
   SUPPORT_WHATSAPP_URL,
+  GHANA_REGIONS,
   formatGHS,
 } from "@/lib/ghana";
-import { getStoreConfig } from "@/lib/blogger/config-store";
 
-export const metadata: Metadata = {
-  title: "Delivery & Pickup",
+export const metadata = {
+  title: "Delivery & Pickup — Afrocentric Jewelry by LaGlitz",
   description:
-    "Delivery across Ghana with clear regional fees, careful packaging, and tracked handover from the LA GLITZ atelier.",
-  alternates: { canonical: "/delivery" },
-  openGraph: {
-    title: "Delivery & Pickup · LA GLITZ",
-    description:
-      "Ghana-wide delivery with insured, signature-required shipping and regional fees shown clearly at checkout.",
-  },
+    "Delivery across all 10 regions of Ghana. Pickup at our Ashaley Botwe atelier in Madina. See fees, ETAs, and how it works.",
 };
 
-const STEPS = [
-  {
-    icon: CreditCard,
-    title: "Order online",
-    body: "Place your order through our secure Paystack checkout. We accept Visa, Mastercard, Verve and mobile money.",
-  },
-  {
-    icon: PackageCheck,
-    title: "We prepare your piece",
-    body: "Most pieces ship within 1–3 business days. Custom and commissioned pieces take longer — we'll confirm timing at order.",
-  },
-  {
-    icon: Truck,
-    title: "Dispatch or pickup",
-    body: "Choose home delivery across Ghana with the fee for your region shown at checkout, or arrange pickup at our Osu atelier or Kumasi partner location.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Receive & enjoy",
-    body: "Insured, signature-required shipping. Your piece arrives in LA GLITZ packaging with its certificate of authenticity.",
-  },
-];
-
-const NOTES = [
-  {
-    icon: Clock,
-    title: "Processing time",
-    body: "In-stock pieces ship within 1–3 business days. Made-to-order and commissioned pieces take 2–4 weeks; we'll confirm timing when you order.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Insured & signed for",
-    body: "Every shipment is fully insured for its declared value and requires a signature on delivery. Please have ID available for the courier.",
-  },
-  {
-    icon: PackageCheck,
-    title: "Packaging",
-    body: "Each piece ships in signature LA GLITZ packaging with its certificate of authenticity and care card. Gift wrapping available on request at no charge.",
-  },
-  {
-    icon: Truck,
-    title: "International shipping",
-    body: "We currently ship within Ghana only. For international delivery, please contact us on WhatsApp and we'll arrange a courier quote for your destination.",
-  },
-];
-
-export default async function DeliveryPage() {
-  const { regions } = await getStoreConfig();
+export default function DeliveryPage() {
   return (
     <PublicShell>
-      {/* ===== BREADCRUMB ===== */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Delivery & Pickup</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-
-      {/* ===== HERO ===== */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="max-w-3xl">
-          <Badge variant="secondary" className="mb-5">
-            <Truck className="h-3 w-3 mr-1.5" />
-            Ghana-wide delivery
-          </Badge>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight">
-            Delivery across <span className="text-gold-gradient">Ghana.</span>
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">
-            We deliver across Ghana, bringing you beautiful jewelry from the LA GLITZ atelier. Every order is carefully packaged, insured, tracked, and signed for, with the delivery fee for your region shown clearly at checkout.
-          </p>
-        </div>
-      </section>
-
-      {/* ===== DELIVERY PROMISE ===== */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="rounded-lg border border-gold/30 bg-gold-soft p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-          <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-background text-foreground border border-border">
-            <Sparkles className="h-5 w-5 text-gold" />
+      {/* ===== HERO SPLIT ===== */}
+      <section className="border-b border-border bg-muted/30">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+          <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-center">
+            <div className="space-y-5">
+              <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+                Delivery &amp; Pickup
+              </p>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight">
+                Delivery across Ghana —
+                <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 bg-clip-text text-transparent">
+                  {" "}pickup in Madina.
+                </span>
+              </h1>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Every order ships insured and signed for. We deliver to all 10
+                regions of Ghana, with same-day pickup available at our Ashaley
+                Botwe atelier.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Button asChild>
+                  <Link href="/shop">
+                    Start shopping
+                  </Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <a
+                    href={SUPPORT_WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    Ask about delivery
+                  </a>
+                </Button>
+              </div>
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
+              <Image
+                src="/delivery/truck.jpg"
+                alt="Afrocentric Jewelry by LaGlitz delivery gift box"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
           </div>
-          <div className="flex-1">
-            <h2 className="font-serif text-xl sm:text-2xl font-semibold">Carefully packaged, delivered across Ghana.</h2>
-            <p className="text-sm text-muted-foreground mt-1">Regional delivery fees are shown before payment. Pickup is available by arrangement at selected locations.</p>
-          </div>
-          <Button asChild className="shrink-0">
-            <Link href="/shop">Shop the collection<ArrowRight className="ml-2 h-4 w-4" /></Link>
-          </Button>
         </div>
       </section>
 
       {/* ===== REGIONS TABLE ===== */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="max-w-2xl mb-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-            Regions & fees
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div className="mb-10">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+            Regional delivery
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-            Delivery fees by region.
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+            Fees &amp; estimated times
           </h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed">
-            Flat fees, no surprises. All shipments are insured and require a
-            signature on delivery.
+          <p className="mt-3 text-muted-foreground max-w-2xl">
+            All fees are in Ghana cedis. Estimated times are working days from
+            dispatch. Pickup is available at our Ashaley Botwe atelier in
+            Madina, Greater Accra.
           </p>
         </div>
-
-        <Card>
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow className="bg-muted/40 hover:bg-muted/40">
-                  <TableHead className="h-12 px-4 font-semibold">
-                    Region
-                  </TableHead>
-                  <TableHead className="h-12 px-4 font-semibold">
-                    Delivery fee
-                  </TableHead>
-                  <TableHead className="h-12 px-4 font-semibold">
-                    Estimated delivery
-                  </TableHead>
-                  <TableHead className="h-12 px-4 font-semibold">
-                    Pickup
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {regions.map((r) => (
-                  <TableRow key={r.id}>
-                    <TableCell className="px-4 py-3 align-top">
-                      <div className="font-medium text-foreground">
-                        {r.name}
-                      </div>
-                      {r.notes && (
-                        <div className="text-xs text-muted-foreground mt-0.5 max-w-xs">
-                          {r.notes}
-                        </div>
-                      )}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 align-top font-medium">
-                      {formatGHS(r.fee)}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 align-top text-muted-foreground">
-                      {r.etaDays[0]}–{r.etaDays[1]} business days
-                    </TableCell>
-                    <TableCell className="px-4 py-3 align-top">
-                      {r.pickupAvailable ? (
-                        <Badge
-                          variant="outline"
-                          className="border-gold/40 text-gold bg-gold-soft/50"
-                        >
-                          <Store className="h-3 w-3 mr-1" />
-                          Available
-                        </Badge>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">
-                          Delivery only
-                        </span>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-        <p className="text-xs text-muted-foreground mt-4">
-          Fees are per shipment, not per item. Multiple items in one order ship
-          together at a single fee.
-        </p>
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50 text-left">
+              <tr>
+                <th className="p-4 font-medium">Region</th>
+                <th className="p-4 font-medium text-right">Delivery fee</th>
+                <th className="p-4 font-medium text-center">ETA (days)</th>
+                <th className="p-4 font-medium text-center">Pickup</th>
+                <th className="p-4 font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {GHANA_REGIONS.map((r) => (
+                <tr key={r.id} className="hover:bg-muted/30">
+                  <td className="p-4 font-medium">{r.name}</td>
+                  <td className="p-4 text-right tabular-nums">
+                    {formatGHS(r.fee)}
+                  </td>
+                  <td className="p-4 text-center tabular-nums">
+                    {r.etaDays[0]}–{r.etaDays[1]}
+                  </td>
+                  <td className="p-4 text-center">
+                    {r.pickupAvailable ? (
+                      <span className="inline-flex items-center gap-1 text-teal-600 dark:text-teal-400">
+                        <MapPin className="h-3.5 w-3.5" /> Yes
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </td>
+                  <td className="p-4 text-muted-foreground">
+                    {r.notes ?? "Standard signed delivery"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* ===== PICKUP ===== */}
       <section className="bg-muted/30 border-y border-border">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-start">
-            <div className="space-y-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                Pickup option
+            <div className="space-y-4">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                <MapPin className="h-5 w-5" />
+              </div>
+              <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+                Pickup at the atelier
               </p>
-              <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-                Pick up at the atelier — for free.
+              <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+                Collect your order in person.
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                Skip the delivery fee and pick up your order at our Osu atelier
-                in Accra, or at our Kumasi partner location. Pickup is available
-                in Greater Accra and Ashanti regions, and is always free.
+                Pickup is free at our Ashaley Botwe atelier in Madina, Greater
+                Accra. Place your order online, select pickup at checkout, and
+                we&apos;ll have it ready for you — usually within 24 hours.
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Orders are usually ready for pickup within 1–3 business days.
-                We'll message you on WhatsApp the moment your piece is packed
-                and ready.
-              </p>
-              <div className="rounded-lg border border-border bg-card p-5 space-y-3">
-                <div className="flex items-start gap-3">
-                  <Store className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium">{STORE_CONTACT.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {STORE_CONTACT.address}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium">Atelier hours</p>
-                    <p className="text-sm text-muted-foreground">
-                      {STORE_CONTACT.hours}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/contact">Book a private viewing</Link>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+                  <span>{STORE_CONTACT.address}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+                  <span>{STORE_CONTACT.hours}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+                  <span>ID required for pickup. We&apos;ll text you when your order is ready.</span>
+                </li>
+              </ul>
+              <Button asChild className="mt-2">
+                <Link href="/contact">Get directions</Link>
               </Button>
             </div>
-
-            <div className="space-y-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                How it works
-              </p>
-              <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-                From order to your hands.
-              </h2>
-              <div className="grid gap-4">
-                {STEPS.map(({ icon: Icon, title, body }, i) => (
-                  <div
-                    key={title}
-                    className="flex gap-4 rounded-lg border border-border bg-card p-5"
-                  >
-                    <div className="flex flex-col items-center">
-                      <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold-soft text-foreground">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      {i < STEPS.length - 1 && (
-                        <div className="w-px flex-1 bg-border mt-2" />
-                      )}
-                    </div>
-                    <div className="pb-2">
-                      <h3 className="font-serif text-lg font-semibold mb-1">
-                        {title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+            <div className="space-y-4">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
+                <Image
+                  src="/delivery/gift-box.jpg"
+                  alt="Afrocentric jewelry gift box"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== IMPORTANT NOTES ===== */}
+      {/* ===== HOW IT WORKS ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="max-w-2xl mb-10">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-2">
-            Good to know
+        <div className="mb-12">
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+            How it works
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-            Important notes.
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+            From order to your door.
           </h2>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {NOTES.map(({ icon: Icon, title, body }) => (
+          {[
+            {
+              icon: Package,
+              step: "01",
+              title: "You place your order",
+              body: "Browse the collection and check out securely with Paystack. We confirm your order by WhatsApp.",
+            },
+            {
+              icon: Gift,
+              step: "02",
+              title: "We hand-finish & pack",
+              body: "Every piece is hand-finished, inspected, and gift-packed in our Ashaley Botwe atelier.",
+            },
+            {
+              icon: Truck,
+              step: "03",
+              title: "We dispatch",
+              body: "Insured, signed-for dispatch via our trusted Ghana courier partners. Pickup also available.",
+            },
+            {
+              icon: ShieldCheck,
+              step: "04",
+              title: "You receive & enjoy",
+              body: "Your piece arrives with a certificate of authenticity and our lifetime craftsmanship guarantee.",
+            },
+          ].map(({ icon: Icon, step, title, body }) => (
             <div
-              key={title}
+              key={step}
               className="rounded-lg border border-border bg-card p-6"
             >
-              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-gold-soft text-foreground">
-                <Icon className="h-5 w-5" />
+              <div className="mb-4 flex items-center justify-between">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <span className="font-serif text-2xl text-teal-600/40 dark:text-teal-400/40">
+                  {step}
+                </span>
               </div>
-              <h3 className="font-serif text-base font-semibold mb-2">
+              <h3 className="font-serif text-lg font-semibold mb-2">
                 {title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
@@ -342,37 +245,78 @@ export default async function DeliveryPage() {
         </div>
       </section>
 
-      {/* ===== WHATSAPP CTA ===== */}
-      <section className="relative overflow-hidden border-t border-border bg-foreground text-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight max-w-2xl mx-auto leading-tight">
-            Have a question about delivery?
-          </h2>
-          <p className="mt-4 text-background/75 max-w-xl mx-auto">
-            Message us on WhatsApp and our team will help — typically within an
-            hour during atelier hours.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" variant="secondary">
-              <a
-                href={SUPPORT_WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+      {/* ===== NOTES ===== */}
+      <section className="bg-muted/30 border-y border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+          <div className="mb-10">
+            <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+              Good to know
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+              Important notes
+            </h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: Clock,
+                title: "Processing time",
+                body: "Orders are processed within 1–2 working days. Custom and made-to-order pieces may take longer — we'll keep you posted.",
+              },
+              {
+                icon: ShieldCheck,
+                title: "Insured & signed",
+                body: "Every shipment is insured and requires a signature on delivery. We will not leave packages unattended.",
+              },
+              {
+                icon: Gift,
+                title: "Packaging",
+                body: "Each piece arrives in a branded gift box with a certificate of authenticity and care card.",
+              },
+              {
+                icon: Truck,
+                title: "International",
+                body: "We currently deliver within Ghana only. For international shipping, please contact us on WhatsApp.",
+              },
+            ].map(({ icon: Icon, title, body }) => (
+              <div
+                key={title}
+                className="rounded-lg border border-border bg-card p-6"
               >
-                <MessageCircle className="mr-2 h-4 w-4" />
-                Chat on WhatsApp
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="bg-transparent border-background/40 text-background hover:bg-background/10 hover:text-background"
-            >
-              <Link href="/contact">Contact us</Link>
-            </Button>
+                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="font-serif text-lg font-semibold mb-2">
+                  {title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {body}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
+
+      {/* ===== CTA ===== */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+        <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+          Questions about delivery?
+        </h2>
+        <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+          We&apos;re happy to help — chat with us on WhatsApp and we&apos;ll
+              respond within working hours.
+        </p>
+        <Button asChild size="lg">
+          <a
+            href={SUPPORT_WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <MessageCircle className="mr-2 h-4 w-4" />
+            Chat on WhatsApp
+          </a>
+        </Button>
       </section>
     </PublicShell>
   );

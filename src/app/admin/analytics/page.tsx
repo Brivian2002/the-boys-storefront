@@ -3,7 +3,7 @@ import { BarChart3, Plug, CheckCircle2, AlertCircle, ExternalLink } from "lucide
 
 import { getSession } from "@/lib/auth/admin-session";
 import { AdminShell } from "@/components/admin/admin-shell";
-import { ConfigStatus } from "@/components/admin/stat-card";
+import { configStatus } from "@/lib/env";
 import {
   Card,
   CardContent,
@@ -19,9 +19,8 @@ export default async function AdminAnalyticsPage() {
   const session = await getSession();
   if (!session) redirect("/admin/login");
 
-  const analyticsConfigured = Boolean(
-    process.env.ANALYTICS_ENDPOINT && process.env.ANALYTICS_WEBSITE_ID
-  );
+  const cfg = configStatus();
+  const analyticsConfigured = cfg.analytics;
 
   return (
     <AdminShell
@@ -38,19 +37,26 @@ export default async function AdminAnalyticsPage() {
             Provider configuration
           </CardTitle>
           <CardDescription>
-            Analytics are read directly from your provider — LA GLITZ does not
-            collect or invent traffic data.
+            Analytics are read directly from your provider — Afrocentric
+            Jewelry by LaGlitz does not collect or invent traffic data.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-          <ConfigStatus
-            label="Analytics endpoint (ANALYTICS_ENDPOINT)"
-            configured={Boolean(process.env.ANALYTICS_ENDPOINT)}
-          />
-          <ConfigStatus
-            label="Website ID (ANALYTICS_WEBSITE_ID)"
-            configured={Boolean(process.env.ANALYTICS_WEBSITE_ID)}
-          />
+          <div className="flex items-center justify-between rounded-md border border-border bg-muted/30 px-3 py-2 text-sm">
+            <span>Analytics endpoint + website ID</span>
+            <span
+              className={
+                analyticsConfigured
+                  ? "inline-flex items-center gap-1 text-xs font-medium text-emerald-600 dark:text-emerald-400"
+                  : "inline-flex items-center gap-1 text-xs font-medium text-muted-foreground"
+              }
+            >
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${analyticsConfigured ? "bg-emerald-500" : "bg-muted-foreground/40"}`}
+              />
+              {analyticsConfigured ? "Configured" : "Not set"}
+            </span>
+          </div>
         </CardContent>
       </Card>
 
@@ -79,7 +85,7 @@ export default async function AdminAnalyticsPage() {
             <div className="rounded-md border border-border bg-muted/30 p-3 text-left text-xs text-muted-foreground">
               <p className="font-medium text-foreground">Why no data?</p>
               <p className="mt-1">
-                LA GLITZ does <strong>not</strong> include a built-in tracker or
+                Afrocentric Jewelry by LaGlitz does <strong>not</strong> include a built-in tracker or
                 invent traffic/popularity/sales metrics. Until you connect a
                 provider, this page intentionally shows no charts — only the
                 configuration status above.
@@ -138,14 +144,12 @@ export default async function AdminAnalyticsPage() {
         </Card>
       )}
 
-      <Card className="mt-6 border-blue-500/30 bg-blue-500/5">
+      <Card className="mt-6 border-teal-500/30 bg-teal-500/5">
         <CardContent className="flex items-start gap-3 py-4">
-          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
           <div className="text-sm">
-            <p className="font-medium text-blue-700 dark:text-blue-300">
-              Privacy first
-            </p>
-            <p className="mt-1 text-blue-700/80 dark:text-blue-300/80">
+            <p className="font-medium">Privacy first</p>
+            <p className="mt-1 text-muted-foreground">
               No traffic, popularity, or sales metrics are invented. When no
               provider is configured, this page shows the configuration status
               only — never fabricated numbers.

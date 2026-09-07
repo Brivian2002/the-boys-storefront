@@ -56,6 +56,8 @@ const VALID_CATEGORIES = new Set<Category>([
   "earrings",
   "necklaces",
   "bracelets",
+  "watches",
+  "brooches",
   "sets",
   "new-arrivals",
 ]);

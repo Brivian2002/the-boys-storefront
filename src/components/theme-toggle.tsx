@@ -1,6 +1,7 @@
 "use client";
 
-import { Moon, Sun, Palette } from "lucide-react";
+import * as React from "react";
+import { Moon, Sun, Palette, Check } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Check } from "lucide-react";
 
 export function ThemeToggle() {
   const { theme, toggleTheme, palette, setPalette } = useTheme();
@@ -31,7 +31,12 @@ export function ThemeToggle() {
       </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="h-9 w-9" aria-label="Choose palette">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-9 w-9"
+            aria-label="Choose palette"
+          >
             <Palette className="h-[1.1rem] w-[1.1rem]" />
           </Button>
         </DropdownMenuTrigger>
@@ -40,19 +45,25 @@ export function ThemeToggle() {
             Store palette
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setPalette("commerce")} className="cursor-pointer">
+          <DropdownMenuItem
+            onClick={() => setPalette("commerce")}
+            className="cursor-pointer"
+          >
             <div className="flex w-full items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="inline-block h-3 w-3 rounded-full bg-[oklch(0.66_0.21_45)]" />
+                <span className="inline-block h-3 w-3 rounded-full bg-[oklch(0.62_0.13_195)] ring-1 ring-[oklch(0.7_0.18_45)]" />
                 <span>Bright Commerce</span>
               </div>
               {palette === "commerce" && <Check className="h-4 w-4" />}
             </div>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setPalette("luxury")} className="cursor-pointer">
+          <DropdownMenuItem
+            onClick={() => setPalette("luxury")}
+            className="cursor-pointer"
+          >
             <div className="flex w-full items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="inline-block h-3 w-3 rounded-full bg-[oklch(0.16_0.005_240)] ring-1 ring-[oklch(0.72_0.15_80)]" />
+                <span className="inline-block h-3 w-3 rounded-full bg-[oklch(0.16_0.005_240)] ring-1 ring-[oklch(0.72_0.14_80)]" />
                 <span>Light Luxury</span>
               </div>
               {palette === "luxury" && <Check className="h-4 w-4" />}

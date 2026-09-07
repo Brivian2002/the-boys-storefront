@@ -11,7 +11,16 @@ import type { Availability, Badge, Category, Currency } from "@/lib/blogger/type
 
 export const dynamic = "force-dynamic";
 
-const VALID_CATEGORIES: Category[] = ["rings", "earrings", "necklaces", "bracelets", "sets", "new-arrivals"];
+const VALID_CATEGORIES: Category[] = [
+  "rings",
+  "earrings",
+  "necklaces",
+  "bracelets",
+  "watches",
+  "brooches",
+  "sets",
+  "new-arrivals",
+];
 const VALID_AVAIL: Availability[] = ["in-stock", "sold-out", "pre-order", "limited"];
 const VALID_BADGES: Badge[] = ["featured", "new-arrival", "sale", "bestseller", "exclusive"];
 const VALID_CURRENCIES: Currency[] = ["GHS", "USD"];

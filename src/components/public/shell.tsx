@@ -1,18 +1,32 @@
 import * as React from "react";
-
+import { getSiteSettings } from "@/lib/site/store";
 import { PublicHeader } from "@/components/public/header";
 import { PublicFooter } from "@/components/public/footer";
+import { SocialPopup } from "@/components/public/social-popup";
 
 /**
- * Wraps public storefront pages with the header and sticky footer.
- * Admin pages use their own layout and do NOT use this shell.
+ * Public storefront shell.
+ *
+ * Async server component: fetches site settings once per render and passes
+ * the relevant slices down to the header (announcement) and footer (brand,
+ * contact, social). Includes the SocialPopup so it appears on every public
+ * page.
  */
-export function PublicShell({ children }: { children: React.ReactNode }) {
+export async function PublicShell({ children }: { children: React.ReactNode }) {
+  const settings = await getSiteSettings();
   return (
     <div className="flex min-h-screen flex-col">
-      <PublicHeader />
+      <PublicHeader announcement={settings.announcement} />
       <main className="flex-1">{children}</main>
-      <PublicFooter />
+      <PublicFooter
+        brand={settings.brand}
+        contact={settings.contact}
+        social={settings.social}
+      />
+      <SocialPopup
+        instagram={settings.social.instagram}
+        facebook={settings.social.facebook}
+      />
     </div>
   );
 }

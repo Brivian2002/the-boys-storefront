@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ArrowRight,
   RotateCcw,
   ShieldCheck,
   Truck,
@@ -12,7 +11,6 @@ import {
 } from "lucide-react";
 import { PublicShell } from "@/components/public/shell";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
@@ -32,10 +30,10 @@ import { STORE_CONTACT, SUPPORT_WHATSAPP_URL } from "@/lib/ghana";
 export const metadata: Metadata = {
   title: "Policies",
   description:
-    "LA GLITZ returns, exchanges, authenticity, shipping, privacy, terms and payment policies. Clear, fair, and rooted in Ghanaian consumer protection.",
+    "Afrocentric Jewelry by LaGlitz returns, exchanges, authenticity, shipping, privacy, terms and payment policies. Clear, fair, and rooted in Ghanaian consumer protection.",
   alternates: { canonical: "/policies" },
   openGraph: {
-    title: "Policies · LA GLITZ",
+    title: "Policies · Afrocentric Jewelry by LaGlitz",
     description:
       "Returns, exchanges, authenticity, shipping, privacy, terms and payment.",
   },
@@ -103,17 +101,19 @@ export default function PoliciesPage() {
       {/* ===== HERO ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="max-w-3xl">
-          <Badge variant="secondary" className="mb-5">
-            <Scale className="h-3 w-3 mr-1.5" />
-            Clear & fair
-          </Badge>
+          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-3">
+            Clear &amp; fair
+          </p>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight">
-            Our <span className="text-gold-gradient">policies.</span>
+            Our{" "}
+            <span className="bg-gradient-to-r from-teal-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">
+              policies.
+            </span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl">
             We keep our policies short, plain, and fair. If anything here is
-            unclear, message us on WhatsApp — we'd rather talk it through than
-            hide behind fine print.
+            unclear, message us on WhatsApp — we&apos;d rather talk it through
+            than hide behind fine print.
           </p>
         </div>
       </section>
@@ -133,7 +133,7 @@ export default function PoliciesPage() {
                     href={`#${id}`}
                     className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   >
-                    <Icon className="h-4 w-4 text-gold" />
+                    <Icon className="h-4 w-4 text-teal-600 dark:text-teal-400" />
                     {title}
                   </a>
                 </li>
@@ -147,61 +147,55 @@ export default function PoliciesPage() {
               <AccordionItem value="returns" id="returns" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-soft text-foreground">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
                       <RotateCcw className="h-5 w-5" />
                     </div>
                     <div className="text-left">
-                      <p className="font-serif text-lg font-semibold text-foreground">
-                        Returns & Exchanges
+                      <p className="font-serif text-lg font-semibold">
+                        Returns &amp; Exchanges
                       </p>
-                      <p className="text-xs text-muted-foreground font-normal mt-0.5">
+                      <p className="text-xs text-muted-foreground font-normal">
                         7-day return window · custom pieces are final sale
                       </p>
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed space-y-3 pl-14">
+                <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    We accept returns within <strong className="text-foreground">7 days of delivery</strong>{" "}
-                    on ready-made pieces, provided the jewelry is unworn, in its
-                    original condition, and returned in its LA GLITZ packaging
-                    with the certificate of authenticity intact. Pieces that
-                    show signs of wear, resizing, or alteration cannot be
-                    accepted.
+                    We want you to love every piece. If for any reason you
+                    don&apos;t, we accept returns within 7 days of delivery for
+                    unworn, unaltered pieces in their original condition, and
+                    returned in their Afrocentric Jewelry by LaGlitz packaging.
                   </p>
                   <p>
-                    <strong className="text-foreground">Custom and commissioned pieces are final sale.</strong>{" "}
-                    Because they are made to your specifications, we cannot
-                    resell them — please confirm all details (size, metal,
-                    gemstone) before approving the design.
+                    To start a return, message us on WhatsApp with your order
+                    reference. We&apos;ll send instructions and a return
+                    address. Return shipping is the buyer&apos;s responsibility
+                    except in the case of a defect or our error, in which case
+                    we cover it in full.
                   </p>
                   <p>
-                    To initiate a return, contact us at{" "}
-                    <a
-                      href={`mailto:${STORE_CONTACT.email}`}
-                      className="text-foreground underline underline-offset-4 hover:text-gold"
-                    >
-                      {STORE_CONTACT.email}
-                    </a>{" "}
-                    or message us on{" "}
+                    Custom, engraved, or made-to-order pieces are final sale
+                    and cannot be returned. Earrings are non-returnable for
+                    hygiene reasons unless faulty.
+                  </p>
+                  <p>
+                    Exchanges follow the same 7-day window. If you&apos;d like
+                    a different size or attribute, please return the original
+                    piece and place a new order — we&apos;ll do our best to
+                    prioritise the new piece.
+                  </p>
+                  <p>
+                    Questions?{" "}
                     <a
                       href={SUPPORT_WHATSAPP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-foreground underline underline-offset-4 hover:text-gold"
+                      className="text-foreground underline underline-offset-4 hover:text-teal-600 dark:hover:text-teal-400"
                     >
-                      WhatsApp
-                    </a>{" "}
-                    with your order number. We'll send return instructions and
-                    a confirmation. Return shipping is the buyer's
-                    responsibility unless the piece arrived damaged or
-                    incorrect.
-                  </p>
-                  <p>
-                    Approved refunds are processed back to your original payment
-                    method within <strong className="text-foreground">5–10 business days</strong>,
-                    depending on your bank. Exchanges for store credit are
-                    processed immediately on receipt of the returned piece.
+                      Chat with us on WhatsApp
+                    </a>
+                    .
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -209,47 +203,41 @@ export default function PoliciesPage() {
               <AccordionItem value="authenticity" id="authenticity" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-soft text-foreground">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
                       <ShieldCheck className="h-5 w-5" />
                     </div>
                     <div className="text-left">
-                      <p className="font-serif text-lg font-semibold text-foreground">
-                        Authenticity & Warranty
+                      <p className="font-serif text-lg font-semibold">
+                        Authenticity &amp; Warranty
                       </p>
-                      <p className="text-xs text-muted-foreground font-normal mt-0.5">
-                        Certificate of authenticity · lifetime craftsmanship guarantee
+                      <p className="text-xs text-muted-foreground font-normal">
+                        Certificate of authenticity · lifetime craftsmanship
+                        guarantee
                       </p>
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed space-y-3 pl-14">
+                <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    Every piece ships with a{" "}
-                    <strong className="text-foreground">certificate of authenticity</strong>{" "}
-                    signed by our atelier, listing the metal (karat and weight),
-                    gemstone specifications (type, cut, carat, clarity where
-                    graded), and a unique serial number matched to the
-                    hallmark on the piece.
+                    Every Afrocentric Jewelry by LaGlitz piece is hand-finished
+                    in our Ashaley Botwe atelier in Madina, Ghana. Each piece
+                    ships with a certificate of authenticity documenting the
+                    materials and craftsmanship.
                   </p>
                   <p>
-                    We guarantee every piece as{" "}
-                    <strong className="text-foreground">solid 18k or 22k gold</strong> — never
-                    plated, never filled. Gemstones are disclosed as natural or
-                    lab-grown, with any treatments noted on the certificate.
+                    We stand behind our craftsmanship with a lifetime guarantee
+                    against manufacturing defects. If a piece ever fails due to
+                    a defect in materials or workmanship, return it to our
+                    Ashaley Botwe atelier and we&apos;ll repair it at no charge.
                   </p>
                   <p>
-                    Each piece carries a{" "}
-                    <strong className="text-foreground">lifetime craftsmanship guarantee</strong>{" "}
-                    against manufacturing defects — covering prong re-tipping,
-                    solder joints, clasps and settings. Bring or send the piece
-                    to our Osu atelier and we'll repair it at no charge.
+                    The lifetime guarantee does not cover normal wear and tear,
+                    loss, theft, damage from misuse or improper care, or
+                    modifications made by a third party.
                   </p>
                   <p>
-                    The guarantee does <strong className="text-foreground">not cover</strong> normal
-                    wear and tear, loss, theft, damage from misuse or impact,
-                    resizing by a third party, or damage from harsh chemicals
-                    (including chlorine and certain cosmetics). Regular wear
-                    cleaning and inspection are complimentary for life.
+                    To make a warranty claim, please contact us on WhatsApp
+                    with your order reference and a description of the issue.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -257,49 +245,49 @@ export default function PoliciesPage() {
               <AccordionItem value="shipping" id="shipping" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-soft text-foreground">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
                       <Truck className="h-5 w-5" />
                     </div>
                     <div className="text-left">
-                      <p className="font-serif text-lg font-semibold text-foreground">
+                      <p className="font-serif text-lg font-semibold">
                         Shipping Policy
                       </p>
-                      <p className="text-xs text-muted-foreground font-normal mt-0.5">
-                        Processing times, regions, insurance, signature requirement
+                      <p className="text-xs text-muted-foreground font-normal">
+                        Processing times, regions, insurance, signature
+                        requirement
                       </p>
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed space-y-3 pl-14">
+                <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    We ship to all{" "}
-                    <strong className="text-foreground">16 regions of Ghana</strong>. In-stock
-                    pieces are processed within 1–3 business days; made-to-order
-                    and commissioned pieces take 2–4 weeks and we confirm timing
-                    at order. See our{" "}
-                    <Link
-                      href="/delivery"
-                      className="text-foreground underline underline-offset-4 hover:text-gold"
+                    We deliver to all 10 regions of Ghana. Greater Accra orders
+                    ship in 1–3 business days; other regions in 2–8 business
+                    days. Pickup is free at our Ashaley Botwe atelier in Madina.
+                  </p>
+                  <p>
+                    All shipments are insured and require a signature on
+                    delivery. We will not leave packages unattended. If no one
+                    is available to sign, our courier will contact you to
+                    arrange redelivery.
+                  </p>
+                  <p>
+                    Orders are processed within 1–2 business days. Custom and
+                    made-to-order pieces may take longer — we&apos;ll keep you
+                    posted by WhatsApp.
+                  </p>
+                  <p>
+                    We currently deliver within Ghana only. For international
+                    shipping enquiries, please{" "}
+                    <a
+                      href={SUPPORT_WHATSAPP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground underline underline-offset-4 hover:text-teal-600 dark:hover:text-teal-400"
                     >
-                      delivery & pickup page
-                    </Link>{" "}
-                    for the full regional fee schedule.
-                  </p>
-                  <p>
-                    Every shipment is{" "}
-                    <strong className="text-foreground">fully insured</strong> for its declared
-                    value and requires a{" "}
-                    <strong className="text-foreground">signature on delivery</strong>. Please
-                    have a valid ID available for the courier. If you're not
-                    available, the courier will attempt redelivery or hold the
-                    package at a local depot.
-                  </p>
-                  <p>
-                    Delivery fees are charged by region and shown before payment. Every order is carefully packaged; pickup at our Osu atelier or Kumasi partner location can be arranged separately.
-                  </p>
-                  <p>
-                    We currently ship within Ghana only. For international
-                    delivery, contact us on WhatsApp for a courier quote.
+                      contact us
+                    </a>
+                    .
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -307,51 +295,39 @@ export default function PoliciesPage() {
               <AccordionItem value="privacy" id="privacy" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-soft text-foreground">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
                       <Lock className="h-5 w-5" />
                     </div>
                     <div className="text-left">
-                      <p className="font-serif text-lg font-semibold text-foreground">
+                      <p className="font-serif text-lg font-semibold">
                         Privacy Policy
                       </p>
-                      <p className="text-xs text-muted-foreground font-normal mt-0.5">
+                      <p className="text-xs text-muted-foreground font-normal">
                         What we collect, how we use it, your rights
                       </p>
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed space-y-3 pl-14">
+                <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    We collect only what we need to fulfill your order and
-                    provide support:{" "}
-                    <strong className="text-foreground">your name, contact details, delivery address, and order history</strong>.
-                    We do not store card details — payments are processed
-                    securely by{" "}
-                    <strong className="text-foreground">Paystack</strong>, and we only receive a
-                    confirmation of successful payment.
+                    We collect the information you provide at checkout and via
+                    our contact form — name, email, phone, delivery address —
+                    so we can fulfil your order and respond to your enquiries.
                   </p>
                   <p>
-                    We use your information to process and ship your order,
-                    respond to enquiries, send order updates, and (only if you
-                    opt in) occasional updates about new collections. We do not
-                    sell or rent your data to third parties.
+                    We do not sell or rent your personal information. We share
+                    details only with the parties needed to fulfil your order
+                    (courier, payment processor) and as required by law.
                   </p>
                   <p>
-                    We use basic cookies and local storage to keep your
-                    shopping bag between visits, remember your theme
-                    preference, and measure aggregate traffic. We do not use
-                    advertising trackers.
+                    Payment is processed by Paystack. We never see or store your
+                    card details — only the order reference and payment status
+                    are recorded.
                   </p>
                   <p>
-                    You can request access to, correction of, or deletion of
-                    your personal data at any time by emailing{" "}
-                    <a
-                      href={`mailto:${STORE_CONTACT.email}`}
-                      className="text-foreground underline underline-offset-4 hover:text-gold"
-                    >
-                      {STORE_CONTACT.email}
-                    </a>
-                    . We'll respond within 30 days.
+                    You may request access to, correction of, or deletion of
+                    your personal information at any time by contacting us on
+                    WhatsApp or by email at {STORE_CONTACT.email}.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -359,50 +335,39 @@ export default function PoliciesPage() {
               <AccordionItem value="terms" id="terms" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-soft text-foreground">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
                       <Scale className="h-5 w-5" />
                     </div>
                     <div className="text-left">
-                      <p className="font-serif text-lg font-semibold text-foreground">
+                      <p className="font-serif text-lg font-semibold">
                         Terms of Service
                       </p>
-                      <p className="text-xs text-muted-foreground font-normal mt-0.5">
+                      <p className="text-xs text-muted-foreground font-normal">
                         Pricing, product imagery, jurisdiction
                       </p>
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed space-y-3 pl-14">
+                <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    All prices are listed in{" "}
-                    <strong className="text-foreground">Ghana cedis (GHS)</strong> and include
-                    applicable taxes. We reserve the right to update prices,
-                    availability, and product specifications at any time
-                    without notice. The price confirmed at checkout is the
-                    price you pay.
+                    Prices are listed in Ghana cedis (GHS) and are subject to
+                    change without notice. We reserve the right to refuse or
+                    cancel any order at our discretion, in which case any
+                    payment made will be refunded in full.
                   </p>
                   <p>
-                    Product images are photographed in our atelier under
-                    controlled lighting. Because each piece is hand-finished,
-                    <strong className="text-foreground"> minor variations may occur</strong> —
-                    particularly in pieces with natural gemstones, where
-                    inclusions and color are part of the stone's character.
-                    Metal weights and gemstone carat weights may vary slightly
-                    from the listed values.
+                    Product imagery is representative. Hand-finished pieces may
+                    vary slightly from the photographs — this is a feature of
+                    handcraft, not a defect.
                   </p>
                   <p>
-                    Placing an order constitutes an offer to purchase. The
-                    contract is formed when we dispatch the order and send
-                    shipping confirmation. We may decline or cancel an order
-                    in cases of pricing error, suspected fraud, or
-                    unavailable stock — in which case any payment is refunded
-                    in full.
+                    These terms are governed by the laws of the Republic of
+                    Ghana. Any disputes will be resolved in the courts of Ghana
+                    unless we agree otherwise in writing.
                   </p>
                   <p>
-                    These terms are governed by the laws of the{" "}
-                    <strong className="text-foreground">Republic of Ghana</strong>. Any disputes
-                    will be resolved in the courts of Ghana, unless we agree
-                    otherwise in writing.
+                    By placing an order with Afrocentric Jewelry by LaGlitz you
+                    accept these terms in full.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -410,43 +375,41 @@ export default function PoliciesPage() {
               <AccordionItem value="payment" id="payment">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-soft text-foreground">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
                       <CreditCard className="h-5 w-5" />
                     </div>
                     <div className="text-left">
-                      <p className="font-serif text-lg font-semibold text-foreground">
+                      <p className="font-serif text-lg font-semibold">
                         Payment
                       </p>
-                      <p className="text-xs text-muted-foreground font-normal mt-0.5">
-                        Paystack secure checkout · cards & mobile money
+                      <p className="text-xs text-muted-foreground font-normal">
+                        Paystack secure checkout · cards &amp; mobile money
                       </p>
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground leading-relaxed space-y-3 pl-14">
+                <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    Checkout is powered by{" "}
-                    <strong className="text-foreground">Paystack</strong>, a PCI-DSS compliant
-                    payment processor. Your card details are encrypted and sent
-                    directly to Paystack — they never touch our servers.
+                    We accept payment via Paystack, which supports Visa,
+                    Mastercard, Verve cards, mobile money (MTN MoMo,
+                    Telecel Cash, AirtelTigo Money), and bank transfer.
                   </p>
                   <p>
-                    We accept{" "}
-                    <strong className="text-foreground">Visa, Mastercard and Verve</strong> cards
-                    issued by any bank, as well as mobile money (MTN MoMo,
-                    Telecel Cash and AirtelTigo Money). All transactions are in
-                    GHS.
+                    At checkout you&apos;ll be redirected to Paystack&apos;s
+                    secure page to complete payment. We never see or store your
+                    card details. Paystack is PCI DSS compliant and uses 256-bit
+                    encryption.
                   </p>
                   <p>
-                    If a payment fails, no charge is made. If you see a
-                    duplicate or unauthorized charge, contact us immediately
-                    with the order reference and we'll coordinate a refund
-                    through Paystack.
+                    Final totals — including delivery and any price updates —
+                    are recomputed on our server before payment is initiated.
+                    The subtotal shown in your bag is for display only.
                   </p>
                   <p>
-                    For commissioned pieces, we may request a deposit at order
-                    and the balance before dispatch. The exact schedule is
-                    confirmed in your commission agreement.
+                    If a payment fails or is declined, no charge is made and
+                    your bag is preserved so you can try again. If you believe
+                    you&apos;ve been charged in error, please contact us with
+                    your order reference.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -455,17 +418,18 @@ export default function PoliciesPage() {
         </div>
       </section>
 
-      {/* ===== CONTACT CTA ===== */}
-      <section className="relative overflow-hidden border-t border-border bg-foreground text-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight max-w-2xl mx-auto leading-tight">
-            Still have a question?
+      {/* ===== CTA ===== */}
+      <section className="border-t border-border bg-muted/30">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+          <h2 className="font-serif text-2xl sm:text-3xl font-semibold tracking-tight mb-3">
+            Still have questions?
           </h2>
-          <p className="mt-4 text-background/75 max-w-xl mx-auto">
-            Our team is happy to walk you through any policy before you buy.
+          <p className="text-muted-foreground max-w-xl mx-auto mb-6">
+            We&apos;re happy to help. Chat with us on WhatsApp or send us an
+            email.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="lg" variant="secondary">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild>
               <a
                 href={SUPPORT_WHATSAPP_URL}
                 target="_blank"
@@ -475,16 +439,8 @@ export default function PoliciesPage() {
                 Chat on WhatsApp
               </a>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="bg-transparent border-background/40 text-background hover:bg-background/10 hover:text-background"
-            >
-              <Link href="/contact">
-                Contact us
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+            <Button asChild variant="outline">
+              <a href={`mailto:${STORE_CONTACT.email}`}>Email us</a>
             </Button>
           </div>
         </div>

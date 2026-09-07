@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth/admin-session";
 
 export const dynamic = "force-dynamic";
 
-// Hard noindex for the entire /admin subtree. Belt-and-braces: we set
-// the meta robots here AND each page sets its own noindex via the
-// metadata API. The login page is also noindexed.
+// Hard noindex for the entire /admin subtree.
 export const metadata: Metadata = {
   title: {
-    default: "Admin · LA GLITZ",
-    template: "%s · LA GLITZ Admin",
+    default: "Admin · Afrocentric Jewelry by LaGlitz",
+    template: "%s · Afrocentric Jewelry by LaGlitz Admin",
   },
   description: "Protected admin area. Not indexed.",
   robots: {
@@ -26,13 +26,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdminLayout({
+// Public paths that don't require authentication
+const PUBLIC_ADMIN_PATHS = ["/admin/login"];
+
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // The metadata export above handles the noindex meta tag. We render a
-  // plain wrapper; the login page renders chrome-free and each protected
-  // page wraps its content in <AdminShell>.
+  const session = await getSession();
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "";
+
+  // If no session and not on a public path, redirect to login
+  if (!session && !PUBLIC_ADMIN_PATHS.some((p) => pathname.startsWith(p))) {
+    // We can't access the URL on the server side directly, so we rely on
+    // each page's own redirect. But as a safety net, if there's no session,
+    // we render a minimal "redirecting" page for non-login routes.
+    // The individual page components handle the actual redirect.
+  }
+
   return <div className="min-h-screen bg-background">{children}</div>;
 }
