@@ -95,6 +95,8 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
+    // Initialize the selected slide before subscribing to carousel events.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     onSelect(api)
     api.on("reInit", onSelect)
     api.on("select", onSelect)

@@ -31,6 +31,8 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
     if (!instagram && !facebook) return;
     try {
       if (sessionStorage.getItem("laglitz-social-dismissed") === "1") {
+        // Read the session-only dismissal flag after entering the browser.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setDismissed(true);
         return;
       }

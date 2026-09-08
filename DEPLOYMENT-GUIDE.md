@@ -97,8 +97,8 @@ Go to Vercel project → Settings → Environment Variables. Add each for Produc
 1. In Vercel, open the Neon database connector you added to this project.
 2. Confirm the connector exposes `DATABASE_URL` to the Production, Preview, and Development environments.
 3. Do not commit a provider-specific database URL in `.env`; Vercel must supply the Neon `DATABASE_URL` at build and runtime.
-4. Vercel runs `prisma db push --accept-data-loss` automatically through the `vercel-build` script, creating the Prisma tables in the connected Neon database before the Next.js build.
-5. For a local or one-off setup, run `bun run db:push` then `bun prisma/seed.ts`.
+4. Vercel runs `prisma db push` automatically through the `vercel-build` script, creating or synchronizing Prisma tables without allowing destructive changes during a normal deployment.
+5. For a local or one-off setup, run `bun run db:push`. To create an owner manually, visit `/admin` on a fresh database, or run the seed with `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD`, and `SEED_ADMIN_NAME` explicitly set.
 
 ### Step 5: Redeploy
 After setting all env vars: Vercel → Deployments → ⋯ → Redeploy
@@ -109,8 +109,8 @@ After setting all env vars: Vercel → Deployments → ⋯ → Redeploy
 
 ### First Login
 1. Visit `https://your-app.vercel.app/admin`
-2. Sign in with `laglitz@gmail.com` / `LAGLITZ`
-3. Change password via Admins page
+2. On a fresh database, create the OWNER account through the first-run setup form.
+3. Store the credentials in a password manager and add other admins from the Admins page.
 
 ### Publishing Products
 1. `/admin/products` → "Add product"

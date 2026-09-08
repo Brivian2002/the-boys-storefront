@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   LayoutDashboard,
@@ -123,6 +123,7 @@ interface AdminShellProps {
 
 function LogoutButton({ onDone }: { onDone?: () => void }) {
   const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
   const handle = async () => {
     setLoading(true);
     try {
@@ -132,7 +133,7 @@ function LogoutButton({ onDone }: { onDone?: () => void }) {
     } finally {
       setLoading(false);
       onDone?.();
-      window.location.href = "/admin/login";
+      router.push("/admin/login");
     }
   };
   return (
@@ -254,6 +255,8 @@ function SidebarContent({
 }
 
 function UserDropdown({ session }: { session: AdminShellProps["session"] }) {
+  const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -305,7 +308,7 @@ function UserDropdown({ session }: { session: AdminShellProps["session"] }) {
             } catch {
               /* ignore */
             }
-            window.location.href = "/admin/login";
+            router.push("/admin/login");
           }}
         >
           <LogOut className="mr-2 h-4 w-4" />
@@ -326,13 +329,13 @@ export function AdminShell({
 }: AdminShellProps) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
-  const router = usePathname();
+  const router = useRouter();
 
   const submitSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const q = search.trim();
     if (q) {
-      window.location.href = `/admin/products?q=${encodeURIComponent(q)}`;
+      router.push(`/admin/products?q=${encodeURIComponent(q)}`);
     }
   };
 

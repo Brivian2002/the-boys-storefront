@@ -51,7 +51,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
         return;
       }
       router.refresh();
-      window.location.href = "/admin";
+      router.push("/admin");
     } catch {
       setError("Network error. Please try again.");
       setLoading(false);

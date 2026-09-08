@@ -312,6 +312,8 @@ function PriceRangeForm({
 
   // Sync local state when URL changes
   React.useEffect(() => {
+    // The URL is the source of truth when navigation changes the filter.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMin(currentMin ?? "");
     setMax(currentMax ?? "");
   }, [currentMin, currentMax]);
@@ -367,4 +369,3 @@ function PriceRangeForm({
     </form>
   );
 }
-

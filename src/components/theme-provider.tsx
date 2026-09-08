@@ -43,6 +43,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           palette: parsed.palette === "luxury" ? "luxury" : "commerce",
           theme: parsed.theme === "dark" ? "dark" : "light",
         };
+        // Hydrate the persisted preference after localStorage becomes available.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setState(next);
         applyTheme(next.palette, next.theme);
       } else {
@@ -125,4 +127,3 @@ export function useTheme() {
   }
   return ctx;
 }
-

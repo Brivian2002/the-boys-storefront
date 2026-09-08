@@ -1,7 +1,7 @@
 /**
  * Seed script.
  *
- * Creates the primary OWNER admin account (laglitz@gmail.com / LAGLITZ) and
+ * Creates the primary OWNER admin account from explicit environment variables and
  * seeds the default site settings into the SiteSetting table. Does NOT seed
  * any products — the owner publishes those via Blogger.
  *
@@ -15,9 +15,15 @@ import { DEFAULT_SETTINGS } from "../src/lib/site/defaults";
 const db = new PrismaClient();
 
 async function main() {
-  const email = "laglitz@gmail.com";
-  const password = "LAGLITZ";
-  const name = "Charity Kessewaa Frimpong";
+  const email = process.env.SEED_ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.SEED_ADMIN_PASSWORD;
+  const name = process.env.SEED_ADMIN_NAME?.trim();
+
+  if (!email || !password || !name) {
+    throw new Error(
+      "Set SEED_ADMIN_EMAIL, SEED_ADMIN_PASSWORD, and SEED_ADMIN_NAME before running the seed script."
+    );
+  }
 
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -44,9 +50,7 @@ async function main() {
 
   console.log("Seeded site settings.");
 
-  console.log("\nAdmin login:");
-  console.log(`  Email:    ${email}`);
-  console.log(`  Password: ${password}`);
+  console.log("Seeded owner account from supplied environment variables.");
 }
 
 main()

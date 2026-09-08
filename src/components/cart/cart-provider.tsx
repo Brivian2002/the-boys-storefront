@@ -10,6 +10,8 @@ import { useCart } from "@/stores/cart";
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = React.useState(false);
   React.useEffect(() => {
+    // This state marks the browser hydration boundary for local cart access.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHydrated(true);
   }, []);
   return <CartContext.Provider value={{ hydrated }}>{children}</CartContext.Provider>;

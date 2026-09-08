@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Minus, Plus, ShoppingBag, Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,7 @@ interface AddToBagProps {
  * Calls useCart.add and shows a success toast with a "View bag" link.
  */
 export function AddToBag({ product }: AddToBagProps) {
+  const router = useRouter();
   const add = useCart((s) => s.add);
   const sold = product.availability === "sold-out";
 
@@ -59,7 +61,7 @@ export function AddToBag({ product }: AddToBagProps) {
         action: {
           label: "View bag",
           onClick: () => {
-            window.location.href = "/cart";
+            router.push("/cart");
           },
         },
       });
