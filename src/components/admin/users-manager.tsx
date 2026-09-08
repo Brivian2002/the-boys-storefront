@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { toast } from "sonner";
-import { Loader2, Trash2, Plus, ShieldCheck, ShieldAlert } from "lucide-react";
+import { Loader2, Trash2, Plus, ShieldCheck, ShieldAlert, Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +48,7 @@ export function UsersManager({ users: initial, currentEmail }: UsersManagerProps
   const [password, setPassword] = React.useState("");
   const [role, setRole] = React.useState("ADMIN");
   const [adding, setAdding] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const add = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,13 +163,24 @@ export function UsersManager({ users: initial, currentEmail }: UsersManagerProps
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Minimum 4 characters"
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Minimum 4 characters"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((value) => !value)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute right-2 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="role">Role</Label>
