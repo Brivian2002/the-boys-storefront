@@ -23,6 +23,9 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
   const [open, setOpen] = React.useState(false);
   const [dismissed, setDismissed] = React.useState(false);
   const [pulse, setPulse] = React.useState(false);
+  const [profileImage, setProfileImage] = React.useState(
+    "https://unavatar.io/instagram/_laglitzj"
+  );
 
   React.useEffect(() => {
     if (!instagram && !facebook) return;
@@ -117,8 +120,13 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
       </button>
 
       <div className="flex items-center gap-2 mb-2 pr-6">
-        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 animate-scale-in">
-          <Instagram className="h-4 w-4 text-white" />
+        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 animate-scale-in ring-2 ring-pink-400/30">
+          <img
+            src={profileImage}
+            alt="LaGlitz Instagram profile"
+            className="h-full w-full object-cover"
+            onError={() => setProfileImage("/founder-avatar.png")}
+          />
         </span>
         <p className="text-sm font-semibold text-foreground">
           Follow the journey
