@@ -52,9 +52,13 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
       service_id: serviceId,
       template_id: templateId,
       user_id: publicKey,
-      template_params: {
+        template_params: {
+        name: input.customerName,
+        email: input.customerEmail,
+        title: `Paid order ${input.reference}`,
         from_name: input.customerName,
         from_email: input.customerEmail,
+        reply_to: input.customerEmail,
         phone: input.phone,
         subject: `Paid order ${input.reference}`,
         message,
@@ -79,6 +83,13 @@ export async function sendPaidOrderEmailOnce(
   orderId: string,
   input: OrderEmailInput
 ): Promise<boolean> {
+  if (
+    !process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() ||
+    !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim() ||
+    !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim()
+  ) {
+    return false;
+  }
   const markerKey = `paid-order-email:${orderId}`;
   try {
     await db.siteSetting.create({

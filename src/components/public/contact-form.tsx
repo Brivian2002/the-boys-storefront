@@ -108,11 +108,15 @@ export function ContactForm() {
               SERVICE_ID,
               TEMPLATE_ID,
               {
-                from_name: values.name,
-                from_email: values.email,
+                name: values.name,
+                email: values.email,
                 phone: values.phone ?? "",
+                title: values.subject,
                 subject: values.subject,
                 message: values.message,
+                from_name: values.name,
+                from_email: values.email,
+                reply_to: values.email,
               },
               PUBLIC_KEY
             )
