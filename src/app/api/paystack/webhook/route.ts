@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateWebhookSignature } from "@/lib/paystack/client";
 import { db } from "@/lib/db";
+import { formatGHS, fromMinorUnits } from "@/lib/ghana";
+import { sendPaidOrderEmailOnce } from "@/lib/emailjs-server";
 
 /**
  * POST /api/paystack/webhook
@@ -31,7 +33,7 @@ export async function POST(req: NextRequest) {
     const paidAt = String(data.paid_at ?? new Date().toISOString());
 
     if (reference) {
-      await db.order
+      const updated = await db.order
         .updateMany({
           where: { reference, status: { not: "paid" } },
           data: {
@@ -40,7 +42,33 @@ export async function POST(req: NextRequest) {
             paystackChannel: channel,
           },
         })
-        .catch(() => undefined);
+        .catch(() => ({ count: 0 }));
+
+      if (updated.count > 0) {
+        const order = await db.order.findUnique({
+          where: { reference },
+          include: { items: true },
+        });
+        if (order) {
+          const items = order.items
+            .map((item) => `${item.name} x ${item.quantity} — ${formatGHS(item.unitPrice, order.currency as "GHS" | "USD")}`)
+            .join("\n");
+          await sendPaidOrderEmailOnce(order.id, {
+            reference: order.reference,
+            customerEmail: order.customerEmail,
+            customerName: order.deliveryName,
+            phone: order.deliveryPhone,
+            amount: fromMinorUnits(order.amountMinor),
+            currency: order.currency,
+            items,
+            deliveryRegion: order.deliveryRegion,
+            deliveryAddress: order.deliveryAddress,
+            notes: order.notes ?? "",
+          }).catch((emailError) => {
+            console.error("Paid order webhook updated order but seller email failed", emailError);
+          });
+        }
+      }
     }
   }
 
