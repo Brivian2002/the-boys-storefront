@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { normalizePaystackReference, verifyTransaction } from "@/lib/paystack/client";
 import { db } from "@/lib/db";
+import { formatGHS, fromMinorUnits } from "@/lib/ghana";
+import { sendPaidOrderEmailOnce } from "@/lib/emailjs-server";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +25,10 @@ export async function GET(req: NextRequest) {
   const reference = normalizePaystackReference(rawReference);
 
   // Find the order in DB
-  const order = await db.order.findUnique({ where: { reference } });
+  const order = await db.order.findUnique({
+    where: { reference },
+    include: { items: true },
+  });
   if (!order) {
     return NextResponse.json(
       { error: "Order not found for that reference" },
@@ -56,6 +61,23 @@ export async function GET(req: NextRequest) {
           paidAt: result.paidAt ? new Date(result.paidAt) : new Date(),
           paystackChannel: result.channel ?? null,
         },
+      });
+      const items = order.items
+        .map((item) => `${item.name} x ${item.quantity} — ${formatGHS(item.unitPrice, order.currency as "GHS" | "USD")}`)
+        .join("\n");
+      await sendPaidOrderEmailOnce(order.id, {
+        reference: order.reference,
+        customerEmail: order.customerEmail,
+        customerName: order.deliveryName,
+        phone: order.deliveryPhone,
+        amount: fromMinorUnits(order.amountMinor),
+        currency: order.currency,
+        items,
+        deliveryRegion: order.deliveryRegion,
+        deliveryAddress: order.deliveryAddress,
+        notes: order.notes ?? "",
+      }).catch((emailError) => {
+        console.error("Paid order verified but seller email failed", emailError);
       });
     } else {
       await db.order.update({

@@ -1,6 +1,7 @@
 import "server-only";
+import { db } from "@/lib/db";
 
-interface OrderEmailInput {
+export interface OrderEmailInput {
   reference: string;
   customerEmail: string;
   customerName: string;
@@ -72,4 +73,27 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
     throw new Error(`EmailJS order notification failed: ${response.status} ${detail.slice(0, 180)}`);
   }
   return true;
+}
+
+export async function sendPaidOrderEmailOnce(
+  orderId: string,
+  input: OrderEmailInput
+): Promise<boolean> {
+  const markerKey = `paid-order-email:${orderId}`;
+  try {
+    await db.siteSetting.create({
+      data: { key: markerKey, value: new Date().toISOString() },
+    });
+  } catch {
+    // A marker already exists, so this order has already triggered its email.
+    return false;
+  }
+
+  try {
+    return await sendPaidOrderEmail(input);
+  } catch (error) {
+    // Allow a later verification retry if EmailJS was temporarily unavailable.
+    await db.siteSetting.delete({ where: { key: markerKey } }).catch(() => undefined);
+    throw error;
+  }
 }

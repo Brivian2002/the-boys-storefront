@@ -17,7 +17,7 @@ import { ClearCartOnSuccess } from "@/components/checkout/clear-cart-on-success"
 import { normalizePaystackReference, verifyTransaction } from "@/lib/paystack/client";
 import { SUPPORT_WHATSAPP_URL, fromMinorUnits, formatGHS } from "@/lib/ghana";
 import { db } from "@/lib/db";
-import { sendPaidOrderEmail } from "@/lib/emailjs-server";
+import { sendPaidOrderEmailOnce } from "@/lib/emailjs-server";
 
 export const metadata: Metadata = {
   title: "Order confirmed · Afrocentric Jewelry by LaGlitz",
@@ -60,7 +60,6 @@ export default async function VerifyPage({ searchParams }: PageProps) {
       throw new Error("Payment verification did not match this order");
     }
 
-    const wasAlreadyPaid = order.status === "paid";
     await db.order.update({
       where: { id: order.id },
       data: result.status
@@ -72,22 +71,22 @@ export default async function VerifyPage({ searchParams }: PageProps) {
         : { status: "failed" },
     });
 
-    if (result.status && !wasAlreadyPaid) {
+    if (result.status) {
       const items = order.items
         .map((item) => `${item.name} x ${item.quantity} — ${formatGHS(item.unitPrice, order.currency as "GHS" | "USD")}`)
         .join("\n");
-      await sendPaidOrderEmail({
-        reference: order.reference,
-        customerEmail: order.customerEmail,
-        customerName: order.deliveryName,
-        phone: order.deliveryPhone,
-        amount: fromMinorUnits(order.amountMinor),
-        currency: order.currency,
-        items,
-        deliveryRegion: order.deliveryRegion,
-        deliveryAddress: order.deliveryAddress,
-        notes: order.notes ?? "",
-      }).catch((emailError) => {
+      await sendPaidOrderEmailOnce(order.id, {
+          reference: order.reference,
+          customerEmail: order.customerEmail,
+          customerName: order.deliveryName,
+          phone: order.deliveryPhone,
+          amount: fromMinorUnits(order.amountMinor),
+          currency: order.currency,
+          items,
+          deliveryRegion: order.deliveryRegion,
+          deliveryAddress: order.deliveryAddress,
+          notes: order.notes ?? "",
+        }).catch((emailError) => {
         console.error("Paid order verified but seller email failed", emailError);
       });
     }
