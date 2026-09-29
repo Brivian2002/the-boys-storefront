@@ -18,7 +18,7 @@ In the project root, add this to `.env` (do not commit `.env`):
 ```env
 GROQ_API_KEY=your_groq_key_here
 # Optional: change the model without changing code
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL=openai/gpt-oss-20b
 ```
 
 Restart the development server after changing environment variables.
@@ -34,7 +34,7 @@ Restart the development server after changing environment variables.
 4. Optionally add `GROQ_MODEL` with value `llama-3.3-70b-versatile`.
 5. Save and redeploy the latest production deployment.
 
-The admin configuration screen will show whether **Groq AI assistant** is configured, but it will never display the key.
+The admin configuration screen will show whether **Groq AI assistant** is configured, but it will never display the key. The assistant defaults to Groq's current `openai/gpt-oss-20b` production model and automatically retries with that model if a custom model setting is unavailable.
 
 ## 4. Confirm it works
 
