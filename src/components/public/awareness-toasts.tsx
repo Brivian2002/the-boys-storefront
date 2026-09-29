@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { ArrowRight, Gem, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
 
-const STORAGE_KEY = "laglitz-awareness-seen-v1";
+const STORAGE_KEY = "laglitz-awareness-seen-v2";
 
 function AwarenessCard({
   icon: Icon,
