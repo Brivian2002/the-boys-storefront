@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyTransaction } from "@/lib/paystack/client";
+import { normalizePaystackReference, verifyTransaction } from "@/lib/paystack/client";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -11,13 +11,16 @@ export const dynamic = "force-dynamic";
  * Updates the matching Order row in the DB.
  */
 export async function GET(req: NextRequest) {
-  const reference = req.nextUrl.searchParams.get("reference");
-  if (!reference) {
+  const rawReference =
+    req.nextUrl.searchParams.get("reference") ??
+    req.nextUrl.searchParams.get("trxref");
+  if (!rawReference) {
     return NextResponse.json(
       { error: "Missing transaction reference" },
       { status: 400 }
     );
   }
+  const reference = normalizePaystackReference(rawReference);
 
   // Find the order in DB
   const order = await db.order.findUnique({ where: { reference } });

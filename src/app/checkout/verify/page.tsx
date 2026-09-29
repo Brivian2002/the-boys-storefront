@@ -14,8 +14,10 @@ import { PublicShell } from "@/components/public/shell";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ClearCartOnSuccess } from "@/components/checkout/clear-cart-on-success";
-import { verifyTransaction } from "@/lib/paystack/client";
+import { normalizePaystackReference, verifyTransaction } from "@/lib/paystack/client";
 import { SUPPORT_WHATSAPP_URL, fromMinorUnits, formatGHS } from "@/lib/ghana";
+import { db } from "@/lib/db";
+import { sendPaidOrderEmail } from "@/lib/emailjs-server";
 
 export const metadata: Metadata = {
   title: "Order confirmed · Afrocentric Jewelry by LaGlitz",
@@ -24,14 +26,16 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  searchParams: Promise<{ reference?: string }>;
+  searchParams: Promise<{ reference?: string; trxref?: string }>;
 }
 
 export const dynamic = "force-dynamic";
 
 export default async function VerifyPage({ searchParams }: PageProps) {
-  const { reference } = await searchParams;
-  if (!reference) notFound();
+  const { reference: queryReference, trxref } = await searchParams;
+  const rawReference = queryReference ?? trxref;
+  if (!rawReference) notFound();
+  const reference = normalizePaystackReference(rawReference);
 
   let status: "success" | "failed" | "pending" = "pending";
   let amount = 0;
@@ -41,8 +45,54 @@ export default async function VerifyPage({ searchParams }: PageProps) {
   let errorMsg: string | null = null;
 
   try {
+    const order = await db.order.findUnique({
+      where: { reference },
+      include: { items: true },
+    });
+    if (!order) throw new Error("Order not found for that reference");
+
     const result = await verifyTransaction(reference);
-    status = result.status;
+    if (
+      result.reference !== order.reference ||
+      result.amount !== order.amountMinor ||
+      result.currency !== order.currency
+    ) {
+      throw new Error("Payment verification did not match this order");
+    }
+
+    const wasAlreadyPaid = order.status === "paid";
+    await db.order.update({
+      where: { id: order.id },
+      data: result.status
+        ? {
+            status: "paid",
+            paidAt: result.paidAt ? new Date(result.paidAt) : new Date(),
+            paystackChannel: result.channel ?? null,
+          }
+        : { status: "failed" },
+    });
+
+    if (result.status && !wasAlreadyPaid) {
+      const items = order.items
+        .map((item) => `${item.name} x ${item.quantity} — ${formatGHS(item.unitPrice, order.currency as "GHS" | "USD")}`)
+        .join("\n");
+      await sendPaidOrderEmail({
+        reference: order.reference,
+        customerEmail: order.customerEmail,
+        customerName: order.deliveryName,
+        phone: order.deliveryPhone,
+        amount: fromMinorUnits(order.amountMinor),
+        currency: order.currency,
+        items,
+        deliveryRegion: order.deliveryRegion,
+        deliveryAddress: order.deliveryAddress,
+        notes: order.notes ?? "",
+      }).catch((emailError) => {
+        console.error("Paid order verified but seller email failed", emailError);
+      });
+    }
+
+    status = result.status ? "success" : "failed";
     amount = result.amount;
     currency = result.currency;
     customerEmail = result.customerEmail;

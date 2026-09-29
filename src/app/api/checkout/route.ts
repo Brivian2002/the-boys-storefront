@@ -147,7 +147,9 @@ export async function POST(req: NextRequest) {
   let paystackReference: string;
   try {
     const appBaseUrl = env().APP_BASE_URL || "http://localhost:3000";
-    const callbackUrl = `${appBaseUrl}/checkout/verify?reference=${encodeURIComponent(reference)}`;
+    // Paystack appends its own `reference` and `trxref` query parameters.
+    // Do not prefill the query string or the reference can be duplicated.
+    const callbackUrl = `${appBaseUrl}/checkout/verify`;
     const init = await initializeTransaction({
       email,
       amountMinor,

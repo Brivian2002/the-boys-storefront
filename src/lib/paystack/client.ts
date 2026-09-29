@@ -12,6 +12,16 @@ import { env } from "@/lib/env";
 
 const BASE = "https://api.paystack.co";
 
+const ORDER_REFERENCE = /^LGL-[A-Z0-9]+-[A-Z0-9]{6}$/;
+
+export function normalizePaystackReference(value: string): string {
+  const reference = value.trim();
+  if (ORDER_REFERENCE.test(reference)) return reference;
+  const duplicate = reference.match(/^(.+)\1$/);
+  if (duplicate && ORDER_REFERENCE.test(duplicate[1])) return duplicate[1];
+  return reference;
+}
+
 export interface InitializeTxInput {
   email: string;
   amountMinor: number;
@@ -89,6 +99,7 @@ export async function initializeTransaction(
 export async function verifyTransaction(
   reference: string
 ): Promise<VerifyTxResult> {
+  reference = normalizePaystackReference(reference);
   const res = await fetch(
     `${BASE}/transaction/verify/${encodeURIComponent(reference)}`,
     {
