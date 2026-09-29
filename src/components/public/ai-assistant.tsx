@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown, Loader2, Send, Sparkles, X } from "lucide-react";
+import { ChevronDown, Loader2, Send, X } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
@@ -23,6 +23,24 @@ function LadyHeadsetIcon({ className = "h-5 w-5" }: { className?: string }) {
       <path d="M12.5 19.5v8.2c0 1.6 1.2 2.8 2.8 2.8h1.2v-9.5h-1.2c-1.1 0-2.1.7-2.8 1.7M35.5 19.5v8.2c0 1.6-1.2 2.8-2.8 2.8h-1.2v-9.5h1.2c1.1 0 2.1.7 2.8 1.7" fill="none" stroke="black" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M32 30.5h3.2c2.4 0 4.3 1.9 4.3 4.3v.8h-6.2" fill="none" stroke="black" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+function cleanAssistantText(value: string) {
+  return value
+    .replace(/\*+/g, "")
+    .replace(/_+/g, "")
+    .replace(/^#{1,6}\s*/gm, "")
+    .replace(/^\s*[-•]\s+/gm, "• ")
+    .trim();
+}
+
+function ReadingLadyMark({ className = "h-9 w-9" }: { className?: string }) {
+  return (
+    <span className={`assistant-reading-mark ${className}`}>
+      <span className="assistant-reading-beam" />
+      <LadyHeadsetIcon className="relative z-10 h-[78%] w-[78%]" />
+    </span>
   );
 }
 
@@ -53,18 +71,18 @@ export function AIAssistant() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error ?? "Assistant unavailable");
-      setMessages((current) => [...current, { role: "assistant", content: data.message }]);
+      setMessages((current) => [...current, { role: "assistant", content: cleanAssistantText(data.message) }]);
     } catch (error) {
       setMessages((current) => [
         ...current,
         {
           role: "assistant",
-            content:
-              error instanceof Error && error.message.includes("not configured")
-                ? "The assistant is being prepared. You can still browse the collection, read our policies, or message us on WhatsApp."
-                : error instanceof Error && (error.message.startsWith("Groq ") || error.message.startsWith("The assistant is busy"))
-                  ? error.message
-                  : "I’m having trouble connecting right now. Please try again or contact us on WhatsApp.",
+          content:
+            error instanceof Error && error.message.includes("not configured")
+              ? "The assistant is being prepared. You can still browse the collection, read our policies, or message us on WhatsApp."
+              : error instanceof Error && (error.message.startsWith("Groq ") || error.message.startsWith("The assistant is busy"))
+                ? error.message
+                : "I’m having trouble connecting right now. Please try again or contact us on WhatsApp.",
         },
       ]);
     } finally {
@@ -81,7 +99,7 @@ export function AIAssistant() {
         >
           <header className="flex items-center justify-between border-b border-border bg-gradient-to-r from-teal-700 to-teal-600 px-4 py-3 text-white">
             <div className="flex items-center gap-2">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15"><LadyHeadsetIcon className="h-7 w-7" /></span>
+              <ReadingLadyMark className="h-9 w-9 rounded-full bg-white/15" />
               <div>
                 <p className="font-semibold">LaGlitz Guide</p>
                 <p className="text-[0.68rem] text-white/75">Story, products, delivery & business info</p>
@@ -114,10 +132,42 @@ export function AIAssistant() {
         </section>
       )}
       <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close LaGlitz assistant" : "Open LaGlitz assistant"} className="fixed bottom-5 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 hover:bg-teal-600">
-        {open ? <ChevronDown className="h-4 w-4" /> : <LadyHeadsetIcon className="h-6 w-6" />}
+        {open ? <ChevronDown className="h-4 w-4" /> : <ReadingLadyMark className="h-7 w-7 rounded-full" />}
         <span className="hidden sm:inline">Ask LaGlitz</span>
-        <Sparkles className="h-3.5 w-3.5 text-amber-200" />
       </button>
+      <style jsx>{`
+        .assistant-reading-mark {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          overflow: hidden;
+          background: linear-gradient(90deg, #ec4899, #ffffff, #14b8a6, #ffffff, #ec4899);
+          background-size: 240% 100%;
+          animation: assistant-spectrum 2.8s linear infinite;
+        }
+        .assistant-reading-beam {
+          position: absolute;
+          inset-block: 0;
+          left: -45%;
+          width: 34%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent);
+          transform: skewX(-18deg);
+          animation: assistant-reading 1.9s ease-in-out infinite;
+        }
+        @keyframes assistant-spectrum {
+          from { background-position: 0% 50%; }
+          to { background-position: 100% 50%; }
+        }
+        @keyframes assistant-reading {
+          0%, 20% { left: -45%; }
+          80%, 100% { left: 115%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .assistant-reading-mark, .assistant-reading-beam { animation: none; }
+        }
+      `}</style>
     </>
   );
 }
