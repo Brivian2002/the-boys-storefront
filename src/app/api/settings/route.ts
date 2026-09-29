@@ -14,6 +14,7 @@ export async function GET() {
   const settings = await getSiteSettings();
   return NextResponse.json({
     brand: settings.brand,
+    legalBusinessName: settings.legalBusinessName,
     contact: settings.contact,
     social: settings.social,
     maps: settings.maps,

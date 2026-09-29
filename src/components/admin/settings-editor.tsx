@@ -134,6 +134,12 @@ export function SettingsEditor({ settings }: SettingsEditorProps) {
                 onChange={(e) => patch({ brand: { ...draft.brand, name: e.target.value } })}
               />
             </Field>
+            <Field label="Registered / legal business name">
+              <Input
+                value={draft.legalBusinessName}
+                onChange={(e) => patch({ legalBusinessName: e.target.value })}
+              />
+            </Field>
             <Field label="Tagline">
               <Input
                 value={draft.brand.tagline}

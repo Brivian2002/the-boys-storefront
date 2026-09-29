@@ -20,6 +20,7 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
       <main className="flex-1">{children}</main>
       <PublicFooter
         brand={settings.brand}
+        legalBusinessName={settings.legalBusinessName}
         contact={settings.contact}
         social={settings.social}
       />

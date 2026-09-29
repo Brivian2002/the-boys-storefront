@@ -26,6 +26,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { STORE_CONTACT, SUPPORT_WHATSAPP_URL } from "@/lib/ghana";
+import { getSiteSettings } from "@/lib/site/store";
 
 export const metadata: Metadata = {
   title: "Policies",
@@ -78,7 +79,8 @@ const SECTIONS = [
   },
 ] as const;
 
-export default function PoliciesPage() {
+export default async function PoliciesPage() {
+  const settings = await getSiteSettings();
   return (
     <PublicShell>
       {/* ===== BREADCRUMB ===== */}
@@ -114,6 +116,9 @@ export default function PoliciesPage() {
             We keep our policies short, plain, and fair. If anything here is
             unclear, message us on WhatsApp — we&apos;d rather talk it through
             than hide behind fine print.
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Afrocentric Jewelry by LaGlitz is operated by {settings.legalBusinessName}.
           </p>
         </div>
       </section>

@@ -21,6 +21,7 @@ export async function GET() {
 
 const SettingsSchema = z.object({
   announcement: z.string().max(280).optional(),
+  legalBusinessName: z.string().max(160).optional(),
   brand: z
     .object({
       name: z.string().max(120).optional(),

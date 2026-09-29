@@ -75,6 +75,7 @@ export function sanitizeSettings(input: Partial<SiteSettings>): SiteSettings {
     ...DEFAULT_SETTINGS,
     ...input,
     brand: { ...DEFAULT_SETTINGS.brand, ...(input.brand ?? {}) },
+    legalBusinessName: input.legalBusinessName ?? DEFAULT_SETTINGS.legalBusinessName,
     contact: { ...DEFAULT_SETTINGS.contact, ...(input.contact ?? {}) },
     social: { ...DEFAULT_SETTINGS.social, ...(input.social ?? {}) },
     maps: { ...DEFAULT_SETTINGS.maps, ...(input.maps ?? {}) },
@@ -98,6 +99,10 @@ export function sanitizeSettings(input: Partial<SiteSettings>): SiteSettings {
   // trim strings
   base.announcement = (base.announcement ?? "").toString().slice(0, 280);
   base.brand.name = (base.brand.name ?? "").toString().trim().slice(0, 120);
+  base.legalBusinessName = (base.legalBusinessName ?? "")
+    .toString()
+    .trim()
+    .slice(0, 160);
   base.brand.tagline = (base.brand.tagline ?? "").toString().trim().slice(0, 80);
   base.brand.founderName = (base.brand.founderName ?? "")
     .toString()

@@ -52,6 +52,8 @@ export interface DeliveryCopySettings {
 export interface SiteSettings {
   announcement: string;
   brand: BrandSettings;
+  /** Registered/legal entity behind the customer-facing trading brand. */
+  legalBusinessName: string;
   contact: ContactSettings;
   social: SocialLinks;
   maps: MapsSettings;

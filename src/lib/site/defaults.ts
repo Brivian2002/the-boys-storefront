@@ -9,16 +9,20 @@
 import { GHANA_REGIONS } from "@/lib/ghana";
 import type { SiteSettings } from "./types";
 
+export const BRAND_NAME = "Afrocentric Jewelry by LaGlitz";
+export const LEGAL_BUSINESS_NAME = "Homeland Return Jewelry";
+
 export const DEFAULT_SETTINGS: SiteSettings = {
   announcement:
     "Handcrafted Afrocentric jewelry from Accra · Worldwide shipment available",
   brand: {
-    name: "Afrocentric Jewelry by LaGlitz",
+    name: BRAND_NAME,
     tagline: "Africa Arising",
     description:
       "Premium Afrocentric jewelry handcrafted in Accra, Ghana — beads, gold, cowrie, kente-inspired designs for the modern African woman.",
     founderName: "Charity Kessewaa Frimpong",
   },
+  legalBusinessName: LEGAL_BUSINESS_NAME,
   contact: {
     email: "laglitz@gmail.com",
     phone: "+233 55 454 5900",

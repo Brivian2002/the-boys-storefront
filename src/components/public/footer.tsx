@@ -7,6 +7,7 @@ import type { BrandSettings, ContactSettings, SocialLinks } from "@/lib/site/typ
 
 interface PublicFooterProps {
   brand: BrandSettings;
+  legalBusinessName: string;
   contact: ContactSettings;
   social: SocialLinks;
 }
@@ -37,7 +38,7 @@ const FOOTER_LINKS = {
   ],
 };
 
-export function PublicFooter({ brand, contact, social }: PublicFooterProps) {
+export function PublicFooter({ brand, legalBusinessName, contact, social }: PublicFooterProps) {
   const whatsappUrl =
     social.whatsapp ?? `https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`;
   return (
@@ -141,6 +142,9 @@ export function PublicFooter({ brand, contact, social }: PublicFooterProps) {
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} {brand.name}. Handcrafted in Accra, Ghana. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground/80">
+            {brand.name} is operated by {legalBusinessName}.
           </p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <span>Payments secured by Paystack</span>
