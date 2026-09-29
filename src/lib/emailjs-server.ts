@@ -24,9 +24,13 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
   const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim();
   const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim();
   const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim();
+  const privateKey = process.env.EMAILJS_PRIVATE_KEY?.trim();
 
-  if (!serviceId || !templateId || !publicKey) {
-    console.warn("Paid-order email skipped: EmailJS is not configured");
+  if (!serviceId || !templateId || !publicKey || !privateKey) {
+    const error = !privateKey
+      ? "EmailJS private key is not configured for strict server API access"
+      : "EmailJS is not configured";
+    console.warn(`Paid-order email skipped: ${error}`);
     await db.emailDelivery.create({
       data: {
         orderId: input.orderId,
@@ -34,7 +38,7 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
         recipient: "laglitz@gmail.com",
         subject: `Paid order ${input.reference}`,
         status: "skipped",
-        error: "EmailJS is not configured",
+        error,
       },
     }).catch(() => undefined);
     return false;
@@ -74,6 +78,7 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
         service_id: serviceId,
         template_id: templateId,
         user_id: publicKey,
+        accessToken: privateKey,
         template_params: {
           name: input.customerName,
           email: input.customerEmail,
@@ -122,7 +127,8 @@ export async function sendPaidOrderEmailOnce(
   if (
     !process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() ||
     !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?.trim() ||
-    !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim()
+    !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim() ||
+    !process.env.EMAILJS_PRIVATE_KEY?.trim()
   ) {
     return false;
   }

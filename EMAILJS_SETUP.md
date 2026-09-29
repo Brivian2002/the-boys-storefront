@@ -49,6 +49,11 @@ Your supplied HTML is compatible with these fields:
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+EMAILJS_PRIVATE_KEY=your_emailjs_private_key
 ```
+
+`EMAILJS_PRIVATE_KEY` is required only by the server-side Paystack order notification and is sent to EmailJS as `accessToken`. It is never exposed to the browser or used by the public contact form.
+
+In Vercel, add it under **Project Settings → Environment Variables** for **Production**, then redeploy. Get the value from EmailJS under **Account → General → API keys → Private Key**. If EmailJS strict mode is enabled but this variable is missing, the admin resend history will show a 403 error saying that no Private Key was provided.
 
 Never commit the actual values to GitHub or paste them into chat.
