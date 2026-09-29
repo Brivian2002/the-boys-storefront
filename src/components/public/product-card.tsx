@@ -68,6 +68,11 @@ export function ProductCard({ product, className, priority }: ProductCardProps) 
               sold && "grayscale-[0.4]"
             )}
             onLoad={() => setImgLoaded(true)}
+            onError={(event) => {
+              setImgLoaded(true);
+              event.currentTarget.style.opacity = "0";
+            }}
+            unoptimized
             priority={priority}
           />
         )}

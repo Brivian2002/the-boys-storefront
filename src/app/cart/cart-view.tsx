@@ -157,6 +157,10 @@ function CartLineRow({
           fill
           sizes="112px"
           className="object-cover"
+          unoptimized
+          onError={(event) => {
+            event.currentTarget.style.opacity = "0";
+          }}
         />
       </Link>
       <div className="flex-1 min-w-0 flex flex-col">

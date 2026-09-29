@@ -32,6 +32,10 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+          unoptimized
+          onError={(event) => {
+            event.currentTarget.style.opacity = "0";
+          }}
         />
       </div>
 
@@ -58,6 +62,10 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
                 fill
                 sizes="(max-width: 640px) 20vw, 100px"
                 className="object-cover"
+                unoptimized
+                onError={(event) => {
+                  event.currentTarget.style.opacity = "0";
+                }}
               />
             </button>
           ))}

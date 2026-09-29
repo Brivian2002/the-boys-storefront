@@ -31,6 +31,20 @@ export async function GET(req: NextRequest) {
   try {
     const result = await verifyTransaction(reference);
 
+    if (
+      result.reference !== order.reference ||
+      result.amount !== order.amountMinor ||
+      result.currency !== order.currency
+    ) {
+      await db.order
+        .update({ where: { id: order.id }, data: { status: "failed" } })
+        .catch(() => undefined);
+      return NextResponse.json(
+        { error: "Payment verification did not match this order", status: "failed" },
+        { status: 400 }
+      );
+    }
+
     if (result.status) {
       await db.order.update({
         where: { id: order.id },

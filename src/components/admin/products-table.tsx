@@ -238,6 +238,10 @@ export function ProductsTable({ products }: ProductsTableProps) {
                         fill
                         sizes="48px"
                         className="object-cover"
+                        unoptimized
+                        onError={(event) => {
+                          event.currentTarget.style.opacity = "0";
+                        }}
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-[0.6rem] text-muted-foreground">

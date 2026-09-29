@@ -31,7 +31,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useCart } from "@/stores/cart";
 import type { CartLine } from "@/stores/cart";
 import { useCartHydrated } from "@/components/cart/cart-provider";
-import { formatGHS } from "@/lib/ghana";
+import { formatGHS, GHANA_REGIONS } from "@/lib/ghana";
 
 interface Region {
   id: string;
@@ -45,6 +45,7 @@ interface Region {
 interface PublicSettings {
   brand?: { name?: string };
   delivery?: { regions?: Region[] };
+  regions?: Region[];
   announcement?: string;
 }
 
@@ -93,9 +94,12 @@ export function CheckoutView() {
         if (!res.ok) throw new Error("Failed to load settings");
         const data = (await res.json()) as PublicSettings;
         if (cancelled) return;
-        setRegions(data.delivery?.regions ?? []);
+        // /api/settings exposes editable regions at the top level. Keep the
+        // nested form as a compatibility fallback for older deployments.
+        setRegions(data.regions ?? data.delivery?.regions ?? GHANA_REGIONS);
       } catch {
-        // Silent fail; user can still attempt checkout
+        // Keep checkout usable if the settings request is temporarily down.
+        if (!cancelled) setRegions(GHANA_REGIONS);
       } finally {
         if (!cancelled) setSettingsLoading(false);
       }
@@ -481,6 +485,10 @@ function SummaryLine({ line }: { line: CartLine }) {
           fill
           sizes="56px"
           className="object-cover"
+          unoptimized
+          onError={(event) => {
+            event.currentTarget.style.opacity = "0";
+          }}
         />
         <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-foreground px-1 text-[0.65rem] font-semibold text-background">
           {line.quantity}
