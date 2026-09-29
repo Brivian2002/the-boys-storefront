@@ -26,6 +26,10 @@ export interface EnvShape {
   PAYSTACK_SECRET_KEY?: string;
   PAYSTACK_PUBLIC_KEY?: string;
 
+  // Groq AI assistant
+  GROQ_API_KEY?: string;
+  GROQ_MODEL?: string;
+
   // EmailJS (contact form - client-side)
   NEXT_PUBLIC_EMAILJS_SERVICE_ID?: string;
   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID?: string;
@@ -58,6 +62,7 @@ export interface ConfigStatus {
   bloggerRead: boolean;
   bloggerWrite: boolean;
   paystack: boolean;
+  groq: boolean;
   emailjs: boolean;
   blob: boolean;
   appBaseUrl: boolean;
@@ -87,6 +92,7 @@ export function configStatus(): ConfigStatus {
     bloggerRead,
     bloggerWrite,
     paystack: Boolean(e.PAYSTACK_SECRET_KEY && e.PAYSTACK_PUBLIC_KEY),
+    groq: Boolean(e.GROQ_API_KEY),
     emailjs: Boolean(
       e.NEXT_PUBLIC_EMAILJS_SERVICE_ID &&
         e.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID &&

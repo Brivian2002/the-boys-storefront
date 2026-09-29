@@ -144,7 +144,11 @@ export function PublicFooter({ brand, legalBusinessName, contact, social }: Publ
             © {new Date().getFullYear()} {brand.name}. Handcrafted in Accra, Ghana. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground/80">
-            {brand.name} is operated by {legalBusinessName}.
+            {brand.name} is operated by{" "}
+            <span className="font-semibold text-amber-700 dark:text-amber-300">
+              {legalBusinessName}
+            </span>
+            .
           </p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <span>Payments secured by Paystack</span>

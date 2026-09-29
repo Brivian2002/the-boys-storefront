@@ -3,6 +3,8 @@ import { getSiteSettings } from "@/lib/site/store";
 import { PublicHeader } from "@/components/public/header";
 import { PublicFooter } from "@/components/public/footer";
 import { SocialPopup } from "@/components/public/social-popup";
+import { AwarenessToasts } from "@/components/public/awareness-toasts";
+import { AIAssistant } from "@/components/public/ai-assistant";
 
 /**
  * Public storefront shell.
@@ -28,6 +30,8 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
         instagram={settings.social.instagram}
         facebook={settings.social.facebook}
       />
+      <AwarenessToasts />
+      <AIAssistant />
     </div>
   );
 }

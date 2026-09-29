@@ -44,6 +44,7 @@ const GROUPS: Group[] = [
     items: [
       { key: "paystack", label: "Paystack", env: "PAYSTACK_SECRET_KEY + PUBLIC_KEY" },
       { key: "emailjs", label: "EmailJS (contact form)", env: "NEXT_PUBLIC_EMAILJS_*" },
+      { key: "groq", label: "Groq AI assistant", env: "GROQ_API_KEY" },
     ],
   },
   {
