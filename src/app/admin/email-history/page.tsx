@@ -4,6 +4,7 @@ import { Clock3, MailCheck, MailX, MapPin, Send } from "lucide-react";
 import { getSession } from "@/lib/auth/admin-session";
 import { db } from "@/lib/db";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { ResendOrderEmailButton } from "@/components/admin/resend-order-email-button";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -146,7 +147,10 @@ export default async function AdminEmailHistoryPage() {
                     )}
                   </div>
                   <div className="rounded-lg border border-border bg-muted/30 p-4">
-                    <p className="font-medium">Delivery result</p>
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <p className="font-medium">Delivery result</p>
+                      {order && <ResendOrderEmailButton deliveryId={delivery.id} />}
+                    </div>
                     <p className="mt-2 text-muted-foreground">Provider: {delivery.provider}</p>
                     <p className="text-muted-foreground">Status: {delivery.status}</p>
                     {delivery.error && (
