@@ -2,6 +2,7 @@ import "server-only";
 import { db } from "@/lib/db";
 
 export interface OrderEmailInput {
+  orderId: string;
   reference: string;
   customerEmail: string;
   customerName: string;
@@ -26,6 +27,16 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
 
   if (!serviceId || !templateId || !publicKey) {
     console.warn("Paid-order email skipped: EmailJS is not configured");
+    await db.emailDelivery.create({
+      data: {
+        orderId: input.orderId,
+        kind: "paid-order",
+        recipient: "laglitz@gmail.com",
+        subject: `Paid order ${input.reference}`,
+        status: "skipped",
+        error: "EmailJS is not configured",
+      },
+    }).catch(() => undefined);
     return false;
   }
 
@@ -45,38 +56,63 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
     `Order notes: ${input.notes || "None"}`,
   ].join("\n");
 
-  const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      service_id: serviceId,
-      template_id: templateId,
-      user_id: publicKey,
-        template_params: {
-        name: input.customerName,
-        email: input.customerEmail,
-        title: `Paid order ${input.reference}`,
-        from_name: input.customerName,
-        from_email: input.customerEmail,
-        reply_to: input.customerEmail,
-        phone: input.phone,
-        subject: `Paid order ${input.reference}`,
-        message,
-        order_reference: input.reference,
-        order_total: `${input.currency} ${input.amount.toFixed(2)}`,
-        order_items: input.items,
-        delivery_region: input.deliveryRegion,
-        delivery_address: input.deliveryAddress,
-      },
-    }),
-    signal: AbortSignal.timeout(15_000),
+  const delivery = await db.emailDelivery.create({
+    data: {
+      orderId: input.orderId,
+      kind: "paid-order",
+      recipient: "laglitz@gmail.com",
+      subject: `Paid order ${input.reference}`,
+      status: "pending",
+    },
   });
 
-  if (!response.ok) {
-    const detail = await response.text().catch(() => "");
-    throw new Error(`EmailJS order notification failed: ${response.status} ${detail.slice(0, 180)}`);
+  try {
+    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        template_params: {
+          name: input.customerName,
+          email: input.customerEmail,
+          title: `Paid order ${input.reference}`,
+          from_name: input.customerName,
+          from_email: input.customerEmail,
+          reply_to: input.customerEmail,
+          phone: input.phone,
+          subject: `Paid order ${input.reference}`,
+          message,
+          order_reference: input.reference,
+          order_total: `${input.currency} ${input.amount.toFixed(2)}`,
+          order_items: input.items,
+          delivery_region: input.deliveryRegion,
+          delivery_address: input.deliveryAddress,
+        },
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+
+    if (!response.ok) {
+      const detail = await response.text().catch(() => "");
+      throw new Error(`EmailJS order notification failed: ${response.status} ${detail.slice(0, 180)}`);
+    }
+    await db.emailDelivery.update({
+      where: { id: delivery.id },
+      data: { status: "sent" },
+    });
+    return true;
+  } catch (error) {
+    await db.emailDelivery.update({
+      where: { id: delivery.id },
+      data: {
+        status: "failed",
+        error: error instanceof Error ? error.message.slice(0, 500) : "Unknown EmailJS error",
+      },
+    }).catch(() => undefined);
+    throw error;
   }
-  return true;
 }
 
 export async function sendPaidOrderEmailOnce(
@@ -92,7 +128,7 @@ export async function sendPaidOrderEmailOnce(
   }
   const markerKey = `paid-order-email:${orderId}`;
   try {
-    await db.siteSetting.create({
+      await db.siteSetting.create({
       data: { key: markerKey, value: new Date().toISOString() },
     });
   } catch {

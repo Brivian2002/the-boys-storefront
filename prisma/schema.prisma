@@ -86,9 +86,28 @@ model Order {
   updatedAt       DateTime    @updatedAt
 
   items OrderItem[]
+  emailDeliveries EmailDelivery[]
 
   @@index([status])
   @@index([customerEmail])
+  @@index([createdAt])
+}
+
+model EmailDelivery {
+  id          String   @id @default(cuid())
+  orderId     String?
+  kind        String   @default("paid-order") // paid-order | contact
+  recipient   String
+  subject     String
+  status      String   @default("pending") // pending | sent | failed | skipped
+  provider    String   @default("emailjs")
+  error       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  order       Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  @@index([orderId])
+  @@index([status])
   @@index([createdAt])
 }
 

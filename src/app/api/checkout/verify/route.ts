@@ -66,6 +66,7 @@ export async function GET(req: NextRequest) {
         .map((item) => `${item.name} x ${item.quantity} — ${formatGHS(item.unitPrice, order.currency as "GHS" | "USD")}`)
         .join("\n");
       await sendPaidOrderEmailOnce(order.id, {
+        orderId: order.id,
         reference: order.reference,
         customerEmail: order.customerEmail,
         customerName: order.deliveryName,

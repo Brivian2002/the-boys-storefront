@@ -26,6 +26,7 @@ import {
   Search,
   Bell,
   ChevronDown,
+  MailCheck,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -63,6 +64,7 @@ export type AdminNavKey =
   | "theme"
   | "config"
   | "analytics"
+  | "email"
   | "admins";
 
 interface NavItem {
@@ -92,6 +94,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { key: "reviews", label: "Reviews", href: "/admin/reviews", icon: Star },
       { key: "inbox", label: "Inbox", href: "/admin/inbox", icon: Inbox },
+      { key: "email", label: "Email history", href: "/admin/email-history", icon: MailCheck },
       { key: "blog", label: "Blog posts", href: "/admin/blog", icon: Newspaper },
     ],
   },
