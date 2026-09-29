@@ -90,7 +90,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
 
   return (
     <div
-      className={`fixed bottom-4 right-4 z-50 w-72 max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-card p-4 shadow-2xl transition-all duration-500 ${
+      className={`fixed bottom-5 left-4 z-50 w-72 max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-card p-4 shadow-2xl transition-all duration-500 ${
         open ? "animate-fade-up translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       } ${pulse ? "animate-pulse-once" : ""}`}
       role="dialog"

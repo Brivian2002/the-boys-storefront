@@ -23,7 +23,7 @@ function AwarenessCard({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="w-[min(390px,calc(100vw-2rem))] rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-2xl">
+    <div className="w-[min(360px,calc(100vw-2rem))] rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-2xl">
       <div className="flex items-start gap-3">
         <span
           className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
@@ -68,7 +68,7 @@ export function AwarenessToasts() {
             </div>
           </AwarenessCard>
         ),
-        { duration: 9500, position: "top-right", id: "laglitz-welcome" },
+        { duration: 9500, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "laglitz-welcome" },
       );
     }, 1200);
 
@@ -84,7 +84,7 @@ export function AwarenessToasts() {
             </div>
           </AwarenessCard>
         ),
-        { duration: 11000, position: "top-right", id: "laglitz-legal-identity" },
+        { duration: 11000, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "laglitz-legal-identity" },
       );
     }, 6200);
 
@@ -95,7 +95,7 @@ export function AwarenessToasts() {
             Get quick answers about our story, materials, delivery, payments, care, and the difference between our trading brand and registered business.
           </AwarenessCard>
         ),
-        { duration: 8500, position: "bottom-right", id: "laglitz-assistant-intro" },
+        { duration: 8500, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "laglitz-assistant-intro" },
       );
     }, 12500);
 

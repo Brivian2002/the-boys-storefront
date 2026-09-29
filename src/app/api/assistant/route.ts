@@ -12,7 +12,7 @@ const MessageSchema = z.object({
 const BodySchema = z.object({ messages: z.array(MessageSchema).min(1).max(12) });
 
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY?.trim();
   if (!apiKey) {
     return NextResponse.json({ error: "Assistant is not configured yet" }, { status: 503 });
   }
@@ -57,7 +57,7 @@ Rules:
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile",
+        model: process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile",
         temperature: 0.35,
         max_tokens: 280,
         messages: [{ role: "system", content: system }, ...parsed.data.messages],
@@ -67,7 +67,16 @@ Rules:
     const data = await response.json();
     if (!response.ok) {
       console.error("Groq assistant request failed", response.status, data?.error?.message ?? "unknown error");
-      return NextResponse.json({ error: "Assistant is temporarily unavailable" }, { status: 502 });
+      if (response.status === 401 || response.status === 403) {
+        return NextResponse.json({ error: "Groq rejected the API key. Check GROQ_API_KEY in Vercel and redeploy." }, { status: 502 });
+      }
+      if (response.status === 400) {
+        return NextResponse.json({ error: "Groq rejected the selected model. Check GROQ_MODEL or remove it to use the default model." }, { status: 502 });
+      }
+      if (response.status === 429) {
+        return NextResponse.json({ error: "The assistant is busy right now. Please try again shortly." }, { status: 429 });
+      }
+      return NextResponse.json({ error: "Groq is temporarily unavailable. Please try again shortly." }, { status: 502 });
     }
     const message = data?.choices?.[0]?.message?.content;
     if (typeof message !== "string" || !message.trim()) {
