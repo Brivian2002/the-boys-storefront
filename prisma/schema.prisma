@@ -72,6 +72,7 @@ model Order {
   id              String      @id @default(cuid())
   reference       String      @unique
   status          String      @default("pending") // pending | paid | failed | cancelled | refunded
+  source          String      @default("customer-order") // customer-order
   amountMinor     Int
   currency        String      @default("GHS")
   customerEmail   String
@@ -132,6 +133,7 @@ model ContactMessage {
   subject   String
   message   String
   status    String   @default("new") // new | read | archived | replied
+  source    String   @default("contact-form") // contact-form
   createdAt DateTime @default(now())
 
   @@index([status])

@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
         subject: parsed.data.subject,
         message: parsed.data.message,
         status: "new",
+        source: "contact-form",
       },
     });
     return NextResponse.json({ ok: true });
