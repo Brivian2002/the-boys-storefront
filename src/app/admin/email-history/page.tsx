@@ -61,17 +61,7 @@ export default async function AdminEmailHistoryPage() {
     take: 200,
     include: {
       order: {
-        select: {
-          reference: true,
-          customerEmail: true,
-          deliveryName: true,
-          deliveryPhone: true,
-          deliveryRegion: true,
-          deliveryAddress: true,
-          amountMinor: true,
-          currency: true,
-          status: true,
-        },
+        include: { items: true },
       },
     },
   });
@@ -149,7 +139,7 @@ export default async function AdminEmailHistoryPage() {
                   <div className="rounded-lg border border-border bg-muted/30 p-4">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <p className="font-medium">Delivery result</p>
-                      {order && <ResendOrderEmailButton deliveryId={delivery.id} />}
+                      {order && <ResendOrderEmailButton order={order} />}
                     </div>
                     <p className="mt-2 text-muted-foreground">Provider: {delivery.provider}</p>
                     <p className="text-muted-foreground">Status: {delivery.status}</p>

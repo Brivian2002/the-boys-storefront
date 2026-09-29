@@ -14,6 +14,7 @@ import { PublicShell } from "@/components/public/shell";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ClearCartOnSuccess } from "@/components/checkout/clear-cart-on-success";
+import { PaidOrderContactEmail } from "@/components/checkout/paid-order-contact-email";
 import { normalizePaystackReference, verifyTransaction } from "@/lib/paystack/client";
 import { SUPPORT_WHATSAPP_URL, fromMinorUnits, formatGHS } from "@/lib/ghana";
 import { db } from "@/lib/db";
@@ -41,6 +42,7 @@ export default async function VerifyPage({ searchParams }: PageProps) {
   let amount = 0;
   let currency: "GHS" | "USD" = "GHS";
   let customerEmail = "";
+  let customerOrderEmail: React.ComponentProps<typeof PaidOrderContactEmail> | null = null;
   let demo = false;
   let errorMsg: string | null = null;
 
@@ -75,7 +77,7 @@ export default async function VerifyPage({ searchParams }: PageProps) {
       const items = order.items
         .map((item) => `${item.name} x ${item.quantity} — ${formatGHS(item.unitPrice, order.currency as "GHS" | "USD")}`)
         .join("\n");
-      await sendPaidOrderEmailOnce(order.id, {
+      const serverEmailSent = await sendPaidOrderEmailOnce(order.id, {
           orderId: order.id,
           reference: order.reference,
           customerEmail: order.customerEmail,
@@ -89,7 +91,25 @@ export default async function VerifyPage({ searchParams }: PageProps) {
           notes: order.notes ?? "",
         }).catch((emailError) => {
         console.error("Paid order verified but seller email failed", emailError);
+        return false;
       });
+      const previousSentEmail = await db.emailDelivery.findFirst({
+        where: { orderId: order.id, status: "sent" },
+        select: { id: true },
+      });
+      if (!serverEmailSent && !previousSentEmail) {
+        customerOrderEmail = {
+          reference: order.reference,
+          customerName: order.deliveryName,
+          customerEmail: order.customerEmail,
+          phone: order.deliveryPhone,
+          amount: formatGHS(fromMinorUnits(order.amountMinor), order.currency as "GHS" | "USD"),
+          items,
+          deliveryRegion: order.deliveryRegion,
+          deliveryAddress: order.deliveryAddress,
+          notes: order.notes ?? "",
+        };
+      }
     }
 
     status = result.status ? "success" : "failed";
@@ -112,6 +132,7 @@ export default async function VerifyPage({ searchParams }: PageProps) {
             currency={currency}
             customerEmail={customerEmail}
             demo={demo}
+            customerOrderEmail={customerOrderEmail}
           />
         ) : status === "pending" ? (
           <PendingView reference={reference} />
@@ -129,18 +150,21 @@ function SuccessView({
   currency,
   customerEmail,
   demo,
+  customerOrderEmail,
 }: {
   reference: string;
   amount: number;
   currency: "GHS" | "USD";
   customerEmail: string;
   demo: boolean;
+  customerOrderEmail: React.ComponentProps<typeof PaidOrderContactEmail> | null;
 }) {
   const major = fromMinorUnits(amount);
   return (
     <>
       {/* Clear the cart on success */}
       <ClearCartOnSuccess />
+      {customerOrderEmail && <PaidOrderContactEmail {...customerOrderEmail} />}
       <div className="flex flex-col items-center text-center">
         <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-950/40">
           <CheckCircle2 className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
