@@ -28,7 +28,7 @@ export function NewsletterSignup() {
       setDone(true);
       setEmail("");
       toast.success("You're on the list!", {
-        description: "We'll send new arrivals and atelier stories to your inbox.",
+        description: "New finds, helpful guides, and useful updates—straight to your inbox.",
       });
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Could not subscribe";
@@ -42,10 +42,10 @@ export function NewsletterSignup() {
     <div className="grid gap-6 md:grid-cols-2 md:items-center">
       <div className="space-y-2">
         <h2 className="font-serif text-2xl sm:text-3xl font-semibold tracking-tight">
-          New arrivals, atelier stories, and the occasional private viewing.
+          New arrivals, helpful guides, and occasional member-only offers.
         </h2>
         <p className="text-sm text-muted-foreground">
-          Join the The Boys Store list. No spam — just the pieces we're proudest of.
+          Join the The Boys Store list. No spam — just the items we're proudest of.
         </p>
       </div>
       {done ? (

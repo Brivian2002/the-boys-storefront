@@ -13,7 +13,7 @@ export default async function NewProductPage() {
     <AdminShell
       active="products"
       title="New product"
-      description="Create a new piece in the catalog"
+      description="Create a new item in the catalog"
       session={session}
     >
       <ProductComposer mode="create" />

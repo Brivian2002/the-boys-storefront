@@ -28,7 +28,7 @@ import {
 export const metadata: Metadata = {
   title: "Shop All Products",
   description:
-    "Browse the full The Boys Store collection of handcrafted rings, earrings, necklaces, bracelets and sets. Made in Ashaley Botwe, Madina, Ghana.",
+    "Browse the full The Boys Store collection of carefully selected rings, earrings, necklaces, bracelets and sets. Made in Ghana & worldwide, Ghana.",
   alternates: { canonical: "/shop" },
 };
 
@@ -136,8 +136,8 @@ export default async function ShopPage({
                 {headerTitle}
               </h1>
               <p className="mt-2 text-sm text-muted-foreground">
-                {result.total} {result.total === 1 ? "piece" : "pieces"} ·
-                Handcrafted in Ashaley Botwe, Madina
+                {result.total} {result.total === 1 ? "item" : "items"} ·
+                Carefully selected in Ghana & worldwide
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -217,11 +217,11 @@ function EmptyState() {
         <PackageSearch className="h-7 w-7" />
       </div>
       <h2 className="font-serif text-2xl font-semibold mb-2">
-        No pieces match your filters
+        No items match your filters
       </h2>
       <p className="text-muted-foreground max-w-md mb-6">
-        Try widening your selection or clearing filters. Our atelier adds new
-        pieces every month - check back soon.
+        Try widening your selection or clearing filters. Our marketplace adds new
+        items every month - check back soon.
       </p>
       <Button asChild>
         <Link href="/shop">View all products</Link>

@@ -15,13 +15,13 @@ interface PublicFooterProps {
 const FOOTER_LINKS = {
   Shop: [
     { href: "/shop", label: "All Products" },
-    { href: "/shop?category=rings", label: "Rings" },
-    { href: "/shop?category=earrings", label: "Earrings" },
-    { href: "/shop?category=necklaces", label: "Necklaces" },
-    { href: "/shop?category=bracelets", label: "Bracelets" },
-    { href: "/shop?category=watches", label: "Watches" },
-    { href: "/shop?category=brooches", label: "Brooches" },
-    { href: "/shop?category=sets", label: "Sets" },
+    { href: "/shop?category=rings", label: "Electronics" },
+    { href: "/shop?category=earrings", label: "Fashion & Apparel" },
+    { href: "/shop?category=necklaces", label: "Home & Living" },
+    { href: "/shop?category=bracelets", label: "Beauty & Wellness" },
+    { href: "/shop?category=watches", label: "Gadgets" },
+    { href: "/shop?category=brooches", label: "Services" },
+    { href: "/shop?category=sets", label: "Bundles & Deals" },
     { href: "/shop?category=new-arrivals", label: "New Arrivals" },
   ],
   Help: [
@@ -65,7 +65,7 @@ export function PublicFooter({ brand, legalBusinessName, contact, social }: Publ
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
-                <MessageCircle className="h-4 w-4 text-turquoise" />
+                <MessageCircle className="h-4 w-4 text-blue-600" />
                 Chat on WhatsApp
               </a>
               <a
@@ -141,7 +141,7 @@ export function PublicFooter({ brand, legalBusinessName, contact, social }: Publ
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} {brand.name}. Handcrafted in Accra, Ghana. All rights reserved.
+            © {new Date().getFullYear()} {brand.name}. Built for shoppers everywhere. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground/80">
             {brand.name} is operated by{" "}

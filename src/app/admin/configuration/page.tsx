@@ -91,7 +91,7 @@ export default async function AdminConfigurationPage() {
         <CardContent>
           <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
             <div
-              className="h-full rounded-full bg-teal-500 transition-all"
+              className="h-full rounded-full bg-blue-600 transition-all"
               style={{ width: `${(configured / total) * 100}%` }}
             />
           </div>
@@ -138,9 +138,9 @@ export default async function AdminConfigurationPage() {
         ))}
       </div>
 
-      <Card className="mt-6 border-teal-500/30 bg-teal-500/5">
+      <Card className="mt-6 border-teal-500/30 bg-blue-600/5">
         <CardContent className="flex items-start gap-3 py-4">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
           <div className="text-sm">
             <p className="font-medium">How to configure</p>
             <p className="mt-1 text-muted-foreground">

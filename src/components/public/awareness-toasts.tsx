@@ -29,7 +29,7 @@ function AwarenessCard({
           className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
             accent === "amber"
               ? "bg-amber-400/20 text-amber-700 dark:text-amber-300"
-              : "bg-teal-500/15 text-teal-700 dark:text-teal-300"
+              : "bg-blue-600/15 text-teal-700 dark:text-blue-300"
           }`}
         >
           <Icon className="h-5 w-5" />
@@ -60,9 +60,9 @@ export function AwarenessToasts() {
       toast.custom(
         () => (
           <AwarenessCard icon={Gem} eyebrow="Welcome to The Boys Store" title="Products with a story.">
-            Discover handcrafted Afrocentric pieces made in Accra, Ghana — designed to help you wear heritage, confidence, and everyday beauty.
+            Discover carefully selected Afrocentric items made in Accra, Ghana — designed to help you wear heritage, confidence, and everyday beauty.
             <div className="mt-3">
-              <Link href="/shop" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-teal-300">
+              <Link href="/shop" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-blue-300">
                 Explore the collection <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
@@ -78,7 +78,7 @@ export function AwarenessToasts() {
           <AwarenessCard icon={ShieldCheck} eyebrow="A little clarity" title="Two names, one trusted business." accent="amber">
             <strong className="text-amber-700 dark:text-amber-300">The Boys Store</strong> is our customer-facing brand. The registered business behind it is <strong className="text-amber-700 dark:text-amber-300">The Boys Store Marketplace</strong>.
             <div className="mt-3">
-              <Link href="/policies#terms" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-teal-300">
+              <Link href="/policies#terms" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-blue-300">
                 Learn more in our policies <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

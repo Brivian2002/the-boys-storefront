@@ -130,10 +130,10 @@ export function CheckoutView() {
             Your bag is empty
           </h2>
           <p className="text-muted-foreground max-w-md mb-7">
-            Add a piece to your bag before heading to checkout.
+            Add a item to your bag before heading to checkout.
           </p>
           <Button asChild size="lg" className="text-base">
-            <Link href="/shop">Shop the collection</Link>
+            <Link href="/shop">Explore the marketplace</Link>
           </Button>
         </div>
       </>
@@ -214,7 +214,7 @@ export function CheckoutView() {
           {/* Contact */}
           <section className="rounded-lg border border-border bg-card p-5 sm:p-6 space-y-4">
             <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+              <Mail className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               <h2 className="font-serif text-xl font-semibold">Contact</h2>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -249,7 +249,7 @@ export function CheckoutView() {
           {/* Delivery */}
           <section className="rounded-lg border border-border bg-card p-5 sm:p-6 space-y-4">
             <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+              <MapPin className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               <h2 className="font-serif text-xl font-semibold">Delivery</h2>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -311,7 +311,7 @@ export function CheckoutView() {
             </Field>
 
             {region && (
-              <div className="rounded-md border border-teal-500/30 bg-teal-500/5 p-3 text-sm">
+              <div className="rounded-md border border-teal-500/30 bg-blue-600/5 p-3 text-sm">
                 <p className="font-medium">
                   {region.name}
                   <span className="ml-2 text-muted-foreground font-normal">
@@ -336,7 +336,7 @@ export function CheckoutView() {
           {/* Payment */}
           <section className="rounded-lg border border-border bg-card p-5 sm:p-6 space-y-4">
             <div className="flex items-center gap-2">
-              <CreditCard className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+              <CreditCard className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               <h2 className="font-serif text-xl font-semibold">Payment</h2>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -433,7 +433,7 @@ function CheckoutHeader() {
           Back to bag
         </Link>
       </Button>
-      <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+      <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
         Almost yours
       </p>
       <h1 className="font-serif text-4xl sm:text-5xl font-semibold tracking-tight">

@@ -236,7 +236,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     key={m}
                     className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs font-medium"
                   >
-                    <Gem className="h-3 w-3 mr-1.5 text-teal-600 dark:text-teal-400" />
+                    <Gem className="h-3 w-3 mr-1.5 text-blue-600 dark:text-blue-400" />
                     {m}
                   </span>
                 ))}
@@ -249,8 +249,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
             {/* WhatsApp enquiry */}
             <div className="rounded-lg border border-border bg-muted/30 p-4">
               <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                Have a question about this piece, or want to discuss a custom
-                order? Reach our atelier directly on WhatsApp.
+                Have a question about this item, or want to discuss a custom
+                order? Reach our marketplace directly on WhatsApp.
               </p>
               <Button asChild variant="outline" size="sm">
                 <a href={SUPPORT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
@@ -272,7 +272,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         {/* Full description + accordion */}
         <div className="mt-16 grid gap-10 lg:grid-cols-2">
           <div className="space-y-4">
-            <h2 className="font-serif text-2xl font-semibold">The piece</h2>
+            <h2 className="font-serif text-2xl font-semibold">The item</h2>
             {product.descriptionHtml ? (
               <div
                 className="max-w-none text-muted-foreground
@@ -334,17 +334,17 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     Delivery is available across all 10 regions of Ghana.
                     Greater Accra orders ship in 1-3 business days; other
                     regions in 2-8 days. Free pickup is available at our
-                    Ashaley Botwe atelier in Madina.
+                    Ashaley Botwe marketplace in Madina.
                   </p>
                   <p>
-                    Each piece ships fully insured in a presentation box with a
+                    Each item ships fully insured in a presentation box with a
                     certificate of authenticity. Pickup is available at our
-                    Ashaley Botwe atelier in Madina at no charge.
+                    Ashaley Botwe marketplace in Madina at no charge.
                   </p>
                   <p>
                     Returns are accepted within 7 days of delivery for
-                    unworn, unaltered pieces in original packaging. Custom and
-                    engraved pieces are final sale.
+                    unworn, unaltered items in original packaging. Custom and
+                    engraved items are final sale.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -354,12 +354,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-2">
                   <p>
-                    Every The Boys Store piece is hand-finished
-                    in our Ashaley Botwe atelier in Madina — drawing on the
+                    Every The Boys Store item is hand-finished
+                    in our Ashaley Botwe marketplace in Madina — drawing on the
                     textures, symbols and spirit of Africa.
                   </p>
                   <p>
-                    Each piece ships with a certificate of authenticity.
+                    Each item ships with a certificate of authenticity.
                     Manufacturing defects are covered by our lifetime
                     craftsmanship guarantee.
                   </p>
@@ -411,7 +411,7 @@ function TrustItem({
 }) {
   return (
     <div className="flex flex-col items-center text-center rounded-lg border border-border bg-card p-3">
-      <Icon className="h-5 w-5 text-teal-600 dark:text-teal-400 mb-1.5" />
+      <Icon className="h-5 w-5 text-blue-600 dark:text-blue-400 mb-1.5" />
       <span className="text-xs font-semibold">{title}</span>
       <span className="text-[0.7rem] text-muted-foreground">{body}</span>
     </div>

@@ -131,13 +131,13 @@ export default async function AdminOverviewPage() {
       href: "/admin/products/new",
       icon: Plus,
       title: "Add product",
-      body: "Create a new piece in the catalog.",
+      body: "Create a new item in the catalog.",
     },
     {
       href: "/admin/products",
       icon: Package,
       title: "Manage products",
-      body: "Edit, hide, or delete existing pieces.",
+      body: "Edit, hide, or delete existing items.",
     },
     {
       href: "/admin/categories",
@@ -194,7 +194,7 @@ export default async function AdminOverviewPage() {
     >
       {/* Welcome header */}
       <div className="mb-6 rounded-xl border border-border bg-card p-5 sm:p-6">
-        <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+        <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
           Welcome back
         </p>
         <h2 className="mt-1 font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -363,7 +363,7 @@ export default async function AdminOverviewPage() {
             href={href}
             className="group rounded-xl border border-border bg-card p-4 transition-all hover:shadow-md hover:-translate-y-0.5 hover:border-teal-500/40"
           >
-            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
               <Icon className="h-5 w-5" />
             </div>
             <p className="mt-3 text-sm font-semibold">{title}</p>

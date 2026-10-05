@@ -54,13 +54,13 @@ const NAV_LINKS = [
 ];
 
 const DEPARTMENTS: { category: Category; label: string; blurb: string }[] = [
-  { category: "rings", label: "Rings", blurb: "Cowrie, bead & gold bands" },
-  { category: "earrings", label: "Earrings", blurb: "Hoops, studs & drops" },
-  { category: "necklaces", label: "Necklaces", blurb: "Beaded & cowrie chains" },
-  { category: "bracelets", label: "Bracelets", blurb: "Bangles & cuffs" },
-  { category: "watches", label: "Watches", blurb: "Afrocentric timepieces" },
-  { category: "brooches", label: "Brooches", blurb: "Pins & Adinkra symbols" },
-  { category: "sets", label: "Sets", blurb: "Coordinated bridal sets" },
+  { category: "rings", label: "Electronics", blurb: "Phones, audio & smart devices" },
+  { category: "earrings", label: "Fashion & Apparel", blurb: "Clothing, shoes & accessories" },
+  { category: "necklaces", label: "Home & Living", blurb: "Home, office & kitchen essentials" },
+  { category: "bracelets", label: "Beauty & Wellness", blurb: "Personal care & wellness" },
+  { category: "watches", label: "Watches", blurb: "Afrocentric timeitems" },
+  { category: "brooches", label: "Services", blurb: "Book help from trusted providers" },
+  { category: "sets", label: "Sets", blurb: "Bundles & deals" },
 ];
 
 export function PublicHeader({ announcement }: PublicHeaderProps) {
@@ -133,7 +133,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
                   <Input
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    placeholder="Search products..."
+                    placeholder="Search products, services, and more..."
                     className="pl-9"
                   />
                 </div>
@@ -159,7 +159,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
                     href={l.href}
                     className={cn(
                       "block rounded-md px-3 py-2.5 font-medium transition-colors hover:bg-muted",
-                      pathname === l.href.split("?")[0] && "text-turquoise"
+                      pathname === l.href.split("?")[0] && "text-blue-600"
                     )}
                   >
                     {l.label}
@@ -228,7 +228,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   onBlur={() => !searchValue && setSearchOpen(false)}
-                  placeholder="Search products..."
+                  placeholder="Search products, services, and more..."
                   className="w-48 pr-8 lg:w-64"
                 />
                 <button

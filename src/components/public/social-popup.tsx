@@ -136,7 +136,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
       </div>
 
       <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-        See new pieces, behind-the-bench stories and customer moments on social.
+        See new items, behind-the-bench stories and customer moments on social.
       </p>
 
       <div className="flex gap-2">

@@ -57,7 +57,7 @@ export async function ReviewsWidget({ limit = 6 }: { limit?: number }) {
             key={r.id}
             className="flex flex-col rounded-lg border border-border bg-card p-5 hover-lift"
           >
-            <Quote className="mb-3 h-5 w-5 text-turquoise" />
+            <Quote className="mb-3 h-5 w-5 text-blue-600" />
             <blockquote className="flex-1 text-sm leading-relaxed text-foreground/90">
               {r.text}
             </blockquote>

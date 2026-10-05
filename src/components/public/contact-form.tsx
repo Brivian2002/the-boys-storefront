@@ -258,7 +258,7 @@ export function ContactForm() {
         <Textarea
           id="message"
           rows={6}
-          placeholder="Tell us how we can help — a piece you're interested in, a custom commission, a delivery question..."
+          placeholder="Tell us how we can help — a item you're interested in, a custom commission, a delivery question..."
           aria-invalid={!!errors.message}
           {...register("message")}
         />

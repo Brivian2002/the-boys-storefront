@@ -144,9 +144,9 @@ export default async function AdminAnalyticsPage() {
         </Card>
       )}
 
-      <Card className="mt-6 border-teal-500/30 bg-teal-500/5">
+      <Card className="mt-6 border-teal-500/30 bg-blue-600/5">
         <CardContent className="flex items-start gap-3 py-4">
-          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
           <div className="text-sm">
             <p className="font-medium">Privacy first</p>
             <p className="mt-1 text-muted-foreground">

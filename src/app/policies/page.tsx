@@ -45,7 +45,7 @@ const SECTIONS = [
     id: "returns",
     icon: RotateCcw,
     title: "Returns & Exchanges",
-    summary: "7-day return window · custom pieces are final sale",
+    summary: "7-day return window · custom items are final sale",
   },
   {
     id: "authenticity",
@@ -103,7 +103,7 @@ export default async function PoliciesPage() {
       {/* ===== HERO ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-3">
             Clear &amp; fair
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight">
@@ -138,7 +138,7 @@ export default async function PoliciesPage() {
                     href={`#${id}`}
                     className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   >
-                    <Icon className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                    <Icon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                     {title}
                   </a>
                 </li>
@@ -152,7 +152,7 @@ export default async function PoliciesPage() {
               <AccordionItem value="returns" id="returns" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                       <RotateCcw className="h-5 w-5" />
                     </div>
                     <div className="text-left">
@@ -160,16 +160,16 @@ export default async function PoliciesPage() {
                         Returns &amp; Exchanges
                       </p>
                       <p className="text-xs text-muted-foreground font-normal">
-                        7-day return window · custom pieces are final sale
+                        7-day return window · custom items are final sale
                       </p>
                     </div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    We want you to love every piece. If for any reason you
+                    We want you to love every item. If for any reason you
                     don&apos;t, we accept returns within 7 days of delivery for
-                    unworn, unaltered pieces in their original condition, and
+                    unworn, unaltered items in their original condition, and
                     returned in their The Boys Store packaging.
                   </p>
                   <p>
@@ -180,15 +180,15 @@ export default async function PoliciesPage() {
                     we cover it in full.
                   </p>
                   <p>
-                    Custom, engraved, or made-to-order pieces are final sale
+                    Custom, engraved, or made-to-order items are final sale
                     and cannot be returned. Earrings are non-returnable for
                     hygiene reasons unless faulty.
                   </p>
                   <p>
                     Exchanges follow the same 7-day window. If you&apos;d like
                     a different size or attribute, please return the original
-                    piece and place a new order — we&apos;ll do our best to
-                    prioritise the new piece.
+                    item and place a new order — we&apos;ll do our best to
+                    prioritise the new item.
                   </p>
                   <p>
                     Questions?{" "}
@@ -196,7 +196,7 @@ export default async function PoliciesPage() {
                       href={SUPPORT_WHATSAPP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-foreground underline underline-offset-4 hover:text-teal-600 dark:hover:text-teal-400"
+                      className="text-foreground underline underline-offset-4 hover:text-blue-600 dark:hover:text-blue-400"
                     >
                       Chat with us on WhatsApp
                     </a>
@@ -208,7 +208,7 @@ export default async function PoliciesPage() {
               <AccordionItem value="authenticity" id="authenticity" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                       <ShieldCheck className="h-5 w-5" />
                     </div>
                     <div className="text-left">
@@ -224,16 +224,16 @@ export default async function PoliciesPage() {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    Every The Boys Store piece is hand-finished
-                    in our Ashaley Botwe atelier in Madina, Ghana. Each piece
+                    Every The Boys Store item is hand-finished
+                    in our Ashaley Botwe marketplace in Madina, Ghana. Each item
                     ships with a certificate of authenticity documenting the
                     materials and craftsmanship.
                   </p>
                   <p>
                     We stand behind our craftsmanship with a lifetime guarantee
-                    against manufacturing defects. If a piece ever fails due to
+                    against manufacturing defects. If a item ever fails due to
                     a defect in materials or workmanship, return it to our
-                    Ashaley Botwe atelier and we&apos;ll repair it at no charge.
+                    Ashaley Botwe marketplace and we&apos;ll repair it at no charge.
                   </p>
                   <p>
                     The lifetime guarantee does not cover normal wear and tear,
@@ -250,7 +250,7 @@ export default async function PoliciesPage() {
               <AccordionItem value="shipping" id="shipping" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                       <Truck className="h-5 w-5" />
                     </div>
                     <div className="text-left">
@@ -268,7 +268,7 @@ export default async function PoliciesPage() {
                   <p>
                     We deliver to all 10 regions of Ghana. Greater Accra orders
                     ship in 1–3 business days; other regions in 2–8 business
-                    days. Pickup is free at our Ashaley Botwe atelier in Madina.
+                    days. Pickup is free at our Ashaley Botwe marketplace in Madina.
                   </p>
                   <p>
                     All shipments are insured and require a signature on
@@ -278,7 +278,7 @@ export default async function PoliciesPage() {
                   </p>
                   <p>
                     Orders are processed within 1–2 business days. Custom and
-                    made-to-order pieces may take longer — we&apos;ll keep you
+                    made-to-order items may take longer — we&apos;ll keep you
                     posted by WhatsApp.
                   </p>
                   <p>
@@ -288,7 +288,7 @@ export default async function PoliciesPage() {
                       href={SUPPORT_WHATSAPP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-foreground underline underline-offset-4 hover:text-teal-600 dark:hover:text-teal-400"
+                      className="text-foreground underline underline-offset-4 hover:text-blue-600 dark:hover:text-blue-400"
                     >
                       contact us
                     </a>
@@ -300,7 +300,7 @@ export default async function PoliciesPage() {
               <AccordionItem value="privacy" id="privacy" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                       <Lock className="h-5 w-5" />
                     </div>
                     <div className="text-left">
@@ -340,7 +340,7 @@ export default async function PoliciesPage() {
               <AccordionItem value="terms" id="terms" className="border-b">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                       <Scale className="h-5 w-5" />
                     </div>
                     <div className="text-left">
@@ -361,7 +361,7 @@ export default async function PoliciesPage() {
                     payment made will be refunded in full.
                   </p>
                   <p>
-                    Product imagery is representative. Hand-finished pieces may
+                    Product imagery is representative. Hand-finished items may
                     vary slightly from the photographs — this is a feature of
                     handcraft, not a defect.
                   </p>
@@ -380,7 +380,7 @@ export default async function PoliciesPage() {
               <AccordionItem value="payment" id="payment">
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-start gap-4 pr-4">
-                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                    <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                       <CreditCard className="h-5 w-5" />
                     </div>
                     <div className="text-left">

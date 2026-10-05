@@ -75,7 +75,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
           <BrandLogo />
         </div>
         <div className="relative z-10 space-y-6">
-          <Sparkles className="h-8 w-8 text-teal-300" />
+          <Sparkles className="h-8 w-8 text-blue-300" />
           <h1 className="font-serif text-4xl xl:text-5xl font-semibold leading-tight tracking-tight">
             quality goods,
             <br />
@@ -89,14 +89,14 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-background/75">
             <span className="inline-flex items-center gap-2">
-              <Gem className="h-4 w-4 text-teal-300" /> Hand-finished craft
+              <Gem className="h-4 w-4 text-blue-300" /> Hand-finished craft
             </span>
             <span className="inline-flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-teal-300" /> Authenticity
+              <ShieldCheck className="h-4 w-4 text-blue-300" /> Authenticity
               guaranteed
             </span>
             <span className="inline-flex items-center gap-2">
-              <Heart className="h-4 w-4 text-teal-300" /> Made in Ghana
+              <Heart className="h-4 w-4 text-blue-300" /> Made in Ghana
             </span>
           </div>
         </div>
@@ -115,7 +115,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
 
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8">
             <div className="mb-6 text-center">
-              <div className="mx-auto mb-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+              <div className="mx-auto mb-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                 <Lock className="h-5 w-5" />
               </div>
               <h2 className="font-serif text-2xl font-semibold tracking-tight">
@@ -129,8 +129,8 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
             </div>
 
             {firstRun && (
-              <Alert className="mb-4 border-teal-500/40 bg-teal-500/10">
-                <Sparkles className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+              <Alert className="mb-4 border-teal-500/40 bg-blue-600/10">
+                <Sparkles className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 <AlertDescription className="text-xs text-foreground">
                   <strong>First-run setup.</strong> This account will be the
                   OWNER with full access. You can add more admins later from

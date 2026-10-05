@@ -40,7 +40,7 @@ export function BrandLogo({
           >
             The Boys Store
           </span>
-          <span className="mt-1 text-[0.6rem] font-medium uppercase tracking-[0.32em] text-turquoise">
+          <span className="mt-1 text-[0.6rem] font-medium uppercase tracking-[0.32em] text-blue-600">
             Joshua Nasi Words · Marketplace
           </span>
         </span>

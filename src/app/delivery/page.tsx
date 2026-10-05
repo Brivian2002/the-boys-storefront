@@ -21,7 +21,7 @@ import {
 export const metadata = {
   title: "Delivery & Pickup — The Boys Store",
   description:
-    "Delivery across all 10 regions of Ghana. Pickup at our Ashaley Botwe atelier in Madina. See fees, ETAs, and how it works.",
+    "Delivery across all 10 regions of Ghana. Pickup at our Ashaley Botwe marketplace in Madina. See fees, ETAs, and how it works.",
 };
 
 export default function DeliveryPage() {
@@ -32,7 +32,7 @@ export default function DeliveryPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
           <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-center">
             <div className="space-y-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+              <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
                 Delivery &amp; Pickup
               </p>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight">
@@ -44,7 +44,7 @@ export default function DeliveryPage() {
               <p className="text-muted-foreground leading-relaxed text-lg">
                 Every order ships insured and signed for. We deliver to all 10
                 regions of Ghana, with same-day pickup available at our Ashaley
-                Botwe atelier.
+                Botwe marketplace.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <Button asChild>
@@ -81,7 +81,7 @@ export default function DeliveryPage() {
       {/* ===== REGIONS TABLE ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="mb-10">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
             Regional delivery
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
@@ -89,7 +89,7 @@ export default function DeliveryPage() {
           </h2>
           <p className="mt-3 text-muted-foreground max-w-2xl">
             All fees are in Ghana cedis. Estimated times are working days from
-            dispatch. Pickup is available at our Ashaley Botwe atelier in
+            dispatch. Pickup is available at our Ashaley Botwe marketplace in
             Madina, Greater Accra.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default function DeliveryPage() {
                   </td>
                   <td className="p-4 text-center">
                     {r.pickupAvailable ? (
-                      <span className="inline-flex items-center gap-1 text-teal-600 dark:text-teal-400">
+                      <span className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400">
                         <MapPin className="h-3.5 w-3.5" /> Yes
                       </span>
                     ) : (
@@ -138,31 +138,31 @@ export default function DeliveryPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-start">
             <div className="space-y-4">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                 <MapPin className="h-5 w-5" />
               </div>
-              <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
-                Pickup at the atelier
+              <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
+                Pickup at the team
               </p>
               <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
                 Collect your order in person.
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                Pickup is free at our Ashaley Botwe atelier in Madina, Greater
+                Pickup is free at our Ashaley Botwe marketplace in Madina, Greater
                 Accra. Place your order online, select pickup at checkout, and
                 we&apos;ll have it ready for you — usually within 24 hours.
               </p>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
                   <span>{STORE_CONTACT.address}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
                   <span>{STORE_CONTACT.hours}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
                   <span>ID required for pickup. We&apos;ll text you when your order is ready.</span>
                 </li>
               </ul>
@@ -188,7 +188,7 @@ export default function DeliveryPage() {
       {/* ===== HOW IT WORKS ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="mb-12">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
             How it works
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
@@ -207,7 +207,7 @@ export default function DeliveryPage() {
               icon: Gift,
               step: "02",
               title: "We hand-finish & pack",
-              body: "Every piece is hand-finished, inspected, and gift-packed in our Ashaley Botwe atelier.",
+              body: "Every item is hand-finished, inspected, and gift-packed in our Ashaley Botwe marketplace.",
             },
             {
               icon: Truck,
@@ -219,7 +219,7 @@ export default function DeliveryPage() {
               icon: ShieldCheck,
               step: "04",
               title: "You receive & enjoy",
-              body: "Your piece arrives with a certificate of authenticity and our lifetime craftsmanship guarantee.",
+              body: "Your item arrives with a certificate of authenticity and our lifetime craftsmanship guarantee.",
             },
           ].map(({ icon: Icon, step, title, body }) => (
             <div
@@ -227,10 +227,10 @@ export default function DeliveryPage() {
               className="rounded-lg border border-border bg-card p-6"
             >
               <div className="mb-4 flex items-center justify-between">
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                   <Icon className="h-5 w-5" />
                 </div>
-                <span className="font-serif text-2xl text-teal-600/40 dark:text-teal-400/40">
+                <span className="font-serif text-2xl text-blue-600/40 dark:text-blue-400/40">
                   {step}
                 </span>
               </div>
@@ -249,7 +249,7 @@ export default function DeliveryPage() {
       <section className="bg-muted/30 border-y border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="mb-10">
-            <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
               Good to know
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
@@ -261,7 +261,7 @@ export default function DeliveryPage() {
               {
                 icon: Clock,
                 title: "Processing time",
-                body: "Orders are processed within 1–2 working days. Custom and made-to-order pieces may take longer — we'll keep you posted.",
+                body: "Orders are processed within 1–2 working days. Custom and made-to-order items may take longer — we'll keep you posted.",
               },
               {
                 icon: ShieldCheck,
@@ -271,7 +271,7 @@ export default function DeliveryPage() {
               {
                 icon: Gift,
                 title: "Packaging",
-                body: "Each piece arrives in a branded gift box with a certificate of authenticity and care card.",
+                body: "Each item arrives in a branded gift box with a certificate of authenticity and care card.",
               },
               {
                 icon: Truck,
@@ -283,7 +283,7 @@ export default function DeliveryPage() {
                 key={title}
                 className="rounded-lg border border-border bg-card p-6"
               >
-                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                   <Icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-serif text-lg font-semibold mb-2">

@@ -96,7 +96,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </Button>
 
         <header className="mb-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-3">
             {new Date(post.publishedAt).toLocaleDateString("en-GH", {
               year: "numeric",
               month: "long",
@@ -129,7 +129,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               [&_p]:leading-relaxed [&_p]:my-4
               [&_h2]:font-serif [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-8 [&_h2]:mb-3
               [&_h3]:font-serif [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-6 [&_h3]:mb-2
-              [&_a]:text-teal-600 [&_a]:dark:text-teal-400 [&_a]:underline
+              [&_a]:text-blue-600 [&_a]:dark:text-blue-400 [&_a]:underline
               [&_ul]:my-4 [&_ul]:list-disc [&_ul]:ml-6
               [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:ml-6
               [&_blockquote]:border-l-2 [&_blockquote]:border-teal-500 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground
@@ -151,7 +151,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </Button>
           <Button asChild>
             <Link href="/shop">
-              Shop the collection
+              Explore the marketplace
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

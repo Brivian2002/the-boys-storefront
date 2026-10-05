@@ -176,8 +176,8 @@ function SuccessView({
           Thank you for your order.
         </h1>
         <p className="mt-3 text-muted-foreground max-w-md leading-relaxed">
-          Your payment has been received and your piece is now being prepared
-          at our Ashaley Botwe atelier. We&apos;ve emailed a confirmation{customerEmail ? " to" : ""}
+          Your payment has been received and your item is now being prepared
+          at our Ashaley Botwe marketplace. We&apos;ve emailed a confirmation{customerEmail ? " to" : ""}
           {customerEmail ? (
             <>
               {" "}
@@ -225,14 +225,14 @@ function SuccessView({
           <Button asChild variant="outline" size="lg" className="text-base">
             <a href={SUPPORT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <Headset className="mr-2 h-4 w-4" />
-              Contact the atelier
+              Contact the team
             </a>
           </Button>
         </div>
 
         <div className="mt-10 inline-flex items-center gap-2 text-xs text-muted-foreground">
-          <Sparkles className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
-          Each piece is hand-finished in our Ashaley Botwe atelier.
+          <Sparkles className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+          Each item is hand-finished in our Ashaley Botwe marketplace.
         </div>
       </div>
     </>
@@ -290,7 +290,7 @@ function FailedView({ reference, error }: { reference: string; error: string | n
         <Button asChild variant="outline" size="lg" className="text-base">
           <a href={SUPPORT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
             <Headset className="mr-2 h-4 w-4" />
-            Contact the atelier
+            Contact the team
           </a>
         </Button>
       </div>

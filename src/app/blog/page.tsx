@@ -49,7 +49,7 @@ export default async function BlogIndexPage() {
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-3">
             From the journal
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight">

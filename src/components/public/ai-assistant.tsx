@@ -131,7 +131,7 @@ export function AIAssistant() {
           </form>
         </section>
       )}
-      <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close The Boys Store assistant" : "Open The Boys Store assistant"} className="fixed bottom-5 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 hover:bg-teal-600">
+      <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close The Boys Store assistant" : "Open The Boys Store assistant"} className="fixed bottom-5 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 hover:bg-blue-700">
         {open ? <ChevronDown className="h-4 w-4" /> : <ReadingLadyMark className="h-7 w-7 rounded-full" />}
         <span className="hidden sm:inline">Ask The Boys Store</span>
       </button>

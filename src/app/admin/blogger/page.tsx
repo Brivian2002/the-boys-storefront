@@ -36,7 +36,7 @@ export default async function AdminBloggerPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Database className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+              <Database className="h-5 w-5 text-blue-600 dark:text-blue-400" />
               Catalog status
             </CardTitle>
             <CardDescription>
@@ -144,7 +144,7 @@ export default async function AdminBloggerPage() {
         <CardContent>
           <ol className="space-y-3 text-sm">
             <li className="flex gap-3">
-              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs font-semibold">
+              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400 text-xs font-semibold">
                 1
               </span>
               <span className="text-muted-foreground">
@@ -153,7 +153,7 @@ export default async function AdminBloggerPage() {
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs font-semibold">
+              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400 text-xs font-semibold">
                 2
               </span>
               <span className="text-muted-foreground">
@@ -162,7 +162,7 @@ export default async function AdminBloggerPage() {
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs font-semibold">
+              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400 text-xs font-semibold">
                 3
               </span>
               <span className="text-muted-foreground">
@@ -172,7 +172,7 @@ export default async function AdminBloggerPage() {
               </span>
             </li>
             <li className="flex gap-3">
-              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs font-semibold">
+              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400 text-xs font-semibold">
                 4
               </span>
               <span className="text-muted-foreground">
@@ -186,9 +186,9 @@ export default async function AdminBloggerPage() {
 
       {/* No-products notice */}
       {status.total === 0 && (
-        <Card className="mt-6 border-teal-500/30 bg-teal-500/5">
+        <Card className="mt-6 border-teal-500/30 bg-blue-600/5">
           <CardContent className="flex items-start gap-3 py-4">
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
             <div className="text-sm">
               <p className="font-medium">No products in the catalog yet</p>
               <p className="mt-1 text-muted-foreground">
@@ -205,7 +205,7 @@ export default async function AdminBloggerPage() {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <RefreshCw className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+            <RefreshCw className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             Actions
           </CardTitle>
           <CardDescription>

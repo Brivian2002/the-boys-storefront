@@ -42,10 +42,10 @@ export function CartView() {
     <div className="grid gap-8 lg:grid-cols-3 lg:gap-10">
       {/* Line items */}
       <div className="lg:col-span-2 space-y-4">
-        <div className="rounded-lg border border-teal-500/30 bg-teal-500/5 p-4">
+        <div className="rounded-lg border border-teal-500/30 bg-blue-600/5 p-4">
           <p className="text-sm text-foreground leading-relaxed">
             <span className="font-semibold">Pickup is free</span> at our Ashaley
-            Botwe atelier in Madina. Delivery fees are calculated at checkout
+            Botwe marketplace in Madina. Delivery fees are calculated at checkout
             based on your region.
           </p>
         </div>
@@ -256,7 +256,7 @@ function MiniTrust({
 }) {
   return (
     <div className="flex flex-col items-center gap-1 text-[0.7rem] text-muted-foreground">
-      <Icon className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+      <Icon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
       <span>{label}</span>
     </div>
   );
@@ -273,11 +273,11 @@ function EmptyBag() {
       </h2>
       <p className="text-muted-foreground max-w-md mb-7">
         Looks like you haven&apos;t added anything yet. Explore the collection
-        and find a piece worth keeping.
+        and find a item worth keeping.
       </p>
       <Button asChild size="lg" className="text-base">
         <Link href="/shop">
-          Shop the collection
+          Explore the marketplace
           <ArrowRight className="ml-2 h-4 w-4" />
         </Link>
       </Button>

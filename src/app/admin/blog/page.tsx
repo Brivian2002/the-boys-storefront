@@ -33,7 +33,7 @@ export default async function AdminBlogPage() {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Newspaper className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+            <Newspaper className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             Editorial blog status
           </CardTitle>
           <CardDescription>
@@ -64,8 +64,8 @@ export default async function AdminBlogPage() {
           </div>
 
           {!configured && (
-            <div className="flex items-start gap-2 rounded-md border border-teal-500/30 bg-teal-500/5 p-3 text-xs text-foreground">
-              <Info className="mt-0.5 h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" />
+            <div className="flex items-start gap-2 rounded-md border border-teal-500/30 bg-blue-600/5 p-3 text-xs text-foreground">
+              <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
               <p>
                 The editorial blog is optional. When not configured, the public
                 blog index at <code className="rounded bg-muted px-1">/blog</code>{" "}
@@ -111,7 +111,7 @@ export default async function AdminBlogPage() {
                     className="group flex items-start justify-between gap-4"
                   >
                     <div className="min-w-0">
-                      <p className="font-medium text-sm group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                      <p className="font-medium text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {p.title}
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5">
@@ -123,7 +123,7 @@ export default async function AdminBlogPage() {
                         {p.author ? ` · ${p.author}` : ""}
                       </p>
                     </div>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-teal-600 dark:group-hover:text-teal-400" />
+                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400" />
                   </Link>
                 </li>
               ))}

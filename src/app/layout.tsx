@@ -28,16 +28,16 @@ export const metadata: Metadata = {
     template: "%s · The Boys Store",
   },
   description:
-    "The Boys Store — handcrafted beads, gold, cowrie and kente-inspired products from Accra, Ghana. Smart shopping, simply. Shop rings, earrings, necklaces, bracelets, watches, brooches and sets.",
+    "The Boys Store — a modern online marketplace for useful products, trusted services, and standout finds. Shop across electronics, fashion, home, beauty, gadgets, bundles, and more.",
   keywords: [
     "quality goods",
-    "Ghana products",
+    "online marketplace",
     "The Boys Store",
     "Smart shopping, simply",
-    "Accra products",
-    "cowrie products",
-    "kente products",
-    "Ghanaian beads",
+    "Ghana marketplace",
+    "smart shopping",
+    "quality products",
+    "everyday essentials",
     "Joshua Nasi Words",
   ],
   authors: [{ name: "The Boys Store" }],
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "The Boys Store — Smart shopping, simply",
     description:
-      "Handcrafted quality goods from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs for the modern African woman.",
+      "A polished marketplace for products and services that make everyday life simpler, better, and more connected.",
     siteName: "The Boys Store",
     type: "website",
     locale: "en_GH",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "The Boys Store — Smart shopping, simply",
     description:
-      "Handcrafted quality goods from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs.",
+      "Shop useful products, standout finds, and trusted services from The Boys Store.",
   },
   robots: {
     index: true,

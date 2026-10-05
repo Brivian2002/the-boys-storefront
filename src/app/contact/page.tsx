@@ -19,14 +19,14 @@ export default function ContactPage() {
       {/* ===== HERO ===== */}
       <section className="border-b border-border bg-muted/30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-3">
             We&apos;d love to hear from you
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight">
             Get in touch.
           </h1>
           <p className="mt-5 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Whether you&apos;re booking a private viewing, asking about a piece,
+            Whether you&apos;re booking a private viewing, asking about a item,
             or commissioning something bespoke — we&apos;re here.
           </p>
         </div>
@@ -53,7 +53,7 @@ export default function ContactPage() {
               <h3 className="font-serif text-lg font-semibold">Contact details</h3>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-3">
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                     <MapPin className="h-4 w-4" />
                   </span>
                   <span className="pt-1.5 text-muted-foreground">
@@ -65,14 +65,14 @@ export default function ContactPage() {
                     href={`tel:${STORE_CONTACT.phone.replace(/\s/g, "")}`}
                     className="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                       <Phone className="h-4 w-4" />
                     </span>
                     <span className="pt-1.5">{STORE_CONTACT.phone}</span>
                   </a>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                     <Clock className="h-4 w-4" />
                   </span>
                   <span className="pt-1.5 text-muted-foreground">
@@ -126,7 +126,7 @@ export default function ContactPage() {
                 href="https://maps.app.goo.gl/p11ofPy6yyPUzDse7"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline"
+                className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
               >
                 <MapPin className="h-4 w-4" />
                 Open in Google Maps

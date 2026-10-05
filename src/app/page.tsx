@@ -28,11 +28,11 @@ import { getBlogPosts } from "@/lib/blog/client";
 import { STORE_CONTACT } from "@/lib/ghana";
 
 const CATEGORY_IMAGES: Record<Category, string> = {
-  rings: "/categories/rings.jpg",
-  earrings: "/categories/earrings.jpg",
-  necklaces: "/categories/necklaces.jpg",
-  bracelets: "/categories/bracelets.jpg",
-  sets: "/categories/sets.jpg",
+  rings: "/categories/electronics.jpg",
+  earrings: "/categories/fashion.jpg",
+  necklaces: "/categories/home.jpg",
+  bracelets: "/categories/beauty.jpg",
+  sets: "/categories/bundles.jpg",
   "new-arrivals": "/categories/new-arrivals.jpg",
 };
 
@@ -69,8 +69,8 @@ export default async function HomePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/hero/hero-jewelry.jpg"
-            alt="quality goods editorial — Smart shopping, simply"
+            src="/hero/marketplace-hero.jpg"
+            alt="The Boys Store marketplace campaign"
             fill
             priority
             sizes="100vw"
@@ -98,19 +98,15 @@ export default async function HomePage() {
                 </span>
               </h1>
               <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
-                The Boys Store is a premium Ghanaian products
-                house founded by{" "}
-                <span className="text-white font-medium">
-                  Joshua Nasi Words
-                </span>
-                . We craft rings, earrings, necklaces and bracelets inspired by
-                the textures, symbols and spirit of Africa — finished by hand
-                in Ashaley Botwe, Madina.
+                The Boys Store is a modern marketplace founded by{" "}
+                <span className="text-white font-medium">Joshua Nasi Words</span>.
+                Shop useful products, discover trusted services, and find
+                standout deals across the categories that matter every day.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Button asChild size="lg" className="text-base">
                   <Link href="/shop">
-                    Shop the collection
+                    Explore the marketplace
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -127,16 +123,16 @@ export default async function HomePage() {
               {/* trust strip */}
               <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/80">
                 <span className="inline-flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-teal-300" />
+                  <ShieldCheck className="h-4 w-4 text-blue-300" />
                   Trusted shopping
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Truck className="h-4 w-4 text-teal-300" />
+                  <Truck className="h-4 w-4 text-blue-300" />
                   Delivery options
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Gem className="h-4 w-4 text-teal-300" />
-                  Hand-finished in Accra
+                  <Gem className="h-4 w-4 text-blue-300" />
+                  Carefully selected
                 </span>
               </div>
             </div>
@@ -148,11 +144,11 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="flex items-end justify-between mb-10 gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
               Shop by category
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
-              Find your piece
+              Find your next find
             </h2>
           </div>
           <Button asChild variant="ghost" className="hidden sm:inline-flex shrink-0">
@@ -188,7 +184,7 @@ export default async function HomePage() {
                 </h3>
                 <p className="text-xs text-white/75 line-clamp-1">
                   {count > 0
-                    ? `${count} ${count === 1 ? "piece" : "pieces"}`
+                    ? `${count} ${count === 1 ? "item" : "items"}`
                     : "Coming soon"}
                 </p>
               </div>
@@ -203,11 +199,11 @@ export default async function HomePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
             <div className="flex items-end justify-between mb-10 gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
-                  Curated by our atelier
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
+                  Selected for you
                 </p>
                 <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
-                  Featured pieces
+                  Featured finds
                 </h2>
               </div>
               <Button asChild variant="ghost" className="hidden sm:inline-flex shrink-0">
@@ -231,15 +227,15 @@ export default async function HomePage() {
         <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-center">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
             <Image
-              src="/hero/about-atelier.jpg"
-              alt="Joshua Nasi Words, founder of The Boys Store"
+              src="/hero/about-marketplace.jpg"
+              alt="The Boys Store fulfillment workspace"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
           <div className="space-y-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+            <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
               Our story
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
@@ -258,21 +254,20 @@ export default async function HomePage() {
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild>
                 <Link href="/about">
-                  Read our story
+                  Meet the founder
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/contact">Visit the atelier</Link>
+                <Link href="/contact">Talk to the team</Link>
               </Button>
             </div>
 
             {/* quote */}
-            <blockquote className="mt-6 border-l-2 border-teal-500 pl-4">
-              <Quote className="h-5 w-5 text-teal-500 mb-2" />
+            <blockquote className="mt-6 border-l-2 border-blue-600 pl-4">
+              <Quote className="h-5 w-5 text-blue-600 mb-2" />
               <p className="font-serif text-lg italic text-foreground/90">
-                &ldquo;Smart shopping, simply — and every piece we make carries that
-                spirit.&rdquo;
+                &ldquo;Smart shopping, simply — made for the way you live, work, and move.&rdquo;
               </p>
               <footer className="mt-2 text-sm text-muted-foreground">
                 — Joshua Nasi Words, Founder
@@ -291,7 +286,7 @@ export default async function HomePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
             <div className="flex items-end justify-between mb-10 gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400 mb-2">
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
                   From the journal
                 </p>
                 <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
@@ -320,7 +315,7 @@ export default async function HomePage() {
           {[
             {
               icon: Gem,
-              title: "Curated selection",
+              title: "Curated marketplace",
               body: "Every listing is selected to make everyday shopping more useful and convenient.",
             },
             {
@@ -343,7 +338,7 @@ export default async function HomePage() {
               key={title}
               className="rounded-lg border border-border bg-card p-6"
             >
-              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400">
+              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-600/10 text-blue-600 dark:text-blue-400">
                 <Icon className="h-5 w-5" />
               </div>
               <h3 className="font-serif text-lg font-semibold mb-2">{title}</h3>
@@ -358,7 +353,7 @@ export default async function HomePage() {
       {/* ===== CTA ===== */}
       <section className="relative overflow-hidden border-t border-border bg-foreground text-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-teal-300 mb-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-blue-300 mb-3">
             Shop The Boys Store
           </p>
           <h2 className="font-serif text-3xl sm:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
@@ -369,7 +364,7 @@ export default async function HomePage() {
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg" variant="secondary">
-              <Link href="/contact">Contact the team</Link>
+              <Link href="/contact">Talk to the team</Link>
             </Button>
             <Button
               asChild

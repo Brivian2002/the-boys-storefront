@@ -32,7 +32,7 @@ export function BlogCard({ post }: BlogCardProps) {
           className="flex aspect-[16/9] items-center justify-center bg-gradient-to-br from-turquoise-soft to-gold-soft"
           aria-label={post.title}
         >
-          <span className="font-serif text-3xl text-turquoise">The Boys Store</span>
+          <span className="font-serif text-3xl text-blue-600">The Boys Store</span>
         </Link>
       )}
       <div className="flex flex-1 flex-col p-5">
@@ -46,7 +46,7 @@ export function BlogCard({ post }: BlogCardProps) {
           {post.author && <span>· {post.author}</span>}
         </div>
         <h3 className="font-serif text-lg font-semibold leading-snug tracking-tight">
-          <Link href={`/blog/${post.slug}`} className="hover:text-turquoise">
+          <Link href={`/blog/${post.slug}`} className="hover:text-blue-600">
             {post.title}
           </Link>
         </h3>
@@ -55,7 +55,7 @@ export function BlogCard({ post }: BlogCardProps) {
         </p>
         <Link
           href={`/blog/${post.slug}`}
-          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-turquoise hover:gap-2 transition-all"
+          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:gap-2 transition-all"
         >
           Read article
           <ArrowRight className="h-3.5 w-3.5" />

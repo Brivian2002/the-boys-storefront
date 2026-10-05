@@ -345,7 +345,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Describe the piece, its craftsmanship, materials, and story."
+                  placeholder="Describe the item, its craftsmanship, materials, and story."
                   rows={6}
                   required
                   maxLength={5000}
@@ -450,7 +450,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
           <Card>
             <CardHeader>
               <CardTitle>Taxonomy & availability</CardTitle>
-              <CardDescription>How the piece is categorized and shown on the storefront.</CardDescription>
+              <CardDescription>How the item is categorized and shown on the storefront.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
