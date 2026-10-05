@@ -18,6 +18,7 @@ import {
   LifeBuoy,
   Quote,
   Heart,
+  Search,
 } from "lucide-react";
 import { PublicShell } from "@/components/public/shell";
 import { ProductCard } from "@/components/public/product-card";
@@ -35,6 +36,7 @@ import {
   CATEGORY_LABELS,
   CATEGORY_DESCRIPTIONS,
   type Category,
+  type CatalogQuery,
 } from "@/lib/blogger/types";
 import type { LucideIcon } from "lucide-react";
 import { getBlogPosts } from "@/lib/blog/client";
@@ -98,13 +100,27 @@ function ProductRow({
   );
 }
 
-export default async function HomePage() {
-  const [featured, activeCats, posts, newArrivals, dealCatalog] = await Promise.all([
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = (await searchParams) ?? {};
+  const first = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
+  const browseQuery: CatalogQuery = {
+    search: first(sp.q),
+    category: first(sp.category) as CatalogQuery["category"],
+    sort: (first(sp.sort) as CatalogQuery["sort"]) ?? "popular",
+    page: 1,
+    pageSize: 12,
+  };
+  const [featured, activeCats, posts, newArrivals, dealCatalog, browseCatalog] = await Promise.all([
     getFeaturedProducts(8),
     getActiveCategories(),
     getBlogPosts(3).catch(() => []),
     getNewArrivals(8),
     queryCatalog({ sort: "popular", pageSize: 32 }),
+    queryCatalog(browseQuery),
   ]);
   const bestDeals = dealCatalog.products.filter(
     (product) => product.originalPrice && product.originalPrice > product.price
@@ -144,7 +160,7 @@ export default async function HomePage() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex min-h-[88vh] max-h-[860px] flex-col justify-center py-24">
+          <div className="flex min-h-[38vh] max-h-[520px] flex-col justify-center py-12 sm:min-h-[46vh] sm:py-16">
             <div className="max-w-2xl">
               <Badge
                 variant="secondary"
@@ -197,6 +213,49 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ===== SHOP-FIRST MARKETPLACE ===== */}
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8" id="marketplace">
+        <div className="flex flex-col gap-5 border-b border-border pb-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">The marketplace</p>
+            <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">Browse products from the start</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{browseCatalog.total} {browseCatalog.total === 1 ? "listing" : "listings"} across everyday departments.</p>
+          </div>
+          <form action="/" method="get" role="search" className="relative w-full max-w-md">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input name="q" defaultValue={first(sp.q) ?? ""} placeholder="Search the marketplace..." className="h-11 w-full rounded-xl border border-border bg-card pl-10 pr-24 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20" aria-label="Search the marketplace" />
+            <button type="submit" className="absolute right-1.5 top-1/2 h-8 -translate-y-1/2 rounded-lg bg-blue-600 px-3 text-xs font-semibold text-white transition hover:bg-blue-700">Search</button>
+          </form>
+        </div>
+        <div className="flex gap-2 overflow-x-auto py-5 scrollbar-none" aria-label="Quick departments">
+          <Link href="/#marketplace" className="shrink-0 rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background">All products</Link>
+          {allCategories.map((category) => (
+            <Link key={category} href={`/?category=${category}#marketplace`} className="shrink-0 rounded-full border border-border bg-card px-4 py-2 text-xs font-medium text-muted-foreground transition hover:border-blue-400 hover:text-blue-600">
+              {CATEGORY_LABELS[category]}
+            </Link>
+          ))}
+          <Link href="/shop" className="shrink-0 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-semibold text-blue-700 transition hover:bg-blue-100 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-300">More filters</Link>
+        </div>
+        {browseCatalog.products.length > 0 ? (
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+            {browseCatalog.products.map((product, index) => (
+              <div key={product.id} className="animate-fade-up" style={{ animationDelay: `${index * 45}ms` }}>
+                <ProductCard product={product} priority={index < 4} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-border bg-muted/30 px-6 py-12 text-center">
+            <p className="font-serif text-2xl font-semibold">Your marketplace is ready for its first listings.</p>
+            <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground">Add products from the admin catalogue and they will appear here automatically, grouped by department and searchable from the home page.</p>
+            <Button asChild className="mt-5"><Link href="/admin/products">Open catalogue</Link></Button>
+          </div>
+        )}
+        {browseCatalog.total > browseCatalog.products.length && (
+          <div className="mt-8 text-center"><Button asChild variant="outline"><Link href="/shop">View the full catalogue <ArrowRight className="ml-2 h-4 w-4" /></Link></Button></div>
+        )}
       </section>
 
       {/* ===== CATEGORIES ===== */}
