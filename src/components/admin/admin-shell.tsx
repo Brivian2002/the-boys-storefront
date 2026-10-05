@@ -20,8 +20,6 @@ import {
   LogOut,
   Menu,
   ExternalLink,
-  Sun,
-  Moon,
   Search,
   Bell,
   ChevronDown,
@@ -48,7 +46,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/components/theme-provider";
 import { toast } from "sonner";
 
 export type AdminNavKey =
@@ -153,23 +150,6 @@ function LogoutButton({ onDone }: { onDone?: () => void }) {
   );
 }
 
-function ThemeToggleMini() {
-  const { theme, toggleTheme } = useTheme();
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={toggleTheme}
-      aria-label="Toggle dark mode"
-      className="h-9 w-9"
-    >
-      <Sun className="h-[1.1rem] w-[1.1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.1rem] w-[1.1rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
-  );
-}
-
 function SidebarContent({
   active,
   session,
@@ -181,10 +161,15 @@ function SidebarContent({
 }) {
   return (
     <div className="flex h-full flex-col">
-      <div className="flex h-16 items-center border-b border-border/60 px-5">
+      <div className="flex h-20 items-center border-b border-white/[0.08] px-5">
         <Link href="/admin" onClick={onNavigate} className="flex items-center">
-          <BrandLogo />
+          <BrandLogo variant="light" />
         </Link>
+      </div>
+
+      <div className="mx-4 mt-4 rounded-xl border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-2.5">
+        <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cyan-200/70">Operations console</p>
+        <p className="mt-1 text-xs text-slate-300">Marketplace control centre</p>
       </div>
 
       <nav
@@ -206,10 +191,10 @@ function SidebarContent({
                       href={item.href}
                       onClick={onNavigate}
                       className={cn(
-                        "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                        "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all",
                         isActive
-                          ? "bg-primary/10 text-primary"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          ? "bg-primary/10 text-primary ring-1 ring-primary/20 shadow-[0_0_24px_rgba(85,214,255,0.08)]"
+                          : "text-muted-foreground hover:bg-white/[0.04] hover:text-foreground"
                       )}
                       aria-current={isActive ? "page" : undefined}
                     >
@@ -230,15 +215,15 @@ function SidebarContent({
           target="_blank"
           rel="noopener noreferrer"
           onClick={onNavigate}
-          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+        className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-white/[0.04] hover:text-foreground"
         >
           <ExternalLink className="h-4 w-4 shrink-0" />
           View store
         </Link>
       </nav>
 
-      <div className="border-t border-border/60 p-3">
-        <div className="mb-2 rounded-md bg-muted/60 px-3 py-2">
+      <div className="border-t border-white/[0.08] p-3">
+        <div className="mb-2 rounded-xl border border-white/[0.07] bg-white/[0.03] px-3 py-2.5">
           <p className="truncate text-xs font-medium text-foreground">
             {session?.name ?? "Admin"}
           </p>
@@ -273,7 +258,7 @@ function UserDropdown({ session }: { session: AdminShellProps["session"] }) {
           <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="admin-console w-56 border-white/[0.1] bg-[#10243a] text-foreground">
         <DropdownMenuLabel className="flex flex-col gap-0.5">
           <span className="text-sm font-medium">{session?.name ?? "Admin"}</span>
           <span className="truncate text-xs font-normal text-muted-foreground">
@@ -339,14 +324,14 @@ export function AdminShell({
   };
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
-      <aside className="hidden w-64 shrink-0 border-r border-border bg-card lg:flex lg:flex-col">
+    <div className="admin-console flex min-h-screen bg-background text-foreground">
+      <aside className="hidden w-72 shrink-0 border-r border-white/[0.08] bg-[var(--sidebar)] lg:flex lg:flex-col">
         <SidebarContent active={active} session={session} />
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Topbar */}
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:px-6">
+        <header className="sticky top-0 z-30 flex h-[4.5rem] items-center gap-3 border-b border-white/[0.08] bg-background/90 px-4 backdrop-blur-xl supports-[backdrop-filter]:bg-background/75 sm:px-6">
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button
@@ -358,7 +343,7 @@ export function AdminShell({
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-72 p-0">
+            <SheetContent side="left" className="admin-console dark w-72 border-white/[0.08] bg-[#06101c] p-0 text-foreground">
               <SheetHeader className="sr-only">
                 <SheetTitle>Admin navigation</SheetTitle>
               </SheetHeader>
@@ -370,6 +355,10 @@ export function AdminShell({
             </SheetContent>
           </Sheet>
 
+          <div className="hidden items-center gap-3 sm:flex">
+            <div className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_14px_rgba(73,230,161,0.8)]" />
+            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-emerald-300/80">Secure session</span>
+          </div>
           <form onSubmit={submitSearch} className="hidden max-w-md flex-1 sm:block">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -377,7 +366,7 @@ export function AdminShell({
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search products..."
-                className="h-9 pl-9"
+                className="h-10 rounded-xl border-white/[0.1] bg-white/[0.04] pl-9 placeholder:text-slate-500"
               />
             </div>
           </form>
@@ -392,13 +381,13 @@ export function AdminShell({
             >
               <Bell className="h-[1.1rem] w-[1.1rem]" />
             </Button>
-            <ThemeToggleMini />
             <UserDropdown session={session} />
           </div>
         </header>
 
-        <div className="border-b border-border bg-card px-4 py-4 sm:px-6 lg:px-8">
-          <h1 className="font-serif text-xl font-semibold tracking-tight sm:text-2xl">
+        <div className="border-b border-white/[0.08] bg-[#0a1727] px-4 py-5 sm:px-6 lg:px-8">
+          <div className="mb-2 h-1 w-12 rounded-full bg-gradient-to-r from-cyan-300 via-blue-500 to-violet-500" />
+          <h1 className="font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
             {title}
           </h1>
           {description && (
@@ -406,9 +395,9 @@ export function AdminShell({
           )}
         </div>
 
-        <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">{children}</main>
+        <main className="flex-1 bg-[radial-gradient(circle_at_top_right,rgba(51,142,255,0.08),transparent_35%),linear-gradient(180deg,#07111f_0%,#081525_100%)] px-4 py-7 sm:px-6 lg:px-8">{children}</main>
 
-        <footer className="border-t border-border bg-card px-4 py-4 text-center sm:px-6">
+        <footer className="border-t border-white/[0.08] bg-[#06101c] px-4 py-4 text-center sm:px-6">
           <p className="text-xs text-muted-foreground">
             The Boyz Store · Admin · Protected area · Noindex
           </p>

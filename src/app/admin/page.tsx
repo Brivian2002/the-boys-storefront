@@ -193,17 +193,18 @@ export default async function AdminOverviewPage() {
       }
     >
       {/* Welcome header */}
-      <div className="mb-6 rounded-xl border border-border bg-card p-5 sm:p-6">
-        <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
-          Welcome back
+      <div className="relative mb-6 overflow-hidden rounded-2xl border border-cyan-300/15 bg-gradient-to-br from-[#123250] via-[#0d1b2b] to-[#081321] p-5 shadow-[0_18px_60px_rgba(0,0,0,0.22)] sm:p-7">
+        <div className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-cyan-300/10 blur-3xl" />
+        <p className="relative text-xs uppercase tracking-[0.24em] text-cyan-200/70">
+          Operations overview
         </p>
-        <h2 className="mt-1 font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
+        <h2 className="relative mt-2 font-serif text-2xl font-semibold tracking-tight sm:text-3xl">
           {session.name}{" "}
-          <span className="text-muted-foreground text-base font-normal">
+          <span className="text-slate-400 text-base font-normal">
             · {session.email}
           </span>
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="relative mt-2 text-sm text-slate-300/80">
           Signed in as <span className="font-medium text-foreground">{session.role}</span>. Sessions expire after 12 hours.
         </p>
       </div>

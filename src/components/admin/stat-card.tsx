@@ -12,21 +12,21 @@ interface StatCardProps {
 }
 
 const toneStyles: Record<NonNullable<StatCardProps["tone"]>, string> = {
-  default: "bg-card",
-  success: "bg-card ring-1 ring-emerald-500/30",
-  warning: "bg-card ring-1 ring-amber-500/30",
-  muted: "bg-muted/40",
+  default: "bg-card ring-1 ring-white/[0.06]",
+  success: "bg-card ring-1 ring-emerald-400/30",
+  warning: "bg-card ring-1 ring-amber-300/30",
+  muted: "bg-muted/40 ring-1 ring-white/[0.04]",
 };
 
 export function StatCard({ label, value, hint, icon: Icon, tone = "default", className }: StatCardProps) {
   return (
-    <Card className={cn("py-4", toneStyles[tone], className)}>
+    <Card className={cn("py-4 transition-all duration-200 hover:-translate-y-0.5 hover:ring-primary/30", toneStyles[tone], className)}>
       <CardContent className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             {label}
           </p>
-          <p className="mt-1 font-serif text-2xl font-semibold tracking-tight text-foreground">
+          <p className="mt-1 font-mono text-2xl font-semibold tracking-tight text-foreground">
             {value}
           </p>
           {hint && (
@@ -34,7 +34,7 @@ export function StatCard({ label, value, hint, icon: Icon, tone = "default", cla
           )}
         </div>
         {Icon && (
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/15">
             <Icon className="h-4 w-4" />
           </div>
         )}

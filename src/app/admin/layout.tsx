@@ -45,5 +45,5 @@ export default async function AdminLayout({
     // The individual page components handle the actual redirect.
   }
 
-  return <div className="min-h-screen bg-background">{children}</div>;
+  return <div className="admin-console dark min-h-screen bg-background text-foreground">{children}</div>;
 }
