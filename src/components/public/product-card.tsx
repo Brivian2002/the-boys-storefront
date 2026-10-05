@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/stores/cart";
 import { toast } from "sonner";
-import { ShoppingBag, Eye } from "lucide-react";
+import { Heart, ShoppingBag, Eye } from "lucide-react";
 import { AVAILABILITY_LABELS, BADGE_LABELS } from "@/lib/blogger/types";
 import { formatGHS as fmtGHS } from "@/lib/ghana";
 import type { Product } from "@/lib/blogger/types";
@@ -22,7 +22,31 @@ interface ProductCardProps {
 export function ProductCard({ product, className, priority }: ProductCardProps) {
   const add = useCart((s) => s.add);
   const [imgLoaded, setImgLoaded] = React.useState(false);
+  const [activeImage, setActiveImage] = React.useState(0);
+  const [saved, setSaved] = React.useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.localStorage.getItem(`boyz-wishlist-${product.id}`) === "1";
+    } catch {
+      return false;
+    }
+  });
   const sold = product.availability === "sold-out";
+  const displayImage = product.images[activeImage] ?? product.images[0];
+
+  const toggleSaved = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const next = !saved;
+    setSaved(next);
+    try {
+      if (next) localStorage.setItem(`boyz-wishlist-${product.id}`, "1");
+      else localStorage.removeItem(`boyz-wishlist-${product.id}`);
+    } catch {
+      /* ignore unavailable storage */
+    }
+    toast.success(next ? "Saved for later" : "Removed from saved items", { description: product.name });
+  };
 
   const quickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,14 +76,18 @@ export function ProductCard({ product, className, priority }: ProductCardProps) 
         className
       )}
     >
-      <div className="relative aspect-square overflow-hidden bg-muted">
+      <div
+        className="relative aspect-square overflow-hidden bg-muted"
+        onMouseEnter={() => product.images.length > 1 && setActiveImage(1)}
+        onMouseLeave={() => setActiveImage(0)}
+      >
         {!imgLoaded && (
           <div className="absolute inset-0 shimmer" aria-hidden="true" />
         )}
-        {product.images[0]?.url && (
+        {displayImage?.url && (
           <Image
-            src={product.images[0].url}
-            alt={product.images[0].alt ?? product.name}
+            src={displayImage.url}
+            alt={displayImage.alt ?? product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             className={cn(
@@ -76,6 +104,17 @@ export function ProductCard({ product, className, priority }: ProductCardProps) 
             priority={priority}
           />
         )}
+        <Button
+          size="sm"
+          variant="secondary"
+          className={cn("absolute right-2 top-2 h-8 w-8 rounded-full p-0 shadow-sm", saved && "bg-rose-50 text-rose-600 hover:bg-rose-100")}
+          onClick={toggleSaved}
+          aria-label={saved ? "Remove from saved items" : "Save item for later"}
+          aria-pressed={saved}
+          title={saved ? "Remove from saved items" : "Save for later"}
+        >
+          <Heart className={cn("h-4 w-4", saved && "fill-current")} />
+        </Button>
         {/* badges */}
         {product.badges.length > 0 && (
           <div className="absolute left-2 top-2 flex flex-col gap-1">

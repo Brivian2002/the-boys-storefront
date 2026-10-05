@@ -41,7 +41,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   delivery: {
     headline: "Reliable delivery, wherever you shop",
     worldwide:
-      "We are building flexible delivery options for local and international shoppers. Delivery details are confirmed at checkout.",
+      "Delivery availability, timing, and cost are confirmed for each order at checkout based on the destination and fulfilment option.",
     paymentOnDelivery:
       "Payment options and availability will be confirmed for each product or service at checkout.",
     pickup:

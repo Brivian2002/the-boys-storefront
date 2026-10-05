@@ -42,10 +42,10 @@ export function NewsletterSignup() {
     <div className="grid gap-6 md:grid-cols-2 md:items-center">
       <div className="space-y-2">
         <h2 className="font-serif text-2xl sm:text-3xl font-semibold tracking-tight">
-          New arrivals, helpful guides, and occasional member-only offers.
+          Get first access to new drops, useful guides, and launch offers.
         </h2>
         <p className="text-sm text-muted-foreground">
-          Join the The Boyz Store list. No spam — just the items we're proudest of.
+          Join The Boyz Store list. No spam — just useful updates and early access.
         </p>
       </div>
       {done ? (

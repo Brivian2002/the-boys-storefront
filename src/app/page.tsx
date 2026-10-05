@@ -27,6 +27,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   getFeaturedProducts,
+  getNewArrivals,
+  queryCatalog,
   getActiveCategories,
 } from "@/lib/blogger/client";
 import {
@@ -66,12 +68,47 @@ export const metadata = {
     "The Boyz Store is a professional online marketplace for products, services, and smart everyday finds, founded by Joshua Nasi Words.",
 };
 
+function ProductRow({
+  eyebrow,
+  title,
+  products,
+}: {
+  eyebrow: string;
+  title: string;
+  products: Awaited<ReturnType<typeof getFeaturedProducts>>;
+}) {
+  if (!products.length) return null;
+  return (
+    <section className="border-y border-border bg-muted/25">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">{eyebrow}</p>
+            <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
+          </div>
+          <Button asChild variant="ghost" className="hidden sm:inline-flex">
+            <Link href="/shop">Shop all <ArrowRight className="ml-1.5 h-4 w-4" /></Link>
+          </Button>
+        </div>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 sm:gap-5">
+          {products.slice(0, 4).map((product, index) => <ProductCard key={product.id} product={product} priority={index < 2} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default async function HomePage() {
-  const [featured, activeCats, posts] = await Promise.all([
+  const [featured, activeCats, posts, newArrivals, dealCatalog] = await Promise.all([
     getFeaturedProducts(8),
     getActiveCategories(),
     getBlogPosts(3).catch(() => []),
+    getNewArrivals(8),
+    queryCatalog({ sort: "popular", pageSize: 32 }),
   ]);
+  const bestDeals = dealCatalog.products.filter(
+    (product) => product.originalPrice && product.originalPrice > product.price
+  );
 
   // Keep the full department system visible even before inventory is loaded
   const allCategories: Category[] = [
@@ -209,34 +246,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ===== FEATURED ===== */}
-      {featured.length > 0 && (
-        <section className="bg-muted/30 border-y border-border">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-            <div className="flex items-end justify-between mb-10 gap-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-2">
-                  Selected for you
-                </p>
-                <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
-                  Featured finds
-                </h2>
-              </div>
-              <Button asChild variant="ghost" className="hidden sm:inline-flex shrink-0">
-                <Link href="/shop">
-                  Shop all
-                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-              {featured.slice(0, 4).map((p, i) => (
-                <ProductCard key={p.id} product={p} priority={i < 4} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <ProductRow eyebrow="Trending now" title="Popular picks for everyday life" products={featured} />
+      <ProductRow eyebrow="Fresh on the marketplace" title="New arrivals" products={newArrivals} />
+      <ProductRow eyebrow="Better value" title="Best deals" products={bestDeals} />
 
       {/* ===== BRAND STORY ===== */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
@@ -342,7 +354,7 @@ export default async function HomePage() {
             {
               icon: Truck,
               title: "Delivery options",
-              body: "Local and international delivery options are being built into the marketplace.",
+              body: "Delivery availability, timing, and cost are confirmed for each order at checkout.",
             },
             {
               icon: Heart,

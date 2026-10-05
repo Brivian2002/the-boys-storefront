@@ -55,12 +55,14 @@ export const metadata: Metadata = {
     siteName: "The Boyz Store",
     type: "website",
     locale: "en_GH",
+    images: [{ url: "/hero/boyz-marketplace-hero.jpg", width: 2560, height: 1440, alt: "The Boyz Store marketplace" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "The Boyz Store — Smart shopping, simply",
     description:
       "Shop useful products, standout finds, and trusted services from The Boyz Store.",
+    images: ["/hero/boyz-marketplace-hero.jpg"],
   },
   robots: {
     index: true,

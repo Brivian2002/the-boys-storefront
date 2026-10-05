@@ -1,8 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
-  <title id="title">The Boyz Store mark</title>
-  <desc id="desc">A navy and cobalt TB monogram in a rounded square</desc>
-  <rect width="96" height="96" rx="24" fill="#0f172a"/>
-  <path d="M22 25h52v12H55v34H41V37H22z" fill="#fff"/>
-  <path d="M61 37h6c7 0 12 5 12 12s-5 12-12 12h-6z" fill="#2563eb"/>
-  <path d="M61 49h7" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">The Boyz Store shopping basket mark</title>
+  <desc id="desc">A shopper pushing a yellow shopping basket with red and blue accents</desc>
+  <rect width="120" height="120" rx="30" fill="#0f172a"/>
+  <path d="M51 33c0-6.6 5.4-12 12-12s12 5.4 12 12-5.4 12-12 12-12-5.4-12-12Z" fill="#f8fafc"/>
+  <path d="M54 48h15c7 0 12 5 14 11l4 15H50l-3-13c-1.4-6.8 1.9-13 7-13Z" fill="#2563eb"/>
+  <path d="M50 59 34 72" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
+  <path d="m33 71-11 2" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
+  <path d="M84 59h15l-7 31H42" fill="none" stroke="#f8fafc" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M47 90h47" stroke="#facc15" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="53" cy="101" r="6" fill="#ef4444"/>
+  <circle cx="86" cy="101" r="6" fill="#ef4444"/>
+  <path d="M59 64h27l-3 12H62Z" fill="#facc15"/>
+  <path d="M63 67h18" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
 </svg>

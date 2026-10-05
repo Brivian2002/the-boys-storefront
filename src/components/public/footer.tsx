@@ -26,6 +26,7 @@ const FOOTER_LINKS = {
   ],
   Help: [
     { href: "/delivery", label: "Delivery & Pickup" },
+    { href: "/faq", label: "FAQ" },
     { href: "/policies", label: "Returns & Policies" },
     { href: "/contact", label: "Contact Us" },
     { href: "/cart", label: "Shopping Bag" },
@@ -144,7 +145,14 @@ export function PublicFooter({ brand, legalBusinessName, contact, social }: Publ
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 sm:flex-row sm:items-center">
+        <div className="mt-10 flex flex-wrap items-center gap-2 border-t border-border pt-6 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          <span className="rounded-full border border-border bg-card px-3 py-1.5">Paystack secured</span>
+          <span className="rounded-full border border-border bg-card px-3 py-1.5">Mobile Money</span>
+          <span className="rounded-full border border-border bg-card px-3 py-1.5">Cards</span>
+          <span className="rounded-full border border-border bg-card px-3 py-1.5">Encrypted checkout</span>
+        </div>
+
+        <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} {brand.name}. Built for shoppers everywhere. All rights reserved.
           </p>

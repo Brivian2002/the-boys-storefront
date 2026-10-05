@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  Gem,
+  Tag,
   Truck,
   ShieldCheck,
   RefreshCw,
@@ -236,7 +236,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     key={m}
                     className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs font-medium"
                   >
-                    <Gem className="h-3 w-3 mr-1.5 text-blue-600 dark:text-blue-400" />
+                    <Tag className="h-3 w-3 mr-1.5 text-blue-600 dark:text-blue-400" />
                     {m}
                   </span>
                 ))}
@@ -247,24 +247,25 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <AddToBag product={product} />
 
             {/* WhatsApp enquiry */}
-            <div className="rounded-lg border border-border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                Have a question about this item, or want to discuss a custom
-                order? Reach our marketplace directly on WhatsApp.
-              </p>
-              <Button asChild variant="outline" size="sm">
-                <a href={SUPPORT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  Ask on WhatsApp
-                </a>
-              </Button>
-            </div>
+            {SUPPORT_WHATSAPP_URL !== "https://wa.me/233200000000" && (
+              <div className="rounded-lg border border-border bg-muted/30 p-4">
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                  Have a question about this listing or need help before ordering? Reach our marketplace directly on WhatsApp.
+                </p>
+                <Button asChild variant="outline" size="sm">
+                  <a href={SUPPORT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    Ask on WhatsApp
+                  </a>
+                </Button>
+              </div>
+            )}
 
             {/* Trust strip */}
             <div className="grid grid-cols-3 gap-3 pt-2">
               <TrustItem icon={Truck} title="Delivery" body="Ghana-wide" />
-              <TrustItem icon={ShieldCheck} title="Authentic" body="Certificate incl." />
-              <TrustItem icon={RefreshCw} title="Lifetime" body="Craft guarantee" />
+              <TrustItem icon={ShieldCheck} title="Secure" body="Paystack checkout" />
+              <TrustItem icon={RefreshCw} title="Easy returns" body="Clear policy" />
             </div>
           </div>
         </div>
@@ -272,7 +273,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         {/* Full description + accordion */}
         <div className="mt-16 grid gap-10 lg:grid-cols-2">
           <div className="space-y-4">
-            <h2 className="font-serif text-2xl font-semibold">The item</h2>
+            <h2 className="font-serif text-2xl font-semibold">About this listing</h2>
             {product.descriptionHtml ? (
               <div
                 className="max-w-none text-muted-foreground
@@ -317,10 +318,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
                         </li>
                       ))}
                     <li>
-                      <span className="font-medium text-foreground">Care:</span> Wipe
-                      gently with a soft, lint-free cloth. Avoid contact with
-                      perfumes, lotions and harsh chemicals. Store in the
-                      provided pouch away from direct sunlight.
+                      <span className="font-medium text-foreground">Good to know:</span> Review
+                      the listing details and included options before checkout. Contact
+                      the team if you need clarification about fit, setup, delivery, or use.
                     </li>
                   </ul>
                 </AccordionContent>
@@ -331,37 +331,34 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-2">
                   <p>
-                    Delivery is available across all 10 regions of Ghana.
-                    Greater Accra orders ship in 1-3 business days; other
-                    regions in 2-8 days. Free pickup is available at our
-                    Ashaley Botwe marketplace in Madina.
+                    Delivery availability and cost are confirmed at checkout.
+                    Greater Accra orders are typically handled fastest; timing
+                    for other locations is confirmed for each order.
                   </p>
                   <p>
-                    Each item ships fully insured in a presentation box with a
-                    certificate of authenticity. Pickup is available at our
-                    Ashaley Botwe marketplace in Madina at no charge.
+                    Your order is packaged for safe handover. Any pickup or
+                    special fulfilment option is confirmed before dispatch.
                   </p>
                   <p>
-                    Returns are accepted within 7 days of delivery for
-                    unworn, unaltered items in original packaging. Custom and
-                    engraved items are final sale.
+                    Returns follow the timeframe and condition requirements
+                    shown in our returns policy and on the order confirmation.
                   </p>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="guarantee">
                 <AccordionTrigger className="text-base font-medium">
-                  Authenticity &amp; guarantee
+                  Listing confidence &amp; support
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-2">
                   <p>
-                    Every The Boyz Store listing is reviewed for clear details and dependable fulfillment
-                    in our Ashaley Botwe marketplace in Madina — drawing on the
-                    textures, symbols and spirit of Africa.
+                    Every The Boyz Store listing is presented with clear details,
+                    available options, and the information needed to shop with
+                    confidence.
                   </p>
                   <p>
-                    Each item ships with a certificate of authenticity.
-                    Manufacturing defects are covered by our lifetime
-                    craftsmanship guarantee.
+                    If something about a listing or order is unclear, contact
+                    the team before checkout so we can help you make the right
+                    decision.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -378,7 +375,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   You may also like
                 </p>
                 <h2 className="font-serif text-3xl font-semibold tracking-tight">
-                  Complete the look
+                  Explore this department
                 </h2>
               </div>
               <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
@@ -417,4 +414,3 @@ function TrustItem({
     </div>
   );
 }
-

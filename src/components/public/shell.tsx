@@ -5,6 +5,7 @@ import { PublicFooter } from "@/components/public/footer";
 import { SocialPopup } from "@/components/public/social-popup";
 import { AwarenessToasts } from "@/components/public/awareness-toasts";
 import { AIAssistant } from "@/components/public/ai-assistant";
+import { MobileBottomNav } from "@/components/public/mobile-bottom-nav";
 
 /**
  * Public storefront shell.
@@ -30,7 +31,7 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <PublicHeader announcement={settings.announcement} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-16 lg:pb-0">{children}</main>
       <PublicFooter
         brand={settings.brand}
         legalBusinessName={settings.legalBusinessName}
@@ -44,6 +45,7 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
       />
       <AwarenessToasts />
       <AIAssistant />
+      <MobileBottomNav />
     </div>
   );
 }
