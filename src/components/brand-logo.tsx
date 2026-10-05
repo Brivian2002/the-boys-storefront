@@ -10,7 +10,7 @@ interface BrandLogoProps {
 /**
  * The Boys Store brand logo.
  *
- * Uses /brand/logo.png for the mark, with a two-line wordmark:
+ * Uses the custom /brand/logo.svg shopping-basket mark, with a two-line wordmark:
  *   "The Boys Store" (serif, primary)
  *   "Joshua Nasi Words · Marketplace" (uppercase, turquoise tagline)
  *
@@ -29,7 +29,7 @@ export function BrandLogo({
         alt="The Boys Store"
         width={40}
         height={40}
-        className="h-9 w-9 shrink-0 rounded-xl object-cover ring-1 ring-blue-200"
+        className="h-9 w-9 shrink-0 rounded-xl object-cover ring-1 ring-sky-200"
         priority
       />
       {showWordmark && (
@@ -40,7 +40,7 @@ export function BrandLogo({
           >
             The Boys Store
           </span>
-          <span className="mt-1 text-[0.6rem] font-medium uppercase tracking-[0.32em] text-blue-600">
+          <span className="mt-1 text-[0.6rem] font-medium uppercase tracking-[0.32em] text-sky-600">
             Joshua Nasi Words · Marketplace
           </span>
         </span>

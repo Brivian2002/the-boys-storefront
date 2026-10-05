@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s · The Boys Store",
   },
   description:
-    "The Boys Store — a modern online marketplace for useful products, trusted services, and standout finds. Shop across electronics, fashion, home, beauty, gadgets, bundles, and more.",
+    "The Boys Store — a modern online marketplace for useful products, trusted services, and standout finds. Shop across electronics, fashion, home, gadgets, services, bundles, and more.",
   keywords: [
     "quality goods",
     "online marketplace",
@@ -44,10 +44,9 @@ export const metadata: Metadata = {
   creator: "The Boys Store",
   icons: {
     icon: [
-      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/brand/logo.svg", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/brand/logo.svg", type: "image/svg+xml" }],
   },
   openGraph: {
     title: "The Boys Store — Smart shopping, simply",

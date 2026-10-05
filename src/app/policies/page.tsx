@@ -181,7 +181,7 @@ export default async function PoliciesPage() {
                   </p>
                   <p>
                     Custom, engraved, or made-to-order items are final sale
-                    and cannot be returned. Earrings are non-returnable for
+                    and cannot be returned. Personalized or opened items may be non-returnable for
                     hygiene reasons unless faulty.
                   </p>
                   <p>

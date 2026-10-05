@@ -54,7 +54,7 @@ export interface Product {
   originalPrice?: number;
   category: Category;
   collection?: string;
-  /** primary material, e.g. "18k gold" */
+  /** primary product attribute, e.g. "Wireless", "Cotton", or "Remote" */
   material: string;
   materials: string[];
   availability: Availability;
@@ -97,21 +97,21 @@ export interface CatalogQuery {
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
-  rings: "Electronics",
+  rings: "Electronics & Tech",
   earrings: "Fashion & Apparel",
   necklaces: "Home & Living",
-  bracelets: "Beauty & Wellness",
-  watches: "Gadgets & Accessories",
+  bracelets: "Mobile & Gadgets",
+  watches: "Sports & Outdoors",
   brooches: "Services",
   sets: "Bundles & Deals",
   "new-arrivals": "New Arrivals",
 };
 export const CATEGORY_DESCRIPTIONS: Record<Category, string> = {
-  rings: "Everyday electronics, useful accessories, and smart devices for modern living.",
+  rings: "Phones, computers, audio, smart devices, and practical tech for modern living.",
   earrings: "Clothing, shoes, bags, and style essentials for every occasion.",
   necklaces: "Practical home, kitchen, office, and lifestyle products chosen for value.",
-  bracelets: "Beauty, personal care, wellness, and self-care essentials.",
-  watches: "Mobile accessories, gadgets, and tech add-ons that keep you connected.",
+  bracelets: "Chargers, cases, accessories, and everyday gadgets that keep you connected.",
+  watches: "Fitness gear, outdoor essentials, sports equipment, and active-living finds.",
   brooches: "Book a service, find a skilled provider, or get help with your next task.",
   sets: "Curated bundles and multi-item deals designed to make shopping easier.",
   "new-arrivals": "Fresh products, services, and limited finds newly added to The Boys Store.",

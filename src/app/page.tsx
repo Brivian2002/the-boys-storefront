@@ -5,7 +5,7 @@ import {
   Sparkles,
   ShieldCheck,
   Truck,
-  Gem,
+  ShoppingBasket,
   Quote,
   Heart,
 } from "lucide-react";
@@ -31,7 +31,9 @@ const CATEGORY_IMAGES: Record<Category, string> = {
   rings: "/categories/electronics.jpg",
   earrings: "/categories/fashion.jpg",
   necklaces: "/categories/home.jpg",
-  bracelets: "/categories/beauty.jpg",
+  bracelets: "/categories/electronics.jpg",
+  watches: "/categories/watches.jpg",
+  brooches: "/hero/marketplace-story.jpg",
   sets: "/categories/bundles.jpg",
   "new-arrivals": "/categories/new-arrivals.jpg",
 };
@@ -55,6 +57,8 @@ export default async function HomePage() {
     "earrings",
     "necklaces",
     "bracelets",
+    "watches",
+    "brooches",
     "sets",
     "new-arrivals",
   ];
@@ -131,8 +135,8 @@ export default async function HomePage() {
                   Delivery options
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <Gem className="h-4 w-4 text-blue-300" />
-                  Carefully selected
+                  <ShoppingBasket className="h-4 w-4 text-blue-300" />
+                  Useful, well-chosen finds
                 </span>
               </div>
             </div>
@@ -148,7 +152,7 @@ export default async function HomePage() {
               Shop by category
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
-              Find your next find
+              Find your next useful thing
             </h2>
           </div>
           <Button asChild variant="ghost" className="hidden sm:inline-flex shrink-0">
@@ -314,8 +318,8 @@ export default async function HomePage() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
-              icon: Gem,
-              title: "Curated marketplace",
+              icon: ShoppingBasket,
+              title: "Marketplace built for real life",
               body: "Every listing is selected to make everyday shopping more useful and convenient.",
             },
             {

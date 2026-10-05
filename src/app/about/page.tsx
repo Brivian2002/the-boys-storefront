@@ -73,7 +73,7 @@ export default function AboutPage() {
             Joshua Nasi Words created The Boys Store to make online shopping feel more intentional: fewer distractions, better categories, useful details, and a clear path from discovery to delivery.
           </p>
           <p className="leading-relaxed text-muted-foreground">
-            The store is built to grow—from electronics and fashion to home, beauty, gadgets, bundles, and services—while keeping the experience simple enough for an everyday shopper.
+            The store is built to grow—from electronics and fashion to home, gadgets, sports, bundles, and services—while keeping the experience simple enough for an everyday shopper.
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <Button asChild><Link href="/shop">Explore the marketplace <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>

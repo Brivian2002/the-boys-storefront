@@ -332,7 +332,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Adwoa Solitaire Engagement Ring"
+                  placeholder="e.g. Wireless Noise-Cancelling Headphones"
                   required
                   maxLength={120}
                 />
@@ -362,7 +362,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
                     id="collection"
                     value={collection}
                     onChange={(e) => setCollection(e.target.value)}
-                    placeholder="e.g. Bridal, Heritage, Atelier Signature"
+                    placeholder="e.g. Featured, Everyday, Limited Edition"
                     maxLength={80}
                   />
                 </div>
@@ -501,7 +501,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
                         addMaterial();
                       }
                     }}
-                    placeholder="Type a material (e.g. 18k Gold) and press Enter"
+                    placeholder="Type a product detail (e.g. Wireless) and press Enter"
                   />
                   <Button type="button" variant="outline" onClick={addMaterial}>
                     <Plus className="h-4 w-4" />
@@ -666,7 +666,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
             <CardContent className="space-y-3">
               {attributes.length === 0 && (
                 <p className="text-sm text-muted-foreground">
-                  No custom attributes. Add one for things like ring sizes, gemstone types, or chain lengths.
+                  No custom attributes. Add one for things like sizes, colors, compatibility, or service details.
                 </p>
               )}
               {attributes.map((attr, idx) => (
@@ -781,7 +781,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
               <p>
                 In production, this product is published as a Blogger post. Labels
                 (e.g. <code className="rounded bg-muted px-1">price-1250</code>,{" "}
-                <code className="rounded bg-muted px-1">category-rings</code>) are{" "}
+                <code className="rounded bg-muted px-1">category-electronics</code>) are{" "}
                 <strong className="text-foreground">auto-generated</strong> from the
                 fields above using the parser conventions.
               </p>
@@ -790,7 +790,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
                 <code className="rounded bg-muted px-1">
                   {name.trim()
                     ? name.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
-                    : "adwoa-solitaire-ring"}
+                    : "wireless-headphones"}
                 </code>
                 ).
               </p>

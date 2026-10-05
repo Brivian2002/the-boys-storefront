@@ -54,13 +54,13 @@ const NAV_LINKS = [
 ];
 
 const DEPARTMENTS: { category: Category; label: string; blurb: string }[] = [
-  { category: "rings", label: "Electronics", blurb: "Phones, audio & smart devices" },
+  { category: "rings", label: "Electronics & Tech", blurb: "Phones, audio & smart devices" },
   { category: "earrings", label: "Fashion & Apparel", blurb: "Clothing, shoes & accessories" },
   { category: "necklaces", label: "Home & Living", blurb: "Home, office & kitchen essentials" },
-  { category: "bracelets", label: "Beauty & Wellness", blurb: "Personal care & wellness" },
-  { category: "watches", label: "Watches", blurb: "Afrocentric timeitems" },
+  { category: "bracelets", label: "Mobile & Gadgets", blurb: "Chargers, cases & clever accessories" },
+  { category: "watches", label: "Sports & Outdoors", blurb: "Gear for active, open-air days" },
   { category: "brooches", label: "Services", blurb: "Book help from trusted providers" },
-  { category: "sets", label: "Sets", blurb: "Bundles & deals" },
+  { category: "sets", label: "Bundles & Deals", blurb: "Smart multi-item value packs" },
 ];
 
 export function PublicHeader({ announcement }: PublicHeaderProps) {

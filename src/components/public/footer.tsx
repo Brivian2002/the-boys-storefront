@@ -15,10 +15,10 @@ interface PublicFooterProps {
 const FOOTER_LINKS = {
   Shop: [
     { href: "/shop", label: "All Products" },
-    { href: "/shop?category=rings", label: "Electronics" },
+    { href: "/shop?category=rings", label: "Electronics & Tech" },
     { href: "/shop?category=earrings", label: "Fashion & Apparel" },
     { href: "/shop?category=necklaces", label: "Home & Living" },
-    { href: "/shop?category=bracelets", label: "Beauty & Wellness" },
+    { href: "/shop?category=bracelets", label: "Mobile & Gadgets" },
     { href: "/shop?category=watches", label: "Gadgets" },
     { href: "/shop?category=brooches", label: "Services" },
     { href: "/shop?category=sets", label: "Bundles & Deals" },

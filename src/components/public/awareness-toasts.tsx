@@ -59,8 +59,8 @@ export function AwarenessToasts() {
     const first = window.setTimeout(() => {
       toast.custom(
         () => (
-          <AwarenessCard icon={Gem} eyebrow="Welcome to The Boys Store" title="Products with a story.">
-            Discover carefully selected Afrocentric items made in Accra, Ghana — designed to help you wear heritage, confidence, and everyday beauty.
+          <AwarenessCard icon={Gem} eyebrow="Welcome to The Boys Store" title="Useful finds, ready to go.">
+            Discover useful products and dependable services from a marketplace built around everyday needs.
             <div className="mt-3">
               <Link href="/shop" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-blue-300">
                 Explore the collection <ArrowRight className="h-3.5 w-3.5" />

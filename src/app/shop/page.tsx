@@ -28,7 +28,7 @@ import {
 export const metadata: Metadata = {
   title: "Shop All Products",
   description:
-    "Browse the full The Boys Store collection of carefully selected rings, earrings, necklaces, bracelets and sets. Made in Ghana & worldwide, Ghana.",
+    "Browse the full The Boys Store marketplace across electronics, fashion, home, gadgets, services, bundles, and new arrivals.",
   alternates: { canonical: "/shop" },
 };
 
@@ -38,6 +38,8 @@ const ALL_CATEGORY_VALUES: Category[] = [
   "earrings",
   "necklaces",
   "bracelets",
+  "watches",
+  "brooches",
   "sets",
   "new-arrivals",
 ];
@@ -242,7 +244,7 @@ function ShopSearchForm({ defaultValue }: { defaultValue: string }) {
         type="search"
         name="q"
         defaultValue={defaultValue}
-        placeholder="Search rings, earrings, materials..."
+        placeholder="Search products, services, brands, and more..."
         className="pl-9 pr-24 h-10"
         aria-label="Search products"
       />

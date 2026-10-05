@@ -20,6 +20,8 @@ const ALL_CATEGORY_VALUES = [
   "earrings",
   "necklaces",
   "bracelets",
+  "watches",
+  "brooches",
   "sets",
   "new-arrivals",
 ];

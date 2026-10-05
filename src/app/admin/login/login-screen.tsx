@@ -63,7 +63,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
       {/* Left brand panel */}
       <div className="relative hidden lg:flex lg:w-1/2 flex-col justify-between overflow-hidden bg-foreground p-12 text-background">
         <Image
-          src="/hero/hero-jewelry.jpg"
+          src="/hero/marketplace-hero.jpg"
           alt="quality goods editorial"
           fill
           priority
@@ -89,7 +89,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-background/75">
             <span className="inline-flex items-center gap-2">
-              <Gem className="h-4 w-4 text-blue-300" /> Hand-finished craft
+              <Gem className="h-4 w-4 text-blue-300" /> Marketplace operations
             </span>
             <span className="inline-flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-blue-300" /> Authenticity
