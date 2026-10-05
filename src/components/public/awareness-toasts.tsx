@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { toast } from "sonner";
-import { ArrowRight, Gem, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Bot, Gem, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
 const STORAGE_KEY = "boys-store-awareness-seen-v2";
@@ -91,7 +91,7 @@ export function AwarenessToasts() {
     const third = window.setTimeout(() => {
       toast.custom(
         () => (
-          <AwarenessCard icon={Sparkles} eyebrow="Need a guide?" title="Ask our The Boyz Store assistant.">
+          <AwarenessCard icon={Bot} eyebrow="Need a guide?" title="Ask our The Boyz Store assistant.">
             Get quick answers about our story, materials, delivery, payments, care, and the difference between our trading brand and registered business.
           </AwarenessCard>
         ),

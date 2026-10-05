@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Instagram, Facebook, X } from "lucide-react";
+import { Instagram, Facebook, ShoppingBag, X } from "lucide-react";
 
 interface SocialPopupProps {
   instagram?: string;
@@ -24,10 +24,6 @@ export function SocialPopup({ instagram, facebook, whatsapp }: SocialPopupProps)
   const [open, setOpen] = React.useState(false);
   const [dismissed, setDismissed] = React.useState(false);
   const [pulse, setPulse] = React.useState(false);
-  const [profileImage, setProfileImage] = React.useState(
-    "https://unavatar.io/instagram/theboyzstore"
-  );
-
   React.useEffect(() => {
     if (!instagram && !facebook && !whatsapp) return;
     try {
@@ -122,17 +118,12 @@ export function SocialPopup({ instagram, facebook, whatsapp }: SocialPopupProps)
         <X className="h-3.5 w-3.5" />
       </button>
 
-      <div className="flex items-center gap-2 mb-2 pr-6">
-        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 animate-scale-in ring-2 ring-pink-400/30">
-          <img
-            src={profileImage}
-            alt="The Boyz Store Instagram profile"
-            className="h-full w-full object-cover"
-            onError={() => setProfileImage("/founder-avatar.png")}
-          />
+      <div className="mb-2 flex items-center gap-2 pr-6">
+        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white">
+          <ShoppingBag className="h-4 w-4" />
         </span>
         <p className="text-sm font-semibold text-foreground">
-          Follow the journey
+          Stay connected
         </p>
       </div>
 
@@ -171,7 +162,7 @@ export function SocialPopup({ instagram, facebook, whatsapp }: SocialPopupProps)
             aria-label="Chat with The Boyz Store on WhatsApp"
             className="group inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#20bd5a] hover:shadow-lg active:scale-95"
           >
-            <img src="/brand/whatsapp.svg" alt="" className="h-4 w-4" />
+            <img src="/brand/whatsapp.svg" alt="" className="h-5 w-5" />
             WhatsApp
           </a>
         )}

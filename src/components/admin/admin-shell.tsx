@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import {
   LayoutDashboard,
   Package,
@@ -27,6 +26,7 @@ import {
   Bell,
   ChevronDown,
   MailCheck,
+  UserCircle,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -267,13 +267,9 @@ function UserDropdown({ session }: { session: AdminShellProps["session"] }) {
           className="flex items-center gap-2 rounded-full p-0.5 pr-2 transition-colors hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="Account menu"
         >
-          <Image
-            src="/founder-avatar.png"
-            alt={session?.name ?? "Admin avatar"}
-            width={32}
-            height={32}
-            className="h-8 w-8 rounded-full object-cover ring-1 ring-border"
-          />
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600/10 text-blue-700 ring-1 ring-border dark:text-blue-300">
+            <UserCircle className="h-5 w-5" />
+          </span>
           <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
         </button>
       </DropdownMenuTrigger>

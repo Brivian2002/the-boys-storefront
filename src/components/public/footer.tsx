@@ -40,7 +40,10 @@ const FOOTER_LINKS = {
 
 export function PublicFooter({ brand, legalBusinessName, contact, social }: PublicFooterProps) {
   const whatsappUrl =
-    social.whatsapp ?? `https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`;
+    social.whatsapp ||
+    (contact.whatsapp && contact.whatsapp !== "+233 20 000 0000"
+      ? `https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`
+      : "");
   return (
     <footer className="mt-auto border-t border-border bg-muted/30">
       {/* newsletter band */}
@@ -59,15 +62,17 @@ export function PublicFooter({ brand, legalBusinessName, contact, social }: Publ
               {brand.description}
             </p>
             <div className="space-y-2 text-sm">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <img src="/brand/whatsapp.svg" alt="" className="h-4 w-4" />
-                Chat with us on WhatsApp
-              </a>
+              {whatsappUrl && (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <img src="/brand/whatsapp.svg" alt="" className="h-4 w-4" />
+                  Chat with us on WhatsApp
+                </a>
+              )}
               <a
                 href={`mailto:${contact.email}`}
                 className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"

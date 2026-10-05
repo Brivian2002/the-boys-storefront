@@ -16,6 +16,17 @@ import { AIAssistant } from "@/components/public/ai-assistant";
  */
 export async function PublicShell({ children }: { children: React.ReactNode }) {
   const settings = await getSiteSettings();
+  const isPlaceholder = (value?: string) =>
+    !value ||
+    value === "https://www.instagram.com/theboyzstore" ||
+    value === "https://www.facebook.com/TheBoysStore/" ||
+    value === "https://wa.me/233200000000";
+  const social = {
+    ...settings.social,
+    instagram: isPlaceholder(settings.social.instagram) ? "" : settings.social.instagram,
+    facebook: isPlaceholder(settings.social.facebook) ? "" : settings.social.facebook,
+    whatsapp: isPlaceholder(settings.social.whatsapp) ? "" : settings.social.whatsapp,
+  };
   return (
     <div className="flex min-h-screen flex-col">
       <PublicHeader announcement={settings.announcement} />
@@ -24,12 +35,12 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
         brand={settings.brand}
         legalBusinessName={settings.legalBusinessName}
         contact={settings.contact}
-        social={settings.social}
+        social={social}
       />
       <SocialPopup
-        instagram={settings.social.instagram}
-        facebook={settings.social.facebook}
-        whatsapp={settings.social.whatsapp}
+        instagram={social.instagram || undefined}
+        facebook={social.facebook || undefined}
+        whatsapp={social.whatsapp || undefined}
       />
       <AwarenessToasts />
       <AIAssistant />

@@ -8,7 +8,6 @@ import {
   Menu,
   X,
   ShoppingBag,
-  Sparkles,
 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -99,7 +98,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
       {announcement && (
         <div className="bg-foreground px-4 py-2 text-center text-[0.7rem] tracking-wide text-background sm:text-xs">
           <span className="inline-flex items-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-gold" />
+            <ShoppingBag className="h-3 w-3 text-sky-300" />
             {announcement}
           </span>
         </div>

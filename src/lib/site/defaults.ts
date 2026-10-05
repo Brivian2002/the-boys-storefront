@@ -31,9 +31,9 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     hours: "Mon–Fri, 9:00 AM – 5:00 PM · Sat & Sun closed",
   },
   social: {
-    instagram: "https://www.instagram.com/theboyzstore",
-    facebook: "https://www.facebook.com/TheBoysStore/",
-    whatsapp: "https://wa.me/233200000000",
+    instagram: "",
+    facebook: "",
+    whatsapp: "",
   },
   maps: {
     query: "The Boyz Store online marketplace",
