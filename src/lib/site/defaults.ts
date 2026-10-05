@@ -1,5 +1,5 @@
 /**
- * Default site settings for Afrocentric Jewelry by LaGlitz.
+ * Default site settings for The Boys Store.
  *
  * These are the immutable seed values used the first time getSiteSettings()
  * runs against an empty database, and as the fallback if a field is somehow
@@ -9,43 +9,43 @@
 import { GHANA_REGIONS } from "@/lib/ghana";
 import type { SiteSettings } from "./types";
 
-export const BRAND_NAME = "Afrocentric Jewelry by LaGlitz";
-export const LEGAL_BUSINESS_NAME = "Homeland Return Jewelry";
+export const BRAND_NAME = "The Boys Store";
+export const LEGAL_BUSINESS_NAME = "The Boys Store Marketplace";
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   announcement:
-    "Handcrafted Afrocentric jewelry from Accra · Worldwide shipment available",
+    "A curated marketplace for everyday goods, services, and smart finds · Shop online with confidence",
   brand: {
     name: BRAND_NAME,
-    tagline: "Africa Arising",
+    tagline: "Smart shopping, simply",
     description:
-      "Premium Afrocentric jewelry handcrafted in Accra, Ghana — beads, gold, cowrie, kente-inspired designs for the modern African woman.",
-    founderName: "Charity Kessewaa Frimpong",
+      "A professional online marketplace for useful products, trusted services, and standout finds for everyday life.",
+    founderName: "Joshua Nasi Words",
   },
   legalBusinessName: LEGAL_BUSINESS_NAME,
   contact: {
-    email: "laglitz@gmail.com",
-    phone: "+233 55 454 5900",
-    whatsapp: "+233 55 454 5900",
-    address: "Ashaley Botwe, Madina, Ghana",
+    email: "support@theboystore.example",
+    phone: "+233 20 000 0000",
+    whatsapp: "+233 20 000 0000",
+    address: "Online marketplace · Ghana & worldwide",
     hours: "Mon–Fri, 9:00 AM – 5:00 PM · Sat & Sun closed",
   },
   social: {
-    instagram: "https://www.instagram.com/_laglitzj/",
-    facebook: "https://www.facebook.com/Laglitzj/",
-    whatsapp: "https://wa.me/233554545900",
+    instagram: "https://www.instagram.com/theboystore",
+    facebook: "https://www.facebook.com/TheBoysStore/",
+    whatsapp: "https://wa.me/233200000000",
   },
   maps: {
-    query: "Afrocentric Jewelry by LaGlitz, Madina, Ghana",
+    query: "The Boys Store online marketplace",
   },
   delivery: {
-    headline: "Delivery across Ghana & worldwide",
+    headline: "Reliable delivery, wherever you shop",
     worldwide:
-      "We ship worldwide via DHL and FedEx. International shipping is calculated per destination and confirmed with you before dispatch.",
+      "We are building flexible delivery options for local and international shoppers. Delivery details are confirmed at checkout.",
     paymentOnDelivery:
-      "Payment on delivery is available within Greater Accra for orders above GH₵500. Pay with cash or mobile money when your piece arrives.",
+      "Payment options and availability will be confirmed for each product or service at checkout.",
     pickup:
-      "Prefer to collect? Arrange a pickup at our Cantonments office — message us on WhatsApp after placing your order.",
+      "Need help with an order or service? Contact The Boys Store team through the site.",
   },
   regions: GHANA_REGIONS,
   updatedAt: new Date(0).toISOString(),

@@ -6,7 +6,7 @@ The storefront uses the same EmailJS service and template for contact enquiries 
 
 Use these settings in the EmailJS template editor:
 
-- **To Email:** `laglitz@gmail.com`
+- **To Email:** `boys-store@gmail.com`
 - **Subject:** `Contact Us: {{title}}`
 - **From Name:** `{{name}}`
 - **From Email:** **Use Default Email Address**
@@ -39,7 +39,7 @@ Your supplied HTML is compatible with these fields:
 
 ## Important
 
-1. Keep the EmailJS **To Email** set to `laglitz@gmail.com` in the EmailJS dashboard.
+1. Keep the EmailJS **To Email** set to `boys-store@gmail.com` in the EmailJS dashboard.
 2. Keep **From Email** set to **Use Default Email Address**. Do not put a visitor's email in the From Email field.
 3. Set **Reply To** to `{{email}}`, so clicking Reply goes to the customer.
 4. The app sends `title` and `email` for both contact and paid-order messages. This fixes templates that previously received `subject` or `from_email` only.

@@ -1,5 +1,5 @@
 /**
- * Product domain types for Afrocentric Jewelry by LaGlitz.
+ * Product domain types for The Boys Store.
  *
  * The public storefront only ever sees these typed objects — never raw
  * Blogger posts, labels, or URLs. Products are authored in Blogger (the
@@ -97,35 +97,25 @@ export interface CatalogQuery {
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
-  rings: "Rings",
-  earrings: "Earrings",
-  necklaces: "Necklaces",
-  bracelets: "Bracelets",
-  watches: "Watches",
-  brooches: "Brooches",
-  sets: "Sets",
+  rings: "Electronics",
+  earrings: "Fashion & Apparel",
+  necklaces: "Home & Living",
+  bracelets: "Beauty & Wellness",
+  watches: "Gadgets & Accessories",
+  brooches: "Services",
+  sets: "Bundles & Deals",
   "new-arrivals": "New Arrivals",
 };
-
 export const CATEGORY_DESCRIPTIONS: Record<Category, string> = {
-  rings:
-    "Afrocentric rings — gold bands, cowrie and bead statement rings, kente-inspired wedding bands handcrafted in Accra.",
-  earrings:
-    "Hoop, drop and stud earrings drawing on Ghanaian beadwork, cowrie shells and gold filigree.",
-  necklaces:
-    "Beaded, cowrie and gold-tone necklaces layered with meaning — from everyday wear to ceremonial pieces.",
-  bracelets:
-    "Bangles, cuffs and beaded bracelets inspired by Ghanaian craft heritage and Adinkra symbolism.",
-  watches:
-    "Afrocentric timepieces pairing watch faces with beaded, kente and gold-tone straps.",
-  brooches:
-    "Statement brooches and pins — Adinkra symbols, cowrie and bead clusters for lapel, headwrap or bag.",
-  sets:
-    "Coordinated Afrocentric jewelry sets for weddings, outdooring and milestone celebrations.",
-  "new-arrivals":
-    "The newest pieces fresh from the LaGlitz workshop in Ashaley Botwe, Accra.",
+  rings: "Everyday electronics, useful accessories, and smart devices for modern living.",
+  earrings: "Clothing, shoes, bags, and style essentials for every occasion.",
+  necklaces: "Practical home, kitchen, office, and lifestyle products chosen for value.",
+  bracelets: "Beauty, personal care, wellness, and self-care essentials.",
+  watches: "Mobile accessories, gadgets, and tech add-ons that keep you connected.",
+  brooches: "Book a service, find a skilled provider, or get help with your next task.",
+  sets: "Curated bundles and multi-item deals designed to make shopping easier.",
+  "new-arrivals": "Fresh products, services, and limited finds newly added to The Boys Store.",
 };
-
 export const AVAILABILITY_LABELS: Record<Availability, string> = {
   "in-stock": "In stock",
   "sold-out": "Sold out",

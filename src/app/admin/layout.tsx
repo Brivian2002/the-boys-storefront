@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 // Hard noindex for the entire /admin subtree.
 export const metadata: Metadata = {
   title: {
-    default: "Admin · Afrocentric Jewelry by LaGlitz",
-    template: "%s · Afrocentric Jewelry by LaGlitz Admin",
+    default: "Admin · The Boys Store",
+    template: "%s · The Boys Store Admin",
   },
   description: "Protected admin area. Not indexed.",
   robots: {

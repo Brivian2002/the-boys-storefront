@@ -1,4 +1,4 @@
-# LaGlitz Environment Setup
+# The Boys Store Environment Setup
 
 ## Google Analytics
 
@@ -36,7 +36,7 @@ PAYSTACK_PUBLIC_KEY=...
 Set the webhook URL to:
 
 ```text
-https://la-glitz.vercel.app/api/paystack/webhook
+https://the-boys-store.vercel.app/api/paystack/webhook
 ```
 
 Confirm that the webhook signature verification uses the secret key configured in the same Vercel environment.

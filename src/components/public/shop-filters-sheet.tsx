@@ -42,7 +42,7 @@ export function ShopFiltersSheet({ facets }: { facets: ProductFacet[] }) {
         <SheetHeader className="px-5 pt-5 pb-3 border-b border-border">
           <SheetTitle className="font-serif text-xl">Filters</SheetTitle>
           <SheetDescription className="sr-only">
-            Refine the jewelry collection by category, material, price and more.
+            Refine the products collection by category, material, price and more.
           </SheetDescription>
         </SheetHeader>
         <ScrollArea className="flex-1">

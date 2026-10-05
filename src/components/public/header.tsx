@@ -133,7 +133,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
                   <Input
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    placeholder="Search jewelry..."
+                    placeholder="Search products..."
                     className="pl-9"
                   />
                 </div>
@@ -174,7 +174,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
         <Link
           href="/"
           className="flex shrink-0 items-center"
-          aria-label="Afrocentric Jewelry by LaGlitz home"
+          aria-label="The Boys Store home"
         >
           <BrandLogo />
         </Link>
@@ -228,7 +228,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   onBlur={() => !searchValue && setSearchOpen(false)}
-                  placeholder="Search jewelry..."
+                  placeholder="Search products..."
                   className="w-48 pr-8 lg:w-64"
                 />
                 <button
@@ -261,7 +261,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
             size="icon"
             className="h-9 w-9 md:hidden"
             onClick={() => {
-              const q = window.prompt("Search jewelry:");
+              const q = window.prompt("Search products:");
               if (q && q.trim()) router.push(`/shop?q=${encodeURIComponent(q.trim())}`);
             }}
             aria-label="Search"

@@ -24,13 +24,13 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
   const [dismissed, setDismissed] = React.useState(false);
   const [pulse, setPulse] = React.useState(false);
   const [profileImage, setProfileImage] = React.useState(
-    "https://unavatar.io/instagram/_laglitzj"
+    "https://unavatar.io/instagram/_boys-storej"
   );
 
   React.useEffect(() => {
     if (!instagram && !facebook) return;
     try {
-      if (sessionStorage.getItem("laglitz-social-dismissed") === "1") {
+      if (sessionStorage.getItem("boys-store-social-dismissed") === "1") {
         // Read the session-only dismissal flag after entering the browser.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setDismissed(true);
@@ -71,7 +71,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
     setOpen(false);
     setDismissed(true);
     try {
-      sessionStorage.setItem("laglitz-social-dismissed", "1");
+      sessionStorage.setItem("boys-store-social-dismissed", "1");
     } catch {
       /* ignore */
     }
@@ -125,7 +125,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
         <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 animate-scale-in ring-2 ring-pink-400/30">
           <img
             src={profileImage}
-            alt="LaGlitz Instagram profile"
+            alt="The Boys Store Instagram profile"
             className="h-full w-full object-cover"
             onError={() => setProfileImage("/founder-avatar.png")}
           />

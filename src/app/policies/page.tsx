@@ -31,10 +31,10 @@ import { getSiteSettings } from "@/lib/site/store";
 export const metadata: Metadata = {
   title: "Policies",
   description:
-    "Afrocentric Jewelry by LaGlitz returns, exchanges, authenticity, shipping, privacy, terms and payment policies. Clear, fair, and rooted in Ghanaian consumer protection.",
+    "The Boys Store returns, exchanges, authenticity, shipping, privacy, terms and payment policies. Clear, fair, and rooted in Ghanaian consumer protection.",
   alternates: { canonical: "/policies" },
   openGraph: {
-    title: "Policies · Afrocentric Jewelry by LaGlitz",
+    title: "Policies · The Boys Store",
     description:
       "Returns, exchanges, authenticity, shipping, privacy, terms and payment.",
   },
@@ -118,7 +118,7 @@ export default async function PoliciesPage() {
             than hide behind fine print.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
-            Afrocentric Jewelry by LaGlitz is operated by {settings.legalBusinessName}.
+            The Boys Store is operated by {settings.legalBusinessName}.
           </p>
         </div>
       </section>
@@ -170,7 +170,7 @@ export default async function PoliciesPage() {
                     We want you to love every piece. If for any reason you
                     don&apos;t, we accept returns within 7 days of delivery for
                     unworn, unaltered pieces in their original condition, and
-                    returned in their Afrocentric Jewelry by LaGlitz packaging.
+                    returned in their The Boys Store packaging.
                   </p>
                   <p>
                     To start a return, message us on WhatsApp with your order
@@ -224,7 +224,7 @@ export default async function PoliciesPage() {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    Every Afrocentric Jewelry by LaGlitz piece is hand-finished
+                    Every The Boys Store piece is hand-finished
                     in our Ashaley Botwe atelier in Madina, Ghana. Each piece
                     ships with a certificate of authenticity documenting the
                     materials and craftsmanship.
@@ -371,7 +371,7 @@ export default async function PoliciesPage() {
                     unless we agree otherwise in writing.
                   </p>
                   <p>
-                    By placing an order with Afrocentric Jewelry by LaGlitz you
+                    By placing an order with The Boys Store you
                     accept these terms in full.
                   </p>
                 </AccordionContent>

@@ -4,7 +4,7 @@ import { CheckoutView } from "./checkout-view";
 export const metadata = {
   title: "Checkout",
   description:
-    "Securely complete your order. Pay with Paystack. Afrocentric Jewelry by LaGlitz.",
+    "Securely complete your order. Pay with Paystack. The Boys Store.",
 };
 
 export default function CheckoutPage() {

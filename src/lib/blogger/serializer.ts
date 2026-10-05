@@ -14,7 +14,7 @@ import type { BloggerPost } from "./api";
 import { parseLabels, serializeProductToLabels, titleToSlug } from "./parser";
 import type { Product, ProductImage } from "./types";
 
-const PAYLOAD_MARKER = "LAGLITZ_PRODUCT_PAYLOAD";
+const PAYLOAD_MARKER = "BOYS_STORE_PRODUCT_PAYLOAD";
 
 interface ProductPayload {
   v: 1;

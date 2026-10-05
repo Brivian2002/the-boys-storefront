@@ -26,9 +26,9 @@ import {
 } from "@/lib/blogger/types";
 
 export const metadata: Metadata = {
-  title: "Shop All Jewelry",
+  title: "Shop All Products",
   description:
-    "Browse the full Afrocentric Jewelry by LaGlitz collection of handcrafted rings, earrings, necklaces, bracelets and sets. Made in Ashaley Botwe, Madina, Ghana.",
+    "Browse the full The Boys Store collection of handcrafted rings, earrings, necklaces, bracelets and sets. Made in Ashaley Botwe, Madina, Ghana.",
   alternates: { canonical: "/shop" },
 };
 
@@ -84,10 +84,10 @@ export default async function ShopPage({
   const currentCategory =
     query.category && query.category !== "all" ? query.category : undefined;
   const headerTitle = currentCategory
-    ? CATEGORY_LABELS[currentCategory as Category] ?? "All Jewelry"
+    ? CATEGORY_LABELS[currentCategory as Category] ?? "All Products"
     : query.search
     ? `Search: "${query.search}"`
-    : "All Jewelry";
+    : "All Products";
 
   const allCategoryValues = ALL_CATEGORY_VALUES;
 
@@ -224,7 +224,7 @@ function EmptyState() {
         pieces every month - check back soon.
       </p>
       <Button asChild>
-        <Link href="/shop">View all jewelry</Link>
+        <Link href="/shop">View all products</Link>
       </Button>
     </div>
   );

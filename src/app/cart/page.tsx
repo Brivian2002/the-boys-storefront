@@ -4,7 +4,7 @@ import { CartView } from "./cart-view";
 export const metadata = {
   title: "Shopping Bag",
   description:
-    "Review the pieces in your bag before checking out. Afrocentric Jewelry by LaGlitz.",
+    "Review the pieces in your bag before checking out. The Boys Store.",
 };
 
 export default function CartPage() {

@@ -14,7 +14,7 @@ interface PublicFooterProps {
 
 const FOOTER_LINKS = {
   Shop: [
-    { href: "/shop", label: "All Jewelry" },
+    { href: "/shop", label: "All Products" },
     { href: "/shop?category=rings", label: "Rings" },
     { href: "/shop?category=earrings", label: "Earrings" },
     { href: "/shop?category=necklaces", label: "Necklaces" },
@@ -32,7 +32,7 @@ const FOOTER_LINKS = {
   ],
   House: [
     { href: "/about", label: "Our Story" },
-    { href: "/blog", label: "The LaGlitz Journal" },
+    { href: "/blog", label: "The The Boys Store Journal" },
     { href: "/shop?collection=Occasion", label: "Occasion Collection" },
     { href: "/shop?collection=Everyday", label: "Everyday Collection" },
   ],

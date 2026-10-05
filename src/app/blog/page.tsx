@@ -17,7 +17,7 @@ import { getBlogPosts, blogConfigured } from "@/lib/blog/client";
 export const metadata: Metadata = {
   title: "Journal",
   description:
-    "Stories, craftsmanship and inspiration from Afrocentric Jewelry by LaGlitz.",
+    "Stories, craftsmanship and inspiration from The Boys Store.",
   alternates: { canonical: "/blog" },
 };
 
@@ -74,7 +74,7 @@ export default async function BlogIndexPage() {
             <p className="text-muted-foreground max-w-md mb-6">
               {configured
                 ? "We haven't published any stories yet. Please check back soon."
-                : "We're preparing stories on Adinkra symbolism, our craft and the Africa Arising spirit. Please check back soon."}
+                : "We're preparing stories on Adinkra symbolism, our craft and the Smart shopping, simply spirit. Please check back soon."}
             </p>
             <Button asChild>
               <Link href="/shop">

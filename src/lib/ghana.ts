@@ -21,15 +21,15 @@ export interface DeliveryRegion {
 }
 
 export const STORE_CONTACT = {
-  name: "Afrocentric Jewelry by LaGlitz",
-  address: "Ashaley Botwe, Madina, Ghana",
-  phone: "+233 55 454 5900",
-  whatsapp: "+233 55 454 5900",
-  email: "laglitz@gmail.com",
+  name: "The Boys Store",
+  address: "Online marketplace · Ghana & worldwide",
+  phone: "+233 20 000 0000",
+  whatsapp: "+233 20 000 0000",
+  email: "support@theboystore.example",
   hours: "Mon–Fri, 9:00 AM – 5:00 PM · Sat & Sun closed",
 } as const;
 
-export const SUPPORT_WHATSAPP_URL = "https://wa.me/233554545900";
+export const SUPPORT_WHATSAPP_URL = "https://wa.me/233200000000";
 
 /**
  * Eleven delivery regions including an "international" option.

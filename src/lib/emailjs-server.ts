@@ -35,7 +35,7 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
       data: {
         orderId: input.orderId,
         kind: "paid-order",
-        recipient: "laglitz@gmail.com",
+        recipient: "support@theboystore.example",
         subject: `Paid order ${input.reference}`,
         status: "skipped",
         error,
@@ -64,7 +64,7 @@ export async function sendPaidOrderEmail(input: OrderEmailInput): Promise<boolea
     data: {
       orderId: input.orderId,
       kind: "paid-order",
-      recipient: "laglitz@gmail.com",
+      recipient: "support@theboystore.example",
       subject: `Paid order ${input.reference}`,
       status: "pending",
     },

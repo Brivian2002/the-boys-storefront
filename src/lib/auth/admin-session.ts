@@ -13,7 +13,7 @@ import * as crypto from "crypto";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
 
-const SESSION_COOKIE = "laglitz-admin";
+const SESSION_COOKIE = "boys-store-admin";
 const SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours
 
 export type AdminRole = "OWNER" | "ADMIN" | "EDITOR";

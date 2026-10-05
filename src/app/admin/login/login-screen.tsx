@@ -64,7 +64,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
       <div className="relative hidden lg:flex lg:w-1/2 flex-col justify-between overflow-hidden bg-foreground p-12 text-background">
         <Image
           src="/hero/hero-jewelry.jpg"
-          alt="Afrocentric jewelry editorial"
+          alt="quality goods editorial"
           fill
           priority
           sizes="50vw"
@@ -77,14 +77,14 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
         <div className="relative z-10 space-y-6">
           <Sparkles className="h-8 w-8 text-teal-300" />
           <h1 className="font-serif text-4xl xl:text-5xl font-semibold leading-tight tracking-tight">
-            Afrocentric jewelry,
+            quality goods,
             <br />
             <span className="bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 bg-clip-text text-transparent">
-              Africa Arising.
+              Smart shopping, simply.
             </span>
           </h1>
           <p className="max-w-md text-background/80 leading-relaxed">
-            Admin console for Afrocentric Jewelry by LaGlitz. Manage products,
+            Admin console for The Boys Store. Manage products,
             orders, reviews, and store settings.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-background/75">
@@ -101,7 +101,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
           </div>
         </div>
         <p className="relative z-10 text-xs text-background/60">
-          © {new Date().getFullYear()} Afrocentric Jewelry by LaGlitz · Ashaley
+          © {new Date().getFullYear()} The Boys Store · Ashaley
           Botwe, Madina, Ghana
         </p>
       </div>
@@ -151,7 +151,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
                         autoComplete="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Charity Kessewaa Frimpong"
+                        placeholder="Joshua Nasi Words"
                         className="pl-9"
                         required
                         autoFocus

@@ -45,7 +45,7 @@ export function NewsletterSignup() {
           New arrivals, atelier stories, and the occasional private viewing.
         </h2>
         <p className="text-sm text-muted-foreground">
-          Join the LaGlitz list. No spam — just the pieces we're proudest of.
+          Join the The Boys Store list. No spam — just the pieces we're proudest of.
         </p>
       </div>
       {done ? (

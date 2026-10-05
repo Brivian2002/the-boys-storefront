@@ -37,9 +37,9 @@ const CATEGORY_IMAGES: Record<Category, string> = {
 };
 
 export const metadata = {
-  title: "Afrocentric Jewelry by LaGlitz — Africa Arising",
+  title: "The Boys Store — Smart shopping, simply",
   description:
-    "Afrocentric jewelry by LaGlitz. Handcrafted rings, earrings, necklaces, bracelets and sets inspired by African heritage. Founded by Charity Kessewaa Frimpong in Ashaley Botwe, Madina, Ghana.",
+    "The Boys Store is a professional online marketplace for products, services, and smart everyday finds, founded by Joshua Nasi Words.",
 };
 
 export default async function HomePage() {
@@ -70,7 +70,7 @@ export default async function HomePage() {
         <div className="absolute inset-0">
           <Image
             src="/hero/hero-jewelry.jpg"
-            alt="Afrocentric jewelry editorial — Africa Arising"
+            alt="quality goods editorial — Smart shopping, simply"
             fill
             priority
             sizes="100vw"
@@ -88,20 +88,20 @@ export default async function HomePage() {
                 className="mb-5 bg-white/10 text-white border-white/20 backdrop-blur-sm"
               >
                 <Sparkles className="h-3 w-3 mr-1.5" />
-                Africa Arising · Handcrafted in Ghana
+                Smart shopping, simply · Products, services & everyday finds
               </Badge>
               <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight text-white">
-                Afrocentric jewelry,
+                Shop better,
                 <br />
                 <span className="bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 bg-clip-text text-transparent">
-                  Africa Arising.
+                  Smart shopping, simply.
                 </span>
               </h1>
               <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
-                Afrocentric Jewelry by LaGlitz is a premium Ghanaian jewelry
+                The Boys Store is a premium Ghanaian products
                 house founded by{" "}
                 <span className="text-white font-medium">
-                  Charity Kessewaa Frimpong
+                  Joshua Nasi Words
                 </span>
                 . We craft rings, earrings, necklaces and bracelets inspired by
                 the textures, symbols and spirit of Africa — finished by hand
@@ -128,11 +128,11 @@ export default async function HomePage() {
               <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/80">
                 <span className="inline-flex items-center gap-2">
                   <ShieldCheck className="h-4 w-4 text-teal-300" />
-                  Authenticity guaranteed
+                  Trusted shopping
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Truck className="h-4 w-4 text-teal-300" />
-                  Delivery across Ghana
+                  Delivery options
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Gem className="h-4 w-4 text-teal-300" />
@@ -231,8 +231,8 @@ export default async function HomePage() {
         <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-center">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
             <Image
-              src="/founder.webp"
-              alt="Charity Kessewaa Frimpong, founder of Afrocentric Jewelry by LaGlitz"
+              src="/hero/about-atelier.jpg"
+              alt="Joshua Nasi Words, founder of The Boys Store"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -243,19 +243,17 @@ export default async function HomePage() {
               Our story
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-              Founded by Charity Kessewaa Frimpong.
+              Founded by Joshua Nasi Words.
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Afrocentric Jewelry by LaGlitz was founded on a single belief:
-              that African craft belongs in the same conversation as the
-              world&apos;s finest jewelry. From our workshop in Ashaley Botwe,
-              Madina, we handcraft every piece using techniques passed down
-              through generations — drawing on the warmth of African gold,
-              Adinkra symbolism, and the rhythm of Ghanaian celebration.
+              The Boys Store was founded on a simple belief: shopping online
+              should feel clear, useful, and dependable. Joshua Nasi Words
+              created this marketplace to bring products and services together
+              in one professional destination for everyday life.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              We don&apos;t make jewelry for occasions. We make jewelry that
-              becomes the occasion.
+              We keep the experience straightforward: discover, compare, and
+              buy with confidence.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild>
@@ -273,11 +271,11 @@ export default async function HomePage() {
             <blockquote className="mt-6 border-l-2 border-teal-500 pl-4">
               <Quote className="h-5 w-5 text-teal-500 mb-2" />
               <p className="font-serif text-lg italic text-foreground/90">
-                &ldquo;Africa Arising — and every piece we make carries that
+                &ldquo;Smart shopping, simply — and every piece we make carries that
                 spirit.&rdquo;
               </p>
               <footer className="mt-2 text-sm text-muted-foreground">
-                — Charity Kessewaa Frimpong, Founder
+                — Joshua Nasi Words, Founder
               </footer>
             </blockquote>
           </div>
@@ -322,23 +320,23 @@ export default async function HomePage() {
           {[
             {
               icon: Gem,
-              title: "Hand-finished craft",
-              body: "Every piece is hand-finished in our Ashaley Botwe atelier — never mass-produced.",
+              title: "Curated selection",
+              body: "Every listing is selected to make everyday shopping more useful and convenient.",
             },
             {
               icon: ShieldCheck,
-              title: "Authenticity guaranteed",
-              body: "Each piece ships with a certificate of authenticity and our craftsmanship guarantee.",
+              title: "Trusted shopping",
+              body: "Clear product details, dependable checkout, and support when you need it.",
             },
             {
               icon: Truck,
-              title: "Delivery across Ghana",
-              body: "From Greater Accra to Tamale. Pickup available at our Ashaley Botwe atelier.",
+              title: "Delivery options",
+              body: "Local and international delivery options are being built into the marketplace.",
             },
             {
               icon: Heart,
-              title: "Africa Arising",
-              body: "Inspired by Adinkra symbols, kente texture and the warmth of African gold.",
+              title: "Smart shopping, simply",
+              body: "Useful products, quality services, and smart finds for modern life.",
             },
           ].map(({ icon: Icon, title, body }) => (
             <div
@@ -361,17 +359,17 @@ export default async function HomePage() {
       <section className="relative overflow-hidden border-t border-border bg-foreground text-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-teal-300 mb-3">
-            Visit us in Ashaley Botwe
+            Shop The Boys Store
           </p>
           <h2 className="font-serif text-3xl sm:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
-            See the collection in person at our Madina atelier.
+            Find your next useful product or service in one place.
           </h2>
           <p className="mt-5 text-background/75 max-w-xl mx-auto">
             {STORE_CONTACT.address} · {STORE_CONTACT.hours}
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Button asChild size="lg" variant="secondary">
-              <Link href="/contact">Book a private viewing</Link>
+              <Link href="/contact">Contact the team</Link>
             </Button>
             <Button
               asChild

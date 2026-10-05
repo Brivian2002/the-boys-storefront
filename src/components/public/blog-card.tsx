@@ -32,7 +32,7 @@ export function BlogCard({ post }: BlogCardProps) {
           className="flex aspect-[16/9] items-center justify-center bg-gradient-to-br from-turquoise-soft to-gold-soft"
           aria-label={post.title}
         >
-          <span className="font-serif text-3xl text-turquoise">LaGlitz</span>
+          <span className="font-serif text-3xl text-turquoise">The Boys Store</span>
         </Link>
       )}
       <div className="flex flex-1 flex-col p-5">

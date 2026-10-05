@@ -34,7 +34,7 @@ export async function generateMetadata({
       robots: { index: false, follow: false },
     };
   }
-  const title = `${post.title} · Afrocentric Jewelry by LaGlitz`;
+  const title = `${post.title} · The Boys Store`;
   const description = post.excerpt ?? post.title;
   return {
     title,

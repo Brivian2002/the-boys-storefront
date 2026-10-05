@@ -1,4 +1,4 @@
-// Prisma schema for Afrocentric Jewelry by LaGlitz.
+// Prisma schema for The Boys Store.
 // SQLite is the local development provider. Scalar lists are stored as JSON
 // strings because SQLite does not support native list columns.
 

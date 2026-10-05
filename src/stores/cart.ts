@@ -86,7 +86,7 @@ export const useCart = create<CartState>()(
       subtotal: () => get().lines.reduce((sum, l) => sum + l.unitPrice * l.quantity, 0),
     }),
     {
-      name: "la-glitz-cart",
+      name: "the-boys-store-cart",
       version: 1,
     }
   )

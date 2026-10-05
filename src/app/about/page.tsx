@@ -13,9 +13,9 @@ import { Button } from "@/components/ui/button";
 import { STORE_CONTACT } from "@/lib/ghana";
 
 export const metadata = {
-  title: "About — Afrocentric Jewelry by LaGlitz",
+  title: "About — The Boys Store",
   description:
-    "Afrocentric Jewelry by LaGlitz was founded by Charity Kessewaa Frimpong in Ashaley Botwe, Madina, Ghana. Our story, our values, and the Adinkra symbols that inspire our craft.",
+    "The Boys Store was founded by Joshua Nasi Words in Ashaley Botwe, Madina, Ghana. Our story, our values, and the Adinkra symbols that inspire our craft.",
 };
 
 const VALUES = [
@@ -32,7 +32,7 @@ const VALUES = [
   {
     icon: HandHeart,
     title: "Rooted in heritage",
-    body: "We draw on Adinkra symbols, kente texture and the warmth of African gold — without relying on cliché. Africa Arising, in every detail.",
+    body: "We draw on Adinkra symbols, kente texture and the warmth of African gold — without relying on cliché. Smart shopping, simply, in every detail.",
   },
   {
     icon: Sparkles,
@@ -46,7 +46,7 @@ const ADINKRA = [
     src: "/adinkra/gye-nyame.png",
     name: "Gye Nyame",
     meaning: "Supremacy of God",
-    body: "A reminder of the omnipotence of the Creator — the most widely used Adinkra symbol, present in our brand spirit of Africa Arising.",
+    body: "A reminder of the omnipotence of the Creator — the most widely used Adinkra symbol, present in our brand spirit of Smart shopping, simply.",
   },
   {
     src: "/adinkra/dwennimmen.png",
@@ -76,7 +76,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <Image
             src="/about-hero.jpg"
-            alt="Charity Kessewaa Frimpong, founder of Afrocentric Jewelry by LaGlitz"
+            alt="Joshua Nasi Words, founder of The Boys Store"
             fill
             priority
             sizes="100vw"
@@ -98,7 +98,7 @@ export default function AboutPage() {
                 </span>
               </h1>
               <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
-                Afrocentric Jewelry by LaGlitz is a premium Ghanaian jewelry
+                The Boys Store is a premium Ghanaian products
                 house handcrafting pieces inspired by the textures, symbols and
                 spirit of Africa.
               </p>
@@ -113,7 +113,7 @@ export default function AboutPage() {
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
             <Image
               src="/our-story.webp"
-              alt="Charity Kessewaa Frimpong, founder"
+              alt="Joshua Nasi Words, founder"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -121,23 +121,23 @@ export default function AboutPage() {
           </div>
           <div className="space-y-5">
             <p className="text-xs uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
-              Founded by Charity Kessewaa Frimpong
+              Founded by Joshua Nasi Words
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
-              From Ashaley Botwe to your jewelry box.
+              From Ashaley Botwe to your products box.
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Afrocentric Jewelry by LaGlitz was founded on a simple belief:
+              The Boys Store was founded on a simple belief:
               that Ghanaian craft belongs in the same conversation as the
-              world&apos;s finest jewelry houses. Every piece is designed and
+              world&apos;s finest products houses. Every piece is designed and
               hand-finished in our atelier in Ashaley Botwe, Madina — drawing on
               the warmth of African gold, the texture of kente, and the
               centuries-old language of Adinkra symbols.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              The result is jewelry that feels both contemporary and rooted.
+              The result is products that feels both contemporary and rooted.
               Pieces designed to be worn for a lifetime — and passed on to the
-              next. Africa Arising.
+              next. Smart shopping, simply.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild>
@@ -233,7 +233,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
           <Leaf className="mx-auto h-8 w-8 text-teal-300 mb-4" />
           <h2 className="font-serif text-3xl sm:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
-            Africa Arising — wear it with pride.
+            Smart shopping, simply — wear it with pride.
           </h2>
           <p className="mt-5 text-background/75 max-w-xl mx-auto">
             {STORE_CONTACT.address} · {STORE_CONTACT.hours}

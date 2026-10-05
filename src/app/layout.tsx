@@ -24,24 +24,24 @@ export const metadata: Metadata = {
     process.env.APP_BASE_URL ?? "http://localhost:3000"
   ),
   title: {
-    default: "Afrocentric Jewelry by LaGlitz — Africa Arising",
-    template: "%s · Afrocentric Jewelry by LaGlitz",
+    default: "The Boys Store — Smart shopping, simply",
+    template: "%s · The Boys Store",
   },
   description:
-    "Afrocentric Jewelry by LaGlitz — handcrafted beads, gold, cowrie and kente-inspired jewelry from Accra, Ghana. Africa Arising. Shop rings, earrings, necklaces, bracelets, watches, brooches and sets.",
+    "The Boys Store — handcrafted beads, gold, cowrie and kente-inspired products from Accra, Ghana. Smart shopping, simply. Shop rings, earrings, necklaces, bracelets, watches, brooches and sets.",
   keywords: [
-    "Afrocentric jewelry",
-    "Ghana jewelry",
-    "LaGlitz",
-    "Africa Arising",
-    "Accra jewelry",
-    "cowrie jewelry",
-    "kente jewelry",
+    "quality goods",
+    "Ghana products",
+    "The Boys Store",
+    "Smart shopping, simply",
+    "Accra products",
+    "cowrie products",
+    "kente products",
     "Ghanaian beads",
-    "Charity Kessewaa Frimpong",
+    "Joshua Nasi Words",
   ],
-  authors: [{ name: "Afrocentric Jewelry by LaGlitz" }],
-  creator: "Afrocentric Jewelry by LaGlitz",
+  authors: [{ name: "The Boys Store" }],
+  creator: "The Boys Store",
   icons: {
     icon: [
       { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
@@ -50,18 +50,18 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
-    title: "Afrocentric Jewelry by LaGlitz — Africa Arising",
+    title: "The Boys Store — Smart shopping, simply",
     description:
-      "Handcrafted Afrocentric jewelry from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs for the modern African woman.",
-    siteName: "Afrocentric Jewelry by LaGlitz",
+      "Handcrafted quality goods from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs for the modern African woman.",
+    siteName: "The Boys Store",
     type: "website",
     locale: "en_GH",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Afrocentric Jewelry by LaGlitz — Africa Arising",
+    title: "The Boys Store — Smart shopping, simply",
     description:
-      "Handcrafted Afrocentric jewelry from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs.",
+      "Handcrafted quality goods from Accra, Ghana. Beads, gold, cowrie and kente-inspired designs.",
   },
   robots: {
     index: true,

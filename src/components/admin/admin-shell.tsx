@@ -414,7 +414,7 @@ export function AdminShell({
 
         <footer className="border-t border-border bg-card px-4 py-4 text-center sm:px-6">
           <p className="text-xs text-muted-foreground">
-            Afrocentric Jewelry by LaGlitz · Admin · Protected area · Noindex
+            The Boys Store · Admin · Protected area · Noindex
           </p>
         </footer>
       </div>

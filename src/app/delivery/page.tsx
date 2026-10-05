@@ -19,7 +19,7 @@ import {
 } from "@/lib/ghana";
 
 export const metadata = {
-  title: "Delivery & Pickup — Afrocentric Jewelry by LaGlitz",
+  title: "Delivery & Pickup — The Boys Store",
   description:
     "Delivery across all 10 regions of Ghana. Pickup at our Ashaley Botwe atelier in Madina. See fees, ETAs, and how it works.",
 };
@@ -67,7 +67,7 @@ export default function DeliveryPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
               <Image
                 src="/delivery/truck.jpg"
-                alt="Afrocentric Jewelry by LaGlitz delivery gift box"
+                alt="The Boys Store delivery gift box"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -174,7 +174,7 @@ export default function DeliveryPage() {
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
                 <Image
                   src="/delivery/gift-box.jpg"
-                  alt="Afrocentric jewelry gift box"
+                  alt="quality goods gift box"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"

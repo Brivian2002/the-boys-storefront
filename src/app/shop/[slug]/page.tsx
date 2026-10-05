@@ -55,9 +55,9 @@ export async function generateMetadata({
       robots: { index: false, follow: false },
     };
   }
-  const title = `${product.name} · Afrocentric Jewelry by LaGlitz`;
+  const title = `${product.name} · The Boys Store`;
   const description =
-    product.description?.slice(0, 160) ?? "Handcrafted Afrocentric jewelry from Ashaley Botwe, Madina, Ghana.";
+    product.description?.slice(0, 160) ?? "Handcrafted quality goods from Ashaley Botwe, Madina, Ghana.";
   const ogImage = product.images[0]?.url;
 
   return {
@@ -354,7 +354,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-2">
                   <p>
-                    Every Afrocentric Jewelry by LaGlitz piece is hand-finished
+                    Every The Boys Store piece is hand-finished
                     in our Ashaley Botwe atelier in Madina — drawing on the
                     textures, symbols and spirit of Africa.
                   </p>

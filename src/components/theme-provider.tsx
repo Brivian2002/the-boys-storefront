@@ -31,7 +31,7 @@ function applyTheme(palette: Palette, theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = React.useState<ThemeState>({ palette: "commerce", theme: "light" });
+  const [state, setState] = React.useState<ThemeState>({ palette: "luxury", theme: "light" });
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -40,7 +40,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<ThemeState>;
         const next: ThemeState = {
-          palette: parsed.palette === "luxury" ? "luxury" : "commerce",
+          palette: parsed.palette === "commerce" ? "commerce" : "luxury",
           theme: parsed.theme === "dark" ? "dark" : "light",
         };
         // Hydrate the persisted preference after localStorage becomes available.
@@ -49,10 +49,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         applyTheme(next.palette, next.theme);
       } else {
         // default
-        applyTheme("commerce", "light");
+        applyTheme("luxury", "light");
       }
     } catch {
-      applyTheme("commerce", "light");
+      applyTheme("luxury", "light");
     }
     setMounted(true);
   }, []);

@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { ArrowRight, Gem, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
 
-const STORAGE_KEY = "laglitz-awareness-seen-v2";
+const STORAGE_KEY = "boys-store-awareness-seen-v2";
 
 function AwarenessCard({
   icon: Icon,
@@ -59,7 +59,7 @@ export function AwarenessToasts() {
     const first = window.setTimeout(() => {
       toast.custom(
         () => (
-          <AwarenessCard icon={Gem} eyebrow="Welcome to LaGlitz" title="Jewelry with a story.">
+          <AwarenessCard icon={Gem} eyebrow="Welcome to The Boys Store" title="Products with a story.">
             Discover handcrafted Afrocentric pieces made in Accra, Ghana — designed to help you wear heritage, confidence, and everyday beauty.
             <div className="mt-3">
               <Link href="/shop" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-teal-300">
@@ -68,7 +68,7 @@ export function AwarenessToasts() {
             </div>
           </AwarenessCard>
         ),
-        { duration: 9500, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "laglitz-welcome" },
+        { duration: 9500, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "boys-store-welcome" },
       );
     }, 1200);
 
@@ -76,7 +76,7 @@ export function AwarenessToasts() {
       toast.custom(
         () => (
           <AwarenessCard icon={ShieldCheck} eyebrow="A little clarity" title="Two names, one trusted business." accent="amber">
-            <strong className="text-amber-700 dark:text-amber-300">Afrocentric Jewelry by LaGlitz</strong> is our customer-facing brand. The registered business behind it is <strong className="text-amber-700 dark:text-amber-300">Homeland Return Jewelry</strong>.
+            <strong className="text-amber-700 dark:text-amber-300">The Boys Store</strong> is our customer-facing brand. The registered business behind it is <strong className="text-amber-700 dark:text-amber-300">The Boys Store Marketplace</strong>.
             <div className="mt-3">
               <Link href="/policies#terms" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-teal-300">
                 Learn more in our policies <ArrowRight className="h-3.5 w-3.5" />
@@ -84,18 +84,18 @@ export function AwarenessToasts() {
             </div>
           </AwarenessCard>
         ),
-        { duration: 11000, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "laglitz-legal-identity" },
+        { duration: 11000, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "boys-store-legal-identity" },
       );
     }, 6200);
 
     const third = window.setTimeout(() => {
       toast.custom(
         () => (
-          <AwarenessCard icon={Sparkles} eyebrow="Need a guide?" title="Ask our LaGlitz assistant.">
+          <AwarenessCard icon={Sparkles} eyebrow="Need a guide?" title="Ask our The Boys Store assistant.">
             Get quick answers about our story, materials, delivery, payments, care, and the difference between our trading brand and registered business.
           </AwarenessCard>
         ),
-        { duration: 8500, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "laglitz-assistant-intro" },
+        { duration: 8500, position: "bottom-center", className: "!mb-20 sm:!mb-4", id: "boys-store-assistant-intro" },
       );
     }, 12500);
 

@@ -21,8 +21,8 @@ import { db } from "@/lib/db";
 import { sendPaidOrderEmailOnce } from "@/lib/emailjs-server";
 
 export const metadata: Metadata = {
-  title: "Order confirmed · Afrocentric Jewelry by LaGlitz",
-  description: "Your Afrocentric Jewelry by LaGlitz order status.",
+  title: "Order confirmed · The Boys Store",
+  description: "Your The Boys Store order status.",
   robots: { index: false, follow: false },
 };
 

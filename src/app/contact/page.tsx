@@ -4,14 +4,14 @@ import { ContactForm } from "@/components/public/contact-form";
 import { STORE_CONTACT, SUPPORT_WHATSAPP_URL } from "@/lib/ghana";
 
 export const metadata = {
-  title: "Contact — Afrocentric Jewelry by LaGlitz",
+  title: "Contact — The Boys Store",
   description:
-    "Get in touch with Afrocentric Jewelry by LaGlitz. Visit us in Ashaley Botwe, Madina, Ghana or send us a message.",
+    "Get in touch with The Boys Store. Visit us in Ashaley Botwe, Madina, Ghana or send us a message.",
 };
 
 export default function ContactPage() {
   const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(
-    "Afrocentric Jewelry by LaGlitz, Madina, Ghana"
+    "The Boys Store, Madina, Ghana"
   )}&output=embed`;
 
   return (
@@ -112,7 +112,7 @@ export default function ContactPage() {
               </h3>
               <div className="overflow-hidden rounded-lg border border-border aspect-[4/3]">
                 <iframe
-                  title="Map to Afrocentric Jewelry by LaGlitz, Madina, Ghana"
+                  title="Map to The Boys Store, Madina, Ghana"
                   src={mapsEmbed}
                   width="100%"
                   height="100%"
