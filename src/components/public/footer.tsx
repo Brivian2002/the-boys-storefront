@@ -15,13 +15,13 @@ interface PublicFooterProps {
 const FOOTER_LINKS = {
   Shop: [
     { href: "/shop", label: "All Products" },
-    { href: "/shop?category=rings", label: "Electronics & Tech" },
-    { href: "/shop?category=earrings", label: "Fashion & Apparel" },
-    { href: "/shop?category=necklaces", label: "Home & Living" },
-    { href: "/shop?category=bracelets", label: "Mobile & Gadgets" },
-    { href: "/shop?category=watches", label: "Gadgets" },
-    { href: "/shop?category=brooches", label: "Services" },
-    { href: "/shop?category=sets", label: "Bundles & Deals" },
+    { href: "/shop?category=electronics", label: "Electronics & Tech" },
+    { href: "/shop?category=fashion", label: "Fashion & Apparel" },
+    { href: "/shop?category=home", label: "Home & Living" },
+    { href: "/shop?category=gadgets", label: "Mobile & Gadgets" },
+    { href: "/shop?category=sports", label: "Gadgets" },
+    { href: "/shop?category=services", label: "Services" },
+    { href: "/shop?category=bundles", label: "Bundles & Deals" },
     { href: "/shop?category=new-arrivals", label: "New Arrivals" },
   ],
   Help: [
@@ -32,7 +32,7 @@ const FOOTER_LINKS = {
   ],
   House: [
     { href: "/about", label: "Our Story" },
-    { href: "/blog", label: "The The Boys Store Journal" },
+    { href: "/blog", label: "The Boyz Store Journal" },
     { href: "/shop?collection=Occasion", label: "Occasion Collection" },
     { href: "/shop?collection=Everyday", label: "Everyday Collection" },
   ],

@@ -17,7 +17,7 @@ import { getBlogPosts, blogConfigured } from "@/lib/blog/client";
 export const metadata: Metadata = {
   title: "Journal",
   description:
-    "Stories, craftsmanship and inspiration from The Boys Store.",
+    "Stories, craftsmanship and inspiration from The Boyz Store.",
   alternates: { canonical: "/blog" },
 };
 

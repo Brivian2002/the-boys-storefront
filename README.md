@@ -1,12 +1,12 @@
-# The Boys Store
+# The Boyz Store
 
 A duplicated and rebranded marketplace storefront based on an existing full-stack commerce foundation.
 
-- **Brand:** The Boys Store
+- **Brand:** The Boyz Store
 - **Founder:** Joshua Nasi Words
 - **Positioning:** A clean, professional online marketplace for products and services.
 - **Default UI:** White-first professional theme with navy, cobalt, and soft neutral accents.
-- **Domain target:** `theboystore.vercel.app`
+- **Domain target:** `theboyzstore.vercel.app`
 
 ## Before production
 

@@ -38,7 +38,7 @@ export default async function AdminAnalyticsPage() {
           </CardTitle>
           <CardDescription>
             Analytics are read directly from your provider — Afrocentric
-            Products by The Boys Store does not collect or invent traffic data.
+            Products by The Boyz Store does not collect or invent traffic data.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
@@ -85,7 +85,7 @@ export default async function AdminAnalyticsPage() {
             <div className="rounded-md border border-border bg-muted/30 p-3 text-left text-xs text-muted-foreground">
               <p className="font-medium text-foreground">Why no data?</p>
               <p className="mt-1">
-                The Boys Store does <strong>not</strong> include a built-in tracker or
+                The Boyz Store does <strong>not</strong> include a built-in tracker or
                 invent traffic/popularity/sales metrics. Until you connect a
                 provider, this page intentionally shows no charts — only the
                 configuration status above.

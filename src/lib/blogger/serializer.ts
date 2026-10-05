@@ -122,7 +122,7 @@ export function postToProduct(post: BloggerPost): Product | null {
     price: parsed.price,
     currency: parsed.currency ?? payload?.currency ?? "GHS",
     originalPrice: payload?.originalPrice,
-    category: parsed.category ?? payload?.category ?? "rings",
+    category: parsed.category ?? payload?.category ?? "electronics",
     collection: parsed.collection ?? payload?.collection,
     material: payload?.material ?? (parsed.materials[0] ?? ""),
     materials: parsed.materials.length ? parsed.materials : (payload?.materials ?? []),

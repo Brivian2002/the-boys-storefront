@@ -16,13 +16,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ProductFacet } from "@/lib/blogger/types";
 
 const ALL_CATEGORY_VALUES = [
-  "rings",
-  "earrings",
-  "necklaces",
-  "bracelets",
-  "watches",
-  "brooches",
-  "sets",
+  "electronics",
+  "fashion",
+  "home",
+  "gadgets",
+  "sports",
+  "services",
+  "bundles",
   "new-arrivals",
 ];
 

@@ -84,7 +84,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
             </span>
           </h1>
           <p className="max-w-md text-background/80 leading-relaxed">
-            Admin console for The Boys Store. Manage products,
+            Admin console for The Boyz Store. Manage products,
             orders, reviews, and store settings.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-background/75">
@@ -101,7 +101,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
           </div>
         </div>
         <p className="relative z-10 text-xs text-background/60">
-          © {new Date().getFullYear()} The Boys Store · Ashaley
+          © {new Date().getFullYear()} The Boyz Store · Ashaley
           Botwe, Madina, Ghana
         </p>
       </div>

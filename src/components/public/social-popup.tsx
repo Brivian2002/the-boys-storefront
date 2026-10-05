@@ -125,7 +125,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
         <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 animate-scale-in ring-2 ring-pink-400/30">
           <img
             src={profileImage}
-            alt="The Boys Store Instagram profile"
+            alt="The Boyz Store Instagram profile"
             className="h-full w-full object-cover"
             onError={() => setProfileImage("/founder-avatar.png")}
           />

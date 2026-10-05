@@ -34,7 +34,7 @@ export async function generateMetadata({
       robots: { index: false, follow: false },
     };
   }
-  const title = `${post.title} · The Boys Store`;
+  const title = `${post.title} · The Boyz Store`;
   const description = post.excerpt ?? post.title;
   return {
     title,

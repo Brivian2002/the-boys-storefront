@@ -1,5 +1,5 @@
 /**
- * Product domain types for The Boys Store.
+ * Product domain types for The Boyz Store.
  *
  * The public storefront only ever sees these typed objects — never raw
  * Blogger posts, labels, or URLs. Products are authored in Blogger (the
@@ -19,13 +19,13 @@ export type Badge =
   | "exclusive";
 
 export type Category =
-  | "rings"
-  | "earrings"
-  | "necklaces"
-  | "bracelets"
-  | "watches"
-  | "brooches"
-  | "sets"
+  | "electronics"
+  | "fashion"
+  | "home"
+  | "gadgets"
+  | "sports"
+  | "services"
+  | "bundles"
   | "new-arrivals";
 
 export interface CustomAttribute {
@@ -97,24 +97,24 @@ export interface CatalogQuery {
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
-  rings: "Electronics & Tech",
-  earrings: "Fashion & Apparel",
-  necklaces: "Home & Living",
-  bracelets: "Mobile & Gadgets",
-  watches: "Sports & Outdoors",
-  brooches: "Services",
-  sets: "Bundles & Deals",
+  electronics: "Electronics & Tech",
+  fashion: "Fashion & Apparel",
+  home: "Home & Living",
+  gadgets: "Mobile & Gadgets",
+  sports: "Sports & Outdoors",
+  services: "Services",
+  bundles: "Bundles & Deals",
   "new-arrivals": "New Arrivals",
 };
 export const CATEGORY_DESCRIPTIONS: Record<Category, string> = {
-  rings: "Phones, computers, audio, smart devices, and practical tech for modern living.",
-  earrings: "Clothing, shoes, bags, and style essentials for every occasion.",
-  necklaces: "Practical home, kitchen, office, and lifestyle products chosen for value.",
-  bracelets: "Chargers, cases, accessories, and everyday gadgets that keep you connected.",
-  watches: "Fitness gear, outdoor essentials, sports equipment, and active-living finds.",
-  brooches: "Book a service, find a skilled provider, or get help with your next task.",
-  sets: "Curated bundles and multi-item deals designed to make shopping easier.",
-  "new-arrivals": "Fresh products, services, and limited finds newly added to The Boys Store.",
+  electronics: "Phones, computers, audio, smart devices, and practical tech for modern living.",
+  fashion: "Clothing, shoes, bags, and style essentials for every occasion.",
+  home: "Practical home, kitchen, office, and lifestyle products chosen for value.",
+  gadgets: "Chargers, cases, accessories, and everyday gadgets that keep you connected.",
+  sports: "Fitness gear, outdoor essentials, sports equipment, and active-living finds.",
+  services: "Book a service, find a skilled provider, or get help with your next task.",
+  bundles: "Curated bundles and multi-item deals designed to make shopping easier.",
+  "new-arrivals": "Fresh products, services, and limited finds newly added to The Boyz Store.",
 };
 export const AVAILABILITY_LABELS: Record<Availability, string> = {
   "in-stock": "In stock",

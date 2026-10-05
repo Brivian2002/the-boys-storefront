@@ -278,7 +278,7 @@ export function ContactForm() {
           htmlFor="consent"
           className="text-xs font-normal leading-relaxed text-muted-foreground"
         >
-          I agree that The Boys Store may contact me about this
+          I agree that The Boyz Store may contact me about this
           enquiry. We don't share your details — see our{" "}
           <a
             href="/policies#privacy"

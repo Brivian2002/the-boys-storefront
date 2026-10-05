@@ -9,8 +9,8 @@ interface Message {
 }
 
 const STARTERS = [
-  "What makes The Boys Store special?",
-  "Who is The Boys Store Marketplace?",
+  "What makes The Boyz Store special?",
+  "Who is The Boyz Store Marketplace?",
   "How does delivery work?",
 ];
 
@@ -52,7 +52,7 @@ export function AIAssistant() {
     {
       role: "assistant",
       content:
-        "Welcome to The Boys Store. I can tell you about our quality goods, story, delivery, payments, care, and the relationship between our public brand and registered business.",
+        "Welcome to The Boyz Store. I can tell you about our quality goods, story, delivery, payments, care, and the relationship between our public brand and registered business.",
     },
   ]);
 
@@ -95,13 +95,13 @@ export function AIAssistant() {
       {open && (
         <section
           className="fixed bottom-24 right-4 z-50 flex h-[min(500px,calc(100vh-8rem))] w-[min(340px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-teal-500/30 bg-card shadow-2xl"
-          aria-label="The Boys Store AI assistant"
+          aria-label="The Boyz Store AI assistant"
         >
           <header className="flex items-center justify-between border-b border-border bg-gradient-to-r from-teal-700 to-teal-600 px-4 py-3 text-white">
             <div className="flex items-center gap-2">
               <ReadingLadyMark className="h-9 w-9 rounded-full bg-white/15" />
               <div>
-                <p className="font-semibold">The Boys Store Guide</p>
+                <p className="font-semibold">The Boyz Store Guide</p>
                 <p className="text-[0.68rem] text-white/75">Story, products, delivery & business info</p>
               </div>
             </div>
@@ -125,15 +125,15 @@ export function AIAssistant() {
           </div>
           <form onSubmit={(event) => { event.preventDefault(); void ask(); }} className="border-t border-border p-3">
             <div className="flex items-center gap-2 rounded-xl border border-border bg-background p-1.5 focus-within:border-teal-500/60">
-              <input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about The Boys Store…" maxLength={1200} className="min-w-0 flex-1 bg-transparent px-2 text-sm outline-none" aria-label="Ask the The Boys Store assistant" />
+              <input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about The Boyz Store…" maxLength={1200} className="min-w-0 flex-1 bg-transparent px-2 text-sm outline-none" aria-label="Ask the The Boyz Store assistant" />
               <button type="submit" disabled={loading || !input.trim()} aria-label="Send question" className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white disabled:opacity-40"><Send className="h-4 w-4" /></button>
             </div>
           </form>
         </section>
       )}
-      <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close The Boys Store assistant" : "Open The Boys Store assistant"} className="fixed bottom-5 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 hover:bg-blue-700">
+      <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close The Boyz Store assistant" : "Open The Boyz Store assistant"} className="fixed bottom-5 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-3 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 hover:bg-blue-700">
         {open ? <ChevronDown className="h-4 w-4" /> : <ReadingLadyMark className="h-7 w-7 rounded-full" />}
-        <span className="hidden sm:inline">Ask The Boys Store</span>
+        <span className="hidden sm:inline">Ask The Boyz Store</span>
       </button>
       <style jsx>{`
         .assistant-reading-mark {

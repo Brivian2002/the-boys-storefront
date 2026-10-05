@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     data: {
       orderId: order.id,
       kind: "paid-order-contact",
-      recipient: "support@theboystore.example",
+      recipient: "support@theboyzstore.example",
       subject: `[CUSTOMER ORDER] New Order — ${order.reference}`,
       status: "sent",
       provider: "emailjs-browser-contact-path",

@@ -21,18 +21,18 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.APP_BASE_URL ?? "http://localhost:3000"
+    process.env.APP_BASE_URL ?? "https://theboyzstore.vercel.app"
   ),
   title: {
-    default: "The Boys Store — Smart shopping, simply",
-    template: "%s · The Boys Store",
+    default: "The Boyz Store — Smart shopping, simply",
+    template: "%s · The Boyz Store",
   },
   description:
-    "The Boys Store — a modern online marketplace for useful products, trusted services, and standout finds. Shop across electronics, fashion, home, gadgets, services, bundles, and more.",
+    "The Boyz Store — a modern online marketplace for useful products, trusted services, and standout finds. Shop across electronics, fashion, home, gadgets, services, bundles, and more.",
   keywords: [
     "quality goods",
     "online marketplace",
-    "The Boys Store",
+    "The Boyz Store",
     "Smart shopping, simply",
     "Ghana marketplace",
     "smart shopping",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     "everyday essentials",
     "Joshua Nasi Words",
   ],
-  authors: [{ name: "The Boys Store" }],
-  creator: "The Boys Store",
+  authors: [{ name: "The Boyz Store" }],
+  creator: "The Boyz Store",
   icons: {
     icon: [
       { url: "/brand/logo.svg", type: "image/svg+xml" },
@@ -49,18 +49,18 @@ export const metadata: Metadata = {
     apple: [{ url: "/brand/logo.svg", type: "image/svg+xml" }],
   },
   openGraph: {
-    title: "The Boys Store — Smart shopping, simply",
+    title: "The Boyz Store — Smart shopping, simply",
     description:
       "A polished marketplace for products and services that make everyday life simpler, better, and more connected.",
-    siteName: "The Boys Store",
+    siteName: "The Boyz Store",
     type: "website",
     locale: "en_GH",
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Boys Store — Smart shopping, simply",
+    title: "The Boyz Store — Smart shopping, simply",
     description:
-      "Shop useful products, standout finds, and trusted services from The Boys Store.",
+      "Shop useful products, standout finds, and trusted services from The Boyz Store.",
   },
   robots: {
     index: true,

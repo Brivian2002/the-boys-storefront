@@ -55,13 +55,13 @@ import {
 } from "@/components/ui/card";
 
 const ALL_CATEGORIES: Category[] = [
-  "rings",
-  "earrings",
-  "necklaces",
-  "bracelets",
-  "watches",
-  "brooches",
-  "sets",
+  "electronics",
+  "fashion",
+  "home",
+  "gadgets",
+  "sports",
+  "services",
+  "bundles",
   "new-arrivals",
 ];
 const ALL_AVAILABILITY: Availability[] = ["in-stock", "limited", "pre-order", "sold-out"];
@@ -97,7 +97,7 @@ export function ProductComposer({ mode, product }: ProductComposerProps) {
     product?.originalPrice?.toString() ?? ""
   );
   const [currency, setCurrency] = React.useState<Currency>(product?.currency ?? "GHS");
-  const [category, setCategory] = React.useState<Category>(product?.category ?? "rings");
+  const [category, setCategory] = React.useState<Category>(product?.category ?? "electronics");
   const [collection, setCollection] = React.useState(product?.collection ?? "");
   const [availability, setAvailability] = React.useState<Availability>(
     product?.availability ?? "in-stock"

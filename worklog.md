@@ -1,6 +1,6 @@
-# The Boys Store Worklog
+# The Boyz Store Worklog
 
-This project is an independent duplicate of the original storefront foundation, rebranded for The Boys Store and founder Joshua Nasi Words.
+This project is an independent duplicate of the original storefront foundation, rebranded for The Boyz Store and founder Joshua Nasi Words.
 
 - White-first professional UI with navy/cobalt accents.
 - Marketplace departments for electronics, fashion, home, gadgets, services, bundles, and new arrivals.

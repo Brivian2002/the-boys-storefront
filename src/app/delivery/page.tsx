@@ -19,7 +19,7 @@ import {
 } from "@/lib/ghana";
 
 export const metadata = {
-  title: "Delivery & Pickup — The Boys Store",
+  title: "Delivery & Pickup — The Boyz Store",
   description:
     "Delivery across all 10 regions of Ghana. Pickup at our Ashaley Botwe marketplace in Madina. See fees, ETAs, and how it works.",
 };
@@ -67,7 +67,7 @@ export default function DeliveryPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
               <Image
                 src="/delivery/truck.jpg"
-                alt="The Boys Store delivery gift box"
+                alt="The Boyz Store delivery gift box"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"

@@ -1,6 +1,6 @@
 # Groq assistant setup
 
-The storefront now includes a server-side **Ask The Boys Store** assistant. Visitors can ask about the brand story, products, delivery, payments, policies, and the relationship between the public brand and registered business.
+The storefront now includes a server-side **Ask The Boyz Store** assistant. Visitors can ask about the brand story, products, delivery, payments, policies, and the relationship between the public brand and registered business.
 
 The Groq key is used only by `/api/assistant` on the server. It is never sent to the browser.
 
@@ -39,8 +39,8 @@ The admin configuration screen will show whether **Groq AI assistant** is config
 ## 4. Confirm it works
 
 - Visit the storefront.
-- Click **Ask The Boys Store** in the lower-right corner.
-- Ask: `Who is The Boys Store Marketplace?`
+- Click **Ask The Boyz Store** in the lower-right corner.
+- Ask: `Who is The Boyz Store Marketplace?`
 - If the key is missing, the assistant will politely say it is being prepared; the rest of the storefront remains usable.
 
 ## Security notes

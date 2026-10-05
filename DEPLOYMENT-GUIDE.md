@@ -1,16 +1,16 @@
-# The Boys Store — Deployment Guide
+# The Boyz Store — Deployment Guide
 
 ## Part 1: Blogger Setup (Product Database + Blog)
 
 ### Step 1: Create a Google Cloud Project
 1. Go to https://console.cloud.google.com/
-2. Create a new project (e.g., "The Boys Store Store")
+2. Create a new project (e.g., "The Boyz Store Store")
 3. Enable the Blogger API v3: APIs & Services → Library → search "Blogger API v3" → Enable
 
 ### Step 2: Create OAuth Credentials
 1. APIs & Services → Credentials → "Create Credentials" → "OAuth client ID"
 2. Application type: Web application
-3. Name: "The Boys Store Blogger"
+3. Name: "The Boyz Store Blogger"
 4. Authorized redirect URIs: add `https://developers.google.com/oauthplayground`
 5. Copy the Client ID and Client Secret
 

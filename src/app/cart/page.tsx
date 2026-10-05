@@ -4,7 +4,7 @@ import { CartView } from "./cart-view";
 export const metadata = {
   title: "Shopping Bag",
   description:
-    "Review the items in your bag before checking out. The Boys Store.",
+    "Review the items in your bag before checking out. The Boyz Store.",
 };
 
 export default function CartPage() {

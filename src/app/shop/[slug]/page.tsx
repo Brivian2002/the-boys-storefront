@@ -55,7 +55,7 @@ export async function generateMetadata({
       robots: { index: false, follow: false },
     };
   }
-  const title = `${product.name} · The Boys Store`;
+  const title = `${product.name} · The Boyz Store`;
   const description =
     product.description?.slice(0, 160) ?? "Handcrafted quality goods from Ashaley Botwe, Madina, Ghana.";
   const ogImage = product.images[0]?.url;
@@ -354,7 +354,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-2">
                   <p>
-                    Every The Boys Store item is hand-finished
+                    Every The Boyz Store listing is reviewed for clear details and dependable fulfillment
                     in our Ashaley Botwe marketplace in Madina — drawing on the
                     textures, symbols and spirit of Africa.
                   </p>

@@ -59,7 +59,7 @@ export function AwarenessToasts() {
     const first = window.setTimeout(() => {
       toast.custom(
         () => (
-          <AwarenessCard icon={Gem} eyebrow="Welcome to The Boys Store" title="Useful finds, ready to go.">
+          <AwarenessCard icon={Gem} eyebrow="Welcome to The Boyz Store" title="Useful finds, ready to go.">
             Discover useful products and dependable services from a marketplace built around everyday needs.
             <div className="mt-3">
               <Link href="/shop" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-blue-300">
@@ -76,7 +76,7 @@ export function AwarenessToasts() {
       toast.custom(
         () => (
           <AwarenessCard icon={ShieldCheck} eyebrow="A little clarity" title="Two names, one trusted business." accent="amber">
-            <strong className="text-amber-700 dark:text-amber-300">The Boys Store</strong> is our customer-facing brand. The registered business behind it is <strong className="text-amber-700 dark:text-amber-300">The Boys Store Marketplace</strong>.
+            <strong className="text-amber-700 dark:text-amber-300">The Boyz Store</strong> is our customer-facing brand. The registered business behind it is <strong className="text-amber-700 dark:text-amber-300">The Boyz Store Marketplace</strong>.
             <div className="mt-3">
               <Link href="/policies#terms" className="inline-flex items-center gap-1 font-semibold text-teal-700 hover:underline dark:text-blue-300">
                 Learn more in our policies <ArrowRight className="h-3.5 w-3.5" />
@@ -91,7 +91,7 @@ export function AwarenessToasts() {
     const third = window.setTimeout(() => {
       toast.custom(
         () => (
-          <AwarenessCard icon={Sparkles} eyebrow="Need a guide?" title="Ask our The Boys Store assistant.">
+          <AwarenessCard icon={Sparkles} eyebrow="Need a guide?" title="Ask our The Boyz Store assistant.">
             Get quick answers about our story, materials, delivery, payments, care, and the difference between our trading brand and registered business.
           </AwarenessCard>
         ),

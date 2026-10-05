@@ -7,9 +7,9 @@
  *   product               - marks the post as a product
  *   price-<number>        - major-currency price (e.g. price-1250)
  *   currency-<code>       - GHS | USD
- *   category-<slug>       - rings | earrings | necklaces | bracelets | sets
+ *   category-<slug>       - electronics | fashion | home | gadgets | sports | services | bundles
  *   collection-<slug>     - free-form collection slug
- *   material-<slug>       - 18k-gold | 22k-gold | sterling-silver | ...
+ *   material-<slug>       - wireless | cotton | stainless-steel | ...
  *   availability-<slug>   - in-stock | sold-out | pre-order | limited
  *   featured | new-arrival | sale | bestseller | exclusive   - badges
  *   hidden                - excludes from public catalog
@@ -17,7 +17,7 @@
  * Custom attributes use the convention:
  *   attribute-<name>--<value>
  *   e.g. attribute-ring-size--7
- *        attribute-gemstone--natural-emerald
+ *        attribute-color--navy
  *
  * A post qualifies for the public catalog only when it has the `product` label
  * AND a valid `price-*` label, AND is not `hidden`.
@@ -52,13 +52,13 @@ const BADGE_LABELS = new Set<Badge>([
 ]);
 
 const VALID_CATEGORIES = new Set<Category>([
-  "rings",
-  "earrings",
-  "necklaces",
-  "bracelets",
-  "watches",
-  "brooches",
-  "sets",
+  "electronics",
+  "fashion",
+  "home",
+  "gadgets",
+  "sports",
+  "services",
+  "bundles",
   "new-arrivals",
 ]);
 

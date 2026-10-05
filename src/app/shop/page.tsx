@@ -28,19 +28,19 @@ import {
 export const metadata: Metadata = {
   title: "Shop All Products",
   description:
-    "Browse the full The Boys Store marketplace across electronics, fashion, home, gadgets, services, bundles, and new arrivals.",
+    "Browse the full The Boyz Store marketplace across electronics, fashion, home, gadgets, services, bundles, and new arrivals.",
   alternates: { canonical: "/shop" },
 };
 
 const PAGE_SIZE = 12;
 const ALL_CATEGORY_VALUES: Category[] = [
-  "rings",
-  "earrings",
-  "necklaces",
-  "bracelets",
-  "watches",
-  "brooches",
-  "sets",
+  "electronics",
+  "fashion",
+  "home",
+  "gadgets",
+  "sports",
+  "services",
+  "bundles",
   "new-arrivals",
 ];
 

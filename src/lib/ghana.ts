@@ -21,11 +21,11 @@ export interface DeliveryRegion {
 }
 
 export const STORE_CONTACT = {
-  name: "The Boys Store",
+  name: "The Boyz Store",
   address: "Online marketplace · Ghana & worldwide",
   phone: "+233 20 000 0000",
   whatsapp: "+233 20 000 0000",
-  email: "support@theboystore.example",
+  email: "support@theboyzstore.example",
   hours: "Mon–Fri, 9:00 AM – 5:00 PM · Sat & Sun closed",
 } as const;
 

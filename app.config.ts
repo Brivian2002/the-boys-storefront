@@ -1,3 +1,3 @@
 export default {
-  logoUrl: "https://theboystore.vercel.app/brand/logo.svg",
+  logoUrl: "https://theboyzstore.vercel.app/brand/logo.svg",
 };

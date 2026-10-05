@@ -1,4 +1,4 @@
-# The Boys Store setup notes
+# The Boyz Store setup notes
 
 The storefront has been duplicated from `Brivian2002/la-glitz-storefront` and rebranded for Joshua Nasi Words.
 
@@ -7,7 +7,7 @@ The storefront has been duplicated from `Brivian2002/la-glitz-storefront` and re
 - White-first professional marketplace UI.
 - Broad shopping departments: Electronics, Fashion & Apparel, Home & Living, Gadgets & Accessories, Services, Bundles & Deals, and New Arrivals.
 - Existing catalog, cart, checkout, admin, reviews, newsletter, contact, blog, and delivery flows are preserved.
-- Product/service data still comes from the existing Blogger-as-CMS integration, so replace or seed the catalog for The Boys Store before launch.
+- Product/service data still comes from the existing Blogger-as-CMS integration, so replace or seed the catalog for The Boyz Store before launch.
 
 ## Required Vercel environment values
 

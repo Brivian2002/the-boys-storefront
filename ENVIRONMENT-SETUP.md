@@ -1,4 +1,4 @@
-# The Boys Store Environment Setup
+# The Boyz Store Environment Setup
 
 ## Google Analytics
 

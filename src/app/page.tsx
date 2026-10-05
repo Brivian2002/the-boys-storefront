@@ -2,10 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Sparkles,
   ShieldCheck,
   Truck,
   ShoppingBasket,
+  Smartphone,
+  Shirt,
+  Home,
+  Headphones,
+  Dumbbell,
+  Wrench,
+  Package,
+  Sparkles,
   Quote,
   Heart,
 } from "lucide-react";
@@ -24,24 +31,36 @@ import {
   CATEGORY_DESCRIPTIONS,
   type Category,
 } from "@/lib/blogger/types";
+import type { LucideIcon } from "lucide-react";
 import { getBlogPosts } from "@/lib/blog/client";
 import { STORE_CONTACT } from "@/lib/ghana";
 
-const CATEGORY_IMAGES: Record<Category, string> = {
-  rings: "/categories/electronics.jpg",
-  earrings: "/categories/fashion.jpg",
-  necklaces: "/categories/home.jpg",
-  bracelets: "/categories/electronics.jpg",
-  watches: "/categories/watches.jpg",
-  brooches: "/hero/marketplace-story.jpg",
-  sets: "/categories/bundles.jpg",
-  "new-arrivals": "/categories/new-arrivals.jpg",
+const CATEGORY_ICONS: Record<Category, LucideIcon> = {
+  electronics: Smartphone,
+  fashion: Shirt,
+  home: Home,
+  gadgets: Headphones,
+  sports: Dumbbell,
+  services: Wrench,
+  bundles: Package,
+  "new-arrivals": Sparkles,
+};
+
+const CATEGORY_ACCENTS: Record<Category, string> = {
+  electronics: "bg-blue-600 text-white",
+  fashion: "bg-violet-600 text-white",
+  home: "bg-emerald-600 text-white",
+  gadgets: "bg-cyan-600 text-white",
+  sports: "bg-orange-500 text-white",
+  services: "bg-slate-900 text-white",
+  bundles: "bg-amber-500 text-slate-950",
+  "new-arrivals": "bg-rose-500 text-white",
 };
 
 export const metadata = {
-  title: "The Boys Store — Smart shopping, simply",
+  title: "The Boyz Store — Smart shopping, simply",
   description:
-    "The Boys Store is a professional online marketplace for products, services, and smart everyday finds, founded by Joshua Nasi Words.",
+    "The Boyz Store is a professional online marketplace for products, services, and smart everyday finds, founded by Joshua Nasi Words.",
 };
 
 export default async function HomePage() {
@@ -51,15 +70,15 @@ export default async function HomePage() {
     getBlogPosts(3).catch(() => []),
   ]);
 
-  // Always show all 6 categories on the home grid (even when 0 products)
+  // Keep the full department system visible even before inventory is loaded
   const allCategories: Category[] = [
-    "rings",
-    "earrings",
-    "necklaces",
-    "bracelets",
-    "watches",
-    "brooches",
-    "sets",
+    "electronics",
+    "fashion",
+    "home",
+    "gadgets",
+    "sports",
+    "services",
+    "bundles",
     "new-arrivals",
   ];
   const categoryRows = allCategories.map((category) => {
@@ -74,7 +93,7 @@ export default async function HomePage() {
         <div className="absolute inset-0">
           <Image
             src="/hero/marketplace-hero.jpg"
-            alt="The Boys Store marketplace campaign"
+            alt="The Boyz Store marketplace campaign"
             fill
             priority
             sizes="100vw"
@@ -102,7 +121,7 @@ export default async function HomePage() {
                 </span>
               </h1>
               <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
-                The Boys Store is a modern marketplace founded by{" "}
+                The Boyz Store is a modern marketplace founded by{" "}
                 <span className="text-white font-medium">Joshua Nasi Words</span>.
                 Shop useful products, discover trusted services, and find
                 standout deals across the categories that matter every day.
@@ -163,37 +182,31 @@ export default async function HomePage() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5">
-          {categoryRows.map(({ category, count }) => (
-            <Link
-              key={category}
-              href={`/shop?category=${category}`}
-              className="group relative overflow-hidden rounded-lg border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                <Image
-                  src={CATEGORY_IMAGES[category]}
-                  alt={CATEGORY_LABELS[category]}
-                  width={600}
-                  height={600}
-                  loading="lazy"
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <h3 className="font-serif text-lg font-semibold text-white">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          {categoryRows.map(({ category, count }) => {
+            const Icon = CATEGORY_ICONS[category];
+            return (
+              <Link
+                key={category}
+                href={`/shop?category=${category}`}
+                className="group rounded-2xl border border-border bg-card p-4 transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/10 sm:p-5"
+              >
+                <div className={`mb-10 flex h-12 w-12 items-center justify-center rounded-2xl shadow-sm transition-transform duration-300 group-hover:scale-110 ${CATEGORY_ACCENTS[category]}`}>
+                  <Icon className="h-6 w-6" strokeWidth={1.8} />
+                </div>
+                <h3 className="font-serif text-lg font-semibold leading-tight">
                   {CATEGORY_LABELS[category]}
                 </h3>
-                <p className="text-xs text-white/75 line-clamp-1">
-                  {count > 0
-                    ? `${count} ${count === 1 ? "item" : "items"}`
-                    : "Coming soon"}
+                <p className="mt-2 line-clamp-2 min-h-10 text-xs leading-relaxed text-muted-foreground">
+                  {CATEGORY_DESCRIPTIONS[category]}
                 </p>
-              </div>
-            </Link>
-          ))}
+                <div className="mt-4 flex items-center justify-between text-xs font-semibold text-blue-600 dark:text-blue-400">
+                  <span>{count > 0 ? `${count} ${count === 1 ? "listing" : "listings"}` : "Explore department"}</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -232,7 +245,7 @@ export default async function HomePage() {
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
             <Image
               src="/hero/about-marketplace.jpg"
-              alt="The Boys Store fulfillment workspace"
+              alt="The Boyz Store fulfillment workspace"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -246,7 +259,7 @@ export default async function HomePage() {
               Founded by Joshua Nasi Words.
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              The Boys Store was founded on a simple belief: shopping online
+              The Boyz Store was founded on a simple belief: shopping online
               should feel clear, useful, and dependable. Joshua Nasi Words
               created this marketplace to bring products and services together
               in one professional destination for everyday life.
@@ -358,7 +371,7 @@ export default async function HomePage() {
       <section className="relative overflow-hidden border-t border-border bg-foreground text-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-blue-300 mb-3">
-            Shop The Boys Store
+            Shop The Boyz Store
           </p>
           <h2 className="font-serif text-3xl sm:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
             Find your next useful product or service in one place.

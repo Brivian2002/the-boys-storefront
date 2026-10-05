@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { STORE_CONTACT } from "@/lib/ghana";
 
 export const metadata = {
-  title: "About — The Boys Store",
+  title: "About — The Boyz Store",
   description:
-    "Meet Joshua Nasi Words, founder of The Boys Store, a modern marketplace for products, services, and everyday finds.",
+    "Meet Joshua Nasi Words, founder of The Boyz Store, a modern marketplace for products, services, and everyday finds.",
 };
 
 const VALUES = [
@@ -30,7 +30,7 @@ const VALUES = [
   {
     icon: HeartHandshake,
     title: "People first",
-    body: "The Boys Store is growing around real everyday needs: useful products, helpful services, and dependable relationships.",
+    body: "The Boyz Store is growing around real everyday needs: useful products, helpful services, and dependable relationships.",
   },
 ];
 
@@ -41,7 +41,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <Image
             src="/hero/marketplace-story.jpg"
-            alt="The Boys Store product curation workspace"
+            alt="The Boyz Store product curation workspace"
             fill
             priority
             sizes="100vw"
@@ -56,7 +56,7 @@ export default function AboutPage() {
               A better place to find what everyday life needs.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
-              The Boys Store is a professional online marketplace founded by Joshua Nasi Words—bringing products, services, and smart finds together in one focused experience.
+              The Boyz Store is a professional online marketplace founded by Joshua Nasi Words—bringing products, services, and smart finds together in one focused experience.
             </p>
           </div>
         </div>
@@ -64,13 +64,13 @@ export default function AboutPage() {
 
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20 lg:px-8">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted shadow-sm">
-          <Image src="/hero/marketplace-hero.jpg" alt="The Boys Store marketplace campaign" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
+          <Image src="/hero/marketplace-hero.jpg" alt="The Boyz Store marketplace campaign" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
         </div>
         <div className="space-y-6">
           <p className="text-xs uppercase tracking-[0.22em] text-blue-600">Founded by Joshua Nasi Words</p>
           <h2 className="font-serif text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Commerce should feel useful, not overwhelming.</h2>
           <p className="leading-relaxed text-muted-foreground">
-            Joshua Nasi Words created The Boys Store to make online shopping feel more intentional: fewer distractions, better categories, useful details, and a clear path from discovery to delivery.
+            Joshua Nasi Words created The Boyz Store to make online shopping feel more intentional: fewer distractions, better categories, useful details, and a clear path from discovery to delivery.
           </p>
           <p className="leading-relaxed text-muted-foreground">
             The store is built to grow—from electronics and fashion to home, gadgets, sports, bundles, and services—while keeping the experience simple enough for an everyday shopper.

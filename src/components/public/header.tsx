@@ -54,13 +54,13 @@ const NAV_LINKS = [
 ];
 
 const DEPARTMENTS: { category: Category; label: string; blurb: string }[] = [
-  { category: "rings", label: "Electronics & Tech", blurb: "Phones, audio & smart devices" },
-  { category: "earrings", label: "Fashion & Apparel", blurb: "Clothing, shoes & accessories" },
-  { category: "necklaces", label: "Home & Living", blurb: "Home, office & kitchen essentials" },
-  { category: "bracelets", label: "Mobile & Gadgets", blurb: "Chargers, cases & clever accessories" },
-  { category: "watches", label: "Sports & Outdoors", blurb: "Gear for active, open-air days" },
-  { category: "brooches", label: "Services", blurb: "Book help from trusted providers" },
-  { category: "sets", label: "Bundles & Deals", blurb: "Smart multi-item value packs" },
+  { category: "electronics", label: "Electronics & Tech", blurb: "Phones, audio & smart devices" },
+  { category: "fashion", label: "Fashion & Apparel", blurb: "Clothing, shoes & accessories" },
+  { category: "home", label: "Home & Living", blurb: "Home, office & kitchen essentials" },
+  { category: "gadgets", label: "Mobile & Gadgets", blurb: "Chargers, cases & clever accessories" },
+  { category: "sports", label: "Sports & Outdoors", blurb: "Gear for active, open-air days" },
+  { category: "services", label: "Services", blurb: "Book help from trusted providers" },
+  { category: "bundles", label: "Bundles & Deals", blurb: "Smart multi-item value packs" },
 ];
 
 export function PublicHeader({ announcement }: PublicHeaderProps) {
@@ -174,7 +174,7 @@ export function PublicHeader({ announcement }: PublicHeaderProps) {
         <Link
           href="/"
           className="flex shrink-0 items-center"
-          aria-label="The Boys Store home"
+          aria-label="The Boyz Store home"
         >
           <BrandLogo />
         </Link>

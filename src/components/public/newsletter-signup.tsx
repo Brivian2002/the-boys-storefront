@@ -45,7 +45,7 @@ export function NewsletterSignup() {
           New arrivals, helpful guides, and occasional member-only offers.
         </h2>
         <p className="text-sm text-muted-foreground">
-          Join the The Boys Store list. No spam — just the items we're proudest of.
+          Join the The Boyz Store list. No spam — just the items we're proudest of.
         </p>
       </div>
       {done ? (

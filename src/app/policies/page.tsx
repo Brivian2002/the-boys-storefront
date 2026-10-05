@@ -31,10 +31,10 @@ import { getSiteSettings } from "@/lib/site/store";
 export const metadata: Metadata = {
   title: "Policies",
   description:
-    "The Boys Store returns, exchanges, authenticity, shipping, privacy, terms and payment policies. Clear, fair, and rooted in Ghanaian consumer protection.",
+    "The Boyz Store returns, exchanges, authenticity, shipping, privacy, terms and payment policies. Clear, fair, and rooted in Ghanaian consumer protection.",
   alternates: { canonical: "/policies" },
   openGraph: {
-    title: "Policies · The Boys Store",
+    title: "Policies · The Boyz Store",
     description:
       "Returns, exchanges, authenticity, shipping, privacy, terms and payment.",
   },
@@ -118,7 +118,7 @@ export default async function PoliciesPage() {
             than hide behind fine print.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
-            The Boys Store is operated by {settings.legalBusinessName}.
+            The Boyz Store is operated by {settings.legalBusinessName}.
           </p>
         </div>
       </section>
@@ -170,7 +170,7 @@ export default async function PoliciesPage() {
                     We want you to love every item. If for any reason you
                     don&apos;t, we accept returns within 7 days of delivery for
                     unworn, unaltered items in their original condition, and
-                    returned in their The Boys Store packaging.
+                    returned in their The Boyz Store packaging.
                   </p>
                   <p>
                     To start a return, message us on WhatsApp with your order
@@ -224,7 +224,7 @@ export default async function PoliciesPage() {
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground space-y-3 leading-relaxed pb-6">
                   <p>
-                    Every The Boys Store item is hand-finished
+                    Every The Boyz Store listing is described clearly and handled with care
                     in our Ashaley Botwe marketplace in Madina, Ghana. Each item
                     ships with a certificate of authenticity documenting the
                     materials and craftsmanship.
@@ -371,7 +371,7 @@ export default async function PoliciesPage() {
                     unless we agree otherwise in writing.
                   </p>
                   <p>
-                    By placing an order with The Boys Store you
+                    By placing an order with The Boyz Store you
                     accept these terms in full.
                   </p>
                 </AccordionContent>
