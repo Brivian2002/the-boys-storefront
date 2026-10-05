@@ -13,6 +13,9 @@ import {
   Wrench,
   Package,
   Sparkles,
+  LockKeyhole,
+  RotateCcw,
+  LifeBuoy,
   Quote,
   Heart,
 } from "lucide-react";
@@ -92,7 +95,7 @@ export default async function HomePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/hero/marketplace-hero.jpg"
+            src="/hero/boyz-marketplace-hero.jpg"
             alt="The Boyz Store marketplace campaign"
             fill
             priority
@@ -116,8 +119,8 @@ export default async function HomePage() {
               <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight text-white">
                 Shop better,
                 <br />
-                <span className="bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 bg-clip-text text-transparent">
-                  Smart shopping, simply.
+                <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-white bg-clip-text text-transparent">
+                  Quality finds, delivered across Ghana.
                 </span>
               </h1>
               <p className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
@@ -129,33 +132,29 @@ export default async function HomePage() {
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Button asChild size="lg" className="text-base">
                   <Link href="/shop">
-                    Explore the marketplace
+                    Shop the marketplace
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="text-base bg-white/5 border-white/30 text-white hover:bg-white/15 hover:text-white"
-                >
-                  <Link href="/shop?category=new-arrivals">New arrivals</Link>
                 </Button>
               </div>
 
               {/* trust strip */}
               <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/80">
                 <span className="inline-flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-blue-300" />
-                  Trusted shopping
+                  <LockKeyhole className="h-4 w-4 text-blue-300" />
+                  Secure payment
                 </span>
                 <span className="inline-flex items-center gap-2">
                   <Truck className="h-4 w-4 text-blue-300" />
-                  Delivery options
+                  Ghana delivery
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <ShoppingBasket className="h-4 w-4 text-blue-300" />
-                  Useful, well-chosen finds
+                  <RotateCcw className="h-4 w-4 text-blue-300" />
+                  Easy returns
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <LifeBuoy className="h-4 w-4 text-blue-300" />
+                  Friendly support
                 </span>
               </div>
             </div>
@@ -244,7 +243,7 @@ export default async function HomePage() {
         <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-center">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border">
             <Image
-              src="/hero/about-marketplace.jpg"
+              src="/hero/boyz-marketplace-story.jpg"
               alt="The Boyz Store fulfillment workspace"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"

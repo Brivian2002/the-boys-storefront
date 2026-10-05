@@ -63,7 +63,7 @@ export function LoginScreen({ firstRun }: { firstRun: boolean }) {
       {/* Left brand panel */}
       <div className="relative hidden lg:flex lg:w-1/2 flex-col justify-between overflow-hidden bg-foreground p-12 text-background">
         <Image
-          src="/hero/marketplace-hero.jpg"
+          src="/hero/boyz-marketplace-hero.jpg"
           alt="quality goods editorial"
           fill
           priority

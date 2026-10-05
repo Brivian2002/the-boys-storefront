@@ -6,6 +6,7 @@ import { Instagram, Facebook, X } from "lucide-react";
 interface SocialPopupProps {
   instagram?: string;
   facebook?: string;
+  whatsapp?: string;
 }
 
 /**
@@ -19,18 +20,18 @@ interface SocialPopupProps {
  * - Instagram button uses the real Instagram gradient.
  * - Facebook button uses the real Facebook blue (#1877F2).
  */
-export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
+export function SocialPopup({ instagram, facebook, whatsapp }: SocialPopupProps) {
   const [open, setOpen] = React.useState(false);
   const [dismissed, setDismissed] = React.useState(false);
   const [pulse, setPulse] = React.useState(false);
   const [profileImage, setProfileImage] = React.useState(
-    "https://unavatar.io/instagram/_boys-storej"
+    "https://unavatar.io/instagram/theboyzstore"
   );
 
   React.useEffect(() => {
-    if (!instagram && !facebook) return;
+    if (!instagram && !facebook && !whatsapp) return;
     try {
-      if (sessionStorage.getItem("boys-store-social-dismissed") === "1") {
+      if (sessionStorage.getItem("boyz-store-social-dismissed") === "1") {
         // Read the session-only dismissal flag after entering the browser.
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setDismissed(true);
@@ -46,7 +47,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
       window.clearTimeout(showTimer);
       window.clearTimeout(pulseTimer);
     };
-  }, [instagram, facebook]);
+  }, [instagram, facebook, whatsapp]);
 
   // Auto-hide after 60s, paused on hover/focus
   const hideTimeoutRef = React.useRef<number | null>(null);
@@ -71,7 +72,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
     setOpen(false);
     setDismissed(true);
     try {
-      sessionStorage.setItem("boys-store-social-dismissed", "1");
+      sessionStorage.setItem("boyz-store-social-dismissed", "1");
     } catch {
       /* ignore */
     }
@@ -86,7 +87,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  if (dismissed || !open || (!instagram && !facebook)) return null;
+  if (dismissed || !open || (!instagram && !facebook && !whatsapp)) return null;
 
   return (
     <div
@@ -136,7 +137,7 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
       </div>
 
       <p className="text-xs text-muted-foreground leading-relaxed mb-3">
-        See new items, behind-the-bench stories and customer moments on social.
+        See new products, useful finds and customer moments on social.
       </p>
 
       <div className="flex gap-2">
@@ -160,6 +161,18 @@ export function SocialPopup({ instagram, facebook }: SocialPopupProps) {
           >
             <Facebook className="h-4 w-4 transition-transform duration-300 group-hover:-rotate-6" />
             Facebook
+          </a>
+        )}
+        {whatsapp && (
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with The Boyz Store on WhatsApp"
+            className="group inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-[#25D366] px-3 py-2.5 text-xs font-semibold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-[#20bd5a] hover:shadow-lg active:scale-95"
+          >
+            <img src="/brand/whatsapp.svg" alt="" className="h-4 w-4" />
+            WhatsApp
           </a>
         )}
       </div>

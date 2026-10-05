@@ -29,6 +29,7 @@ export async function PublicShell({ children }: { children: React.ReactNode }) {
       <SocialPopup
         instagram={settings.social.instagram}
         facebook={settings.social.facebook}
+        whatsapp={settings.social.whatsapp}
       />
       <AwarenessToasts />
       <AIAssistant />

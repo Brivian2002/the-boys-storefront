@@ -40,7 +40,7 @@ export default function AboutPage() {
       <section className="relative overflow-hidden border-b border-border">
         <div className="absolute inset-0">
           <Image
-            src="/hero/marketplace-story.jpg"
+            src="/hero/boyz-marketplace-story.jpg"
             alt="The Boyz Store product curation workspace"
             fill
             priority
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20 lg:px-8">
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-muted shadow-sm">
-          <Image src="/hero/marketplace-hero.jpg" alt="The Boyz Store marketplace campaign" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
+          <Image src="/hero/boyz-marketplace-hero.jpg" alt="The Boyz Store marketplace campaign" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
         </div>
         <div className="space-y-6">
           <p className="text-xs uppercase tracking-[0.22em] text-blue-600">Founded by Joshua Nasi Words</p>

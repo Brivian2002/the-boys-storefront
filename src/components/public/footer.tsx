@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, MessageCircle, Instagram, Facebook, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Clock } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { NewsletterSignup } from "@/components/public/newsletter-signup";
 import type { BrandSettings, ContactSettings, SocialLinks } from "@/lib/site/types";
@@ -19,7 +19,7 @@ const FOOTER_LINKS = {
     { href: "/shop?category=fashion", label: "Fashion & Apparel" },
     { href: "/shop?category=home", label: "Home & Living" },
     { href: "/shop?category=gadgets", label: "Mobile & Gadgets" },
-    { href: "/shop?category=sports", label: "Gadgets" },
+    { href: "/shop?category=sports", label: "Sports & Outdoors" },
     { href: "/shop?category=services", label: "Services" },
     { href: "/shop?category=bundles", label: "Bundles & Deals" },
     { href: "/shop?category=new-arrivals", label: "New Arrivals" },
@@ -65,8 +65,8 @@ export function PublicFooter({ brand, legalBusinessName, contact, social }: Publ
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
-                <MessageCircle className="h-4 w-4 text-blue-600" />
-                Chat on WhatsApp
+                <img src="/brand/whatsapp.svg" alt="" className="h-4 w-4" />
+                Chat with us on WhatsApp
               </a>
               <a
                 href={`mailto:${contact.email}`}
